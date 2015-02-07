@@ -19,11 +19,11 @@ public class UDPSender<T> implements Sender<T> {
     public UDPSender(int toPort, String IP) {
         this.toPort = toPort;
         this.IP = IP;
-        createInetAddress();
+        createIPAddress();
         createDatagramSocket();
     }
 
-    private void createInetAddress () {
+    private void createIPAddress() {
         try {
             IPAddress = InetAddress.getByName(IP);
         } catch (UnknownHostException e) {

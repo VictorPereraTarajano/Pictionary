@@ -1,4 +1,4 @@
-import gamestate.impl.BundleState;
+import gamestate.impl.chat.ChatState;
 import gamestate.impl.bundle.BundleState;
 import receiver.impl.UDPReceiver;
 import receiver.interfaces.Receiver;

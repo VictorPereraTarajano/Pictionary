@@ -2,6 +2,7 @@ package receiver.impl;
 
 import deserializer.impl.StateBuilder;
 import gamestate.impl.bundle.BundleState;
+import gamestate.interfaces.State;
 import receiver.interfaces.Receiver;
 
 import java.io.IOException;
@@ -59,8 +60,8 @@ public class UDPReceiver<T> implements Receiver<T>, Runnable {
             try {
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(receivePacket);
-                BundleState bundle = new StateBuilder<BundleState>().deserialize(receiveData, receivePacket.getLength());
-                bundle.show();
+                T bundle = new StateBuilder<T>().deserialize(receiveData, receivePacket.getLength());
+                ((State)bundle).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
