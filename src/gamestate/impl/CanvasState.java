@@ -1,4 +1,4 @@
-package gamestate.impl.canvas;
+package gamestate.impl;
 
 import gamestate.interfaces.State;
 

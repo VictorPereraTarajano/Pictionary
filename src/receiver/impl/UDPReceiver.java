@@ -1,7 +1,6 @@
 package receiver.impl;
 
 import deserializer.impl.StateBuilder;
-import gamestate.impl.bundle.BundleState;
 import gamestate.interfaces.State;
 import receiver.interfaces.Receiver;
 

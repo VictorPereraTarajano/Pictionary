@@ -1,9 +1,6 @@
 package app;
 
-import gamestate.impl.canvas.CanvasState;
-import gamestate.impl.chat.ChatState;
-import gamestate.impl.bundle.BundleState;
-import gamestate.impl.chat.ChatState;
+import gamestate.impl.CanvasState;
 import sender.impl.UDPSender;
 import sender.interfaces.Sender;
 
