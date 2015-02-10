@@ -1,5 +1,6 @@
-package view.frame;
+package view.frame.impl.swing;
 
+import controller.impl.lobby.CreateLobbyCommand;
 import model.game.Lobby;
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new LobbyFrame(new Lobby());
+                new CreateLobbyCommand().execute();
             }
         });
         return createLobby;

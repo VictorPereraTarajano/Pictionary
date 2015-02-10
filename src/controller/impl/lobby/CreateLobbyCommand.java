@@ -2,13 +2,14 @@ package controller.impl.lobby;
 
 import controller.interfaces.Command;
 import model.game.Lobby;
+import model.message.impl.state.interfaces.SendStateMessage;
+import view.frame.impl.swing.LobbyFrame;
 
 public class CreateLobbyCommand implements Command {
 
-    private Lobby lobby;
-
     @Override
     public void execute() {
-        lobby = new Lobby();
+        LobbyFrame lobbyFrame = new LobbyFrame(new Lobby());
+        SendStateMessage.LobbyFrame=lobbyFrame;
     }
 }

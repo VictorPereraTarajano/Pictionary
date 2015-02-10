@@ -1,4 +1,4 @@
-package view.frame;
+package view.frame.impl.swing;
 
 import controller.impl.game.StartGameCommand;
 import controller.impl.connection.ConnectCommand;
@@ -6,17 +6,16 @@ import controller.impl.connection.DisconnectCommand;
 import controller.impl.player.InvitePlayerCommand;
 import controller.impl.player.KickPlayerCommand;
 import model.game.Lobby;
-import model.message.messagedata.impl.statedata.impl.SendChatStateData;
-import view.viewers.CanvasPanel;
-import view.viewers.ChatPanel;
-import view.viewers.ScoringPanel;
+import view.viewers.impl.swing.CanvasPanel;
+import view.viewers.impl.swing.ChatPanel;
+import view.viewers.impl.swing.ScoringPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LobbyFrame extends JFrame {
+public class LobbyFrame extends JFrame implements view.frame.interfaces.LobbyFrame {
 
     private static final String TITLE ="Pinturillo";
     private static final int WIDTH=1024, HEIGHT=720;
@@ -127,6 +126,21 @@ public class LobbyFrame extends JFrame {
 
     private Component createScorginPanel() {
         scoringPanel=new ScoringPanel();
+        return scoringPanel;
+    }
+
+    @Override
+    public CanvasPanel getCanvasPanel() {
+        return this.canvasPanel;
+    }
+
+    @Override
+    public ChatPanel getChatPanel() {
+        return chatPanel;
+    }
+
+    @Override
+    public ScoringPanel getScoringPanel() {
         return scoringPanel;
     }
 }

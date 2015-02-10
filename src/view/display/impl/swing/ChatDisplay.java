@@ -1,5 +1,6 @@
 package view.display.impl.swing;
 
+import model.message.impl.state.interfaces.SendStateMessage;
 import model.message.messagedata.impl.statedata.impl.SendChatStateData;
 
 import javax.swing.*;
@@ -27,6 +28,11 @@ public class ChatDisplay extends JPanel implements view.display.interfaces.ChatD
 
     @Override
     public void display() {
-        textArea.append(chatData.getMessage());
+        textArea.append(chatData.getMessage()+"\n");
+    }
+
+    @Override
+    public void setChatData(SendChatStateData chatData) {
+        this.chatData=chatData;
     }
 }

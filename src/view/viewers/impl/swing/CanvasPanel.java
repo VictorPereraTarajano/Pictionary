@@ -1,4 +1,4 @@
-package view.viewers;
+package view.viewers.impl.swing;
 
 import javax.swing.*;
 import java.awt.*;

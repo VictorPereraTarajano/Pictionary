@@ -4,7 +4,7 @@ import controller.impl.send.SendMessageCommand;
 import model.message.impl.ConfirmationMessage;
 import model.message.messagedata.impl.InvitePlayerData;
 import model.net.sender.impl.UDPSender;
-import view.frame.LobbyFrame;
+import view.frame.impl.swing.LobbyFrame;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,14 +1,15 @@
-package view.viewers;
+package view.viewers.impl.swing;
 
 
 import model.message.messagedata.impl.statedata.impl.SendChatStateData;
 import view.dialog.impl.swing.ChatDialog;
 import view.display.impl.swing.ChatDisplay;
 
+
 import javax.swing.*;
 import java.awt.*;
 
-public class ChatPanel extends JPanel {
+public class ChatPanel extends JPanel implements view.viewers.interfaces.ChatPanel {
 
     private ChatDialog chatDialog;
     private ChatDisplay chatDisplay;
@@ -35,4 +36,13 @@ public class ChatPanel extends JPanel {
         return chatDisplay;
     }
 
+    @Override
+    public view.dialog.interfaces.ChatDialog getChatDialog() {
+        return chatDialog;
+    }
+
+    @Override
+    public view.display.interfaces.ChatDisplay getChatDisplay() {
+        return chatDisplay;
+    }
 }

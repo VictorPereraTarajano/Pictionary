@@ -32,7 +32,8 @@ public class ChatDialog extends JPanel implements view.dialog.interfaces.ChatDia
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData("Hola !!")), new UDPSender(2000,"localhost")).execute();
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(getMessage())), new UDPSender(2000,"localhost")).execute();
+                textField.setText("");
             }
         });
         return acceptButton;
