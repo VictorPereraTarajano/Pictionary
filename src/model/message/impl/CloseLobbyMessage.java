@@ -1,7 +1,7 @@
 package model.message.impl;
 
 import model.message.interfaces.Message;
-import model.message.messagedata.impl.CloseLobbyData;
+import model.messagedata.impl.CloseLobbyData;
 
 public class CloseLobbyMessage implements Message {
 

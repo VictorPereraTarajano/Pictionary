@@ -1,8 +1,8 @@
 package model.message.impl;
 
 import model.message.interfaces.Message;
-import model.message.messagedata.impl.InvitePlayerData;
-import view.display.impl.swing.InvitePlayerDisplay;
+import model.messagedata.impl.InvitePlayerData;
+import view.ui.display.impl.swing.InvitePlayerDisplay;
 
 import java.io.Serializable;
 

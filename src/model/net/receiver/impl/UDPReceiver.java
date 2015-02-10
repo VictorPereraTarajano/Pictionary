@@ -76,7 +76,6 @@ public class UDPReceiver implements Receiver, Runnable {
     @Override
     public void run() {
         while (running) {
-            System.out.println("Connected");
             try {
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(receivePacket);
@@ -84,6 +83,5 @@ public class UDPReceiver implements Receiver, Runnable {
             } catch (IOException e) {
             }
         }
-        System.out.println("Disconnected");
     }
 }

@@ -39,18 +39,6 @@ public class UDPSender<T> implements Sender<T> {
         }
     }
 
-    public DatagramSocket getSocket() {
-        return socket;
-    }
-
-    public int getToPort() {
-        return toPort;
-    }
-
-    public InetAddress getIPAddress() {
-        return IPAddress;
-    }
-
     @Override
     public void send(T objectToSend) {
         try {

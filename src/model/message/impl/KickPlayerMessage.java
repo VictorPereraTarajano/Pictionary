@@ -1,8 +1,8 @@
 package model.message.impl;
 
 import model.message.interfaces.Message;
-import model.message.messagedata.impl.KickPlayerData;
-import view.display.impl.swing.KickPlayerDisplay;
+import model.messagedata.impl.KickPlayerData;
+import view.ui.display.impl.swing.KickPlayerDisplay;
 
 public class KickPlayerMessage implements Message {
 

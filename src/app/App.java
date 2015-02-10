@@ -1,10 +1,10 @@
 package app;
 
-import view.frame.impl.swing.MainFrame;
+import view.ui.frame.impl.swing.MainFrame;
 
 public class App {
 
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
+        new MainFrame();
     }
 }
