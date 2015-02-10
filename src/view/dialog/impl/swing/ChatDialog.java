@@ -28,7 +28,7 @@ public class ChatDialog extends JPanel implements view.dialog.interfaces.ChatDia
     }
 
     private Component createAcceptButton() {
-        acceptButton=new JButton("ENVIAR");
+        acceptButton= new JButton("ENVIAR");
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
