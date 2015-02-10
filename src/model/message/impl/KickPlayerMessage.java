@@ -14,6 +14,6 @@ public class KickPlayerMessage implements Message {
 
     @Override
     public void open() {
-        new KickPlayerDisplay();
+        new KickPlayerDisplay(kickPlayerData).display();
     }
 }

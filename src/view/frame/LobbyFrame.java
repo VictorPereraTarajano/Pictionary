@@ -6,6 +6,7 @@ import controller.impl.connection.DisconnectCommand;
 import controller.impl.player.InvitePlayerCommand;
 import controller.impl.player.KickPlayerCommand;
 import model.game.Lobby;
+import model.message.messagedata.impl.statedata.impl.SendChatStateData;
 import view.viewers.CanvasPanel;
 import view.viewers.ChatPanel;
 import view.viewers.ScoringPanel;
@@ -21,7 +22,9 @@ public class LobbyFrame extends JFrame {
     private static final int WIDTH=1024, HEIGHT=720;
 
     private JMenuBar menu;
-
+    private ScoringPanel scoringPanel;
+    private ChatPanel chatPanel;
+    private CanvasPanel canvasPanel;
     private final ConnectCommand connect = new ConnectCommand();
     private Lobby lobby;
 
@@ -107,8 +110,23 @@ public class LobbyFrame extends JFrame {
     }
 
     private void createWidgets() {
-        add(new ScoringPanel());
-        add(new CanvasPanel());
-        add(new ChatPanel());
+        add(createScorginPanel());
+        add(createCanvasPanel());
+        add(createChatPanel());
+    }
+
+    private Component createChatPanel() {
+        chatPanel=new ChatPanel();
+        return chatPanel;
+    }
+
+    private Component createCanvasPanel() {
+        canvasPanel= new CanvasPanel();
+        return canvasPanel;
+    }
+
+    private Component createScorginPanel() {
+        scoringPanel=new ScoringPanel();
+        return scoringPanel;
     }
 }
