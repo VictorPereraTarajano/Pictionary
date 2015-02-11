@@ -13,7 +13,7 @@ public class ConnectCommand implements Command {
 
     @Override
     public void execute() {
-        receiver = new UDPReceiver(myPort);
+        receiver =  new UDPReceiver(myPort);
         receiver.receive();
     }
 
