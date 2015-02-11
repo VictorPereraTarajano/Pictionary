@@ -52,7 +52,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new KickPlayerMessage(new KickPlayerData()), new UDPSender(2000,((Player) list.getSelectedValue()).getIp())).execute();
+                new SendMessageCommand(new KickPlayerMessage(new KickPlayerData()), new UDPSender(((Player) list.getSelectedValue()).getIp())).execute();
             }
         });
         return deleteButton;

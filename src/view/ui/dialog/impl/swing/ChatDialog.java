@@ -3,6 +3,8 @@ package view.ui.dialog.impl.swing;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendChatStateMessage;
 import model.messagedata.impl.statedata.impl.SendChatStateData;
+import model.net.manager.ManagerConnection;
+import model.net.sender.impl.TCPSender;
 import model.net.sender.impl.UDPSender;
 import model.net.sender.interfaces.Sender;
 import model.player.Player;
@@ -36,20 +38,11 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), broadcastUDPSender(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                 textField.setText("");
             }
         });
         return acceptButton;
-    }
-
-    private Sender[] broadcastUDPSender (Player [] players) {
-        Sender [] senders = new Sender[players.length - 1];
-        for (int i = 0; i < senders.length; i++) {
-            if(players[i].getIp() == "localhost") continue;
-            senders[i] = new UDPSender(2000,players[i].getIp());
-        }
-        return senders;
     }
 
     private Component createTextField() {
@@ -58,7 +51,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), new UDPSender(2000,"localhost")).execute();
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                     textField.setText("");
                 }
             }

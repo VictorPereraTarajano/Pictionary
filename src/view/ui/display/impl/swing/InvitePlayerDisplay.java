@@ -53,7 +53,7 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new ConfirmationMessage(), new UDPSender(2000,invitePlayerData.getPlayer().getIp())).execute();
+                new SendMessageCommand(new ConfirmationMessage(), new UDPSender(invitePlayerData.getPlayer().getIp())).execute();
                 new LobbyFrame(invitePlayerData.getLobby());
                 setVisible(false);
             }

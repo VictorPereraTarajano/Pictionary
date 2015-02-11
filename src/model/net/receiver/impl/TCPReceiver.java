@@ -1,36 +1,29 @@
 package model.net.receiver.impl;
 
-import model.deserializer.impl.Deserializer;
+import model.message.interfaces.Message;
+import model.net.manager.ManagerConnection;
 import model.net.receiver.interfaces.Receiver;
-import model.net.sender.interfaces.Sender;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TCPReceiver implements Receiver, Runnable {
 
-    private static final int MAX_BUFFER_SIZE=2048;
-
     private ServerSocket serverSocket;
-    private int myPort;
     private Thread thread;
     private boolean running=true;
-    private byte [] receivedData;
 
-    public TCPReceiver(int myPort) {
-        this.myPort = myPort;
-        receivedData = new byte[MAX_BUFFER_SIZE];
+    public TCPReceiver() {
         createServerSocket();
         createThread();
     }
 
     private void createServerSocket() {
         try {
-            this.serverSocket = new ServerSocket(myPort);
+            this.serverSocket = new ServerSocket(ManagerConnection.TCPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,11 +52,16 @@ public class TCPReceiver implements Receiver, Runnable {
     public void run() {
         while(running) {
             try {
-                Socket connectionSocket = serverSocket.accept();
-                DataInputStream is = new DataInputStream(connectionSocket.getInputStream());
-                is.readFully(receivedData);
-                new Deserializer().deserialize(receivedData, receivedData.length).open();
+                Socket socket = serverSocket.accept();
+                InputStream is = socket.getInputStream();
+                ObjectInputStream ois = new ObjectInputStream(is);
+                Message to = (Message) ois.readObject();
+                is.close();
+                socket.close();
+                to.open();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }

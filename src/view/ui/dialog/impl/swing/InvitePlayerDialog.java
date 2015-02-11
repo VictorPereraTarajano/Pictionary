@@ -64,7 +64,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(new Player("MiUsuario","localhost"), lobby)), new UDPSender(2000,ipField.getText())).execute();
+                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(new Player("MiUsuario","localhost"), lobby)), new UDPSender(ipField.getText())).execute();
             }
         });
         return acceptButton;

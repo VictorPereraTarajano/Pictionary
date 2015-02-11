@@ -1,5 +1,6 @@
 package model.net.sender.impl;
 
+import model.net.manager.ManagerConnection;
 import model.net.sender.interfaces.Sender;
 
 import java.io.ByteArrayOutputStream;
@@ -11,27 +12,15 @@ public class UDPSender<T> implements Sender<T> {
 
     private static final int MAX_SIZE_ARRAY=6400;
 
-    private int toPort;
     private String IP;
     private DatagramSocket socket;
-    private InetAddress IPAddress;
 
-    public UDPSender(int toPort, String IP) {
-        this.toPort = toPort;
+    public UDPSender(String IP) {
         this.IP = IP;
-        createIPAddress();
         createDatagramSocket();
     }
 
-    private void createIPAddress() {
-        try {
-            IPAddress = InetAddress.getByName(IP);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void createDatagramSocket () {
+    private void createDatagramSocket ()  {
         try {
             this.socket = new DatagramSocket();
         } catch (SocketException e) {
@@ -43,10 +32,8 @@ public class UDPSender<T> implements Sender<T> {
     public void send(T objectToSend) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(MAX_SIZE_ARRAY);
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(objectToSend);
-            byte [] data = baos.toByteArray();
-            socket.send(new DatagramPacket(data,data.length,  IPAddress, toPort));
+            new ObjectOutputStream(baos).writeObject(objectToSend);
+            socket.send(new DatagramPacket(baos.toByteArray(), baos.toByteArray().length, InetAddress.getByName(IP), ManagerConnection.UDPort));
         } catch (IOException e) {
             e.printStackTrace();
         }

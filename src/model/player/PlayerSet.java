@@ -1,5 +1,7 @@
 package model.player;
 
+import view.ui.frame.impl.swing.LobbyFrame;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ public class PlayerSet implements Serializable{
     
     public PlayerSet () {
         playerList = new ArrayList<>();
+        add(LobbyFrame.myPlayer);
     }
 
     public List<Player> getPlayerList() {
