@@ -27,4 +27,8 @@ public class PlayerSet implements Serializable{
     public void remove (Player player) {
         playerList.remove(player);
     }
+
+    public Player [] toArray (){
+        return playerList.toArray(new Player [playerList.size()]);
+    }
 }

@@ -25,26 +25,6 @@ public class UDPReceiver implements Receiver, Runnable {
         createThread();
     }
 
-    public Thread getThread() {
-        return thread;
-    }
-
-    public DatagramSocket getSocket() {
-        return socket;
-    }
-
-    public byte[] getReceiveData() {
-        return receiveData;
-    }
-
-    public static int getMaxBufferSize() {
-        return MAX_BUFFER_SIZE;
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
     private void createDatagramSocket() {
         try {
             socket = new DatagramSocket(myPort);
@@ -52,10 +32,6 @@ public class UDPReceiver implements Receiver, Runnable {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-    }
-
-    public int getMyPort() {
-        return myPort;
     }
 
     private void createThread() {

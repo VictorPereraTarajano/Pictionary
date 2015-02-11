@@ -16,6 +16,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
@@ -33,11 +35,54 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     public LobbyFrame(Lobby lobby) {
         super(TITLE);
         this.lobby=lobby;
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         createMenu();
         createWidgets();
+        createListeners();
         setVisible(true);
+    }
+
+    private void createListeners() {
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                MenuFrame.menuFrame.setVisible(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                MenuFrame.menuFrame.setVisible(true);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+    }
+
+    public Lobby getLobby() {
+        return lobby;
     }
 
     private void createMenu() {

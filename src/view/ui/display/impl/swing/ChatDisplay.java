@@ -10,6 +10,7 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
     private static final int NUM_ROWS=30, NUM_COLUMNS=35;
     private JTextArea textArea;
     private JScrollPane scrollPane;
+
     public ChatDisplay(){
         super();
         createWidgets();

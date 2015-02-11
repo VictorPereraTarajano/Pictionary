@@ -1,6 +1,7 @@
 package controller.impl.command.connection;
 
 import controller.interfaces.Command;
+import model.net.receiver.impl.TCPReceiver;
 import model.net.receiver.impl.UDPReceiver;
 import model.net.receiver.interfaces.Receiver;
 

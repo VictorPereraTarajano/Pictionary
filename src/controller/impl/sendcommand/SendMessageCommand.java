@@ -7,16 +7,23 @@ import model.net.sender.interfaces.Sender;
 public class SendMessageCommand implements Command{
 
     private Message message;
-    private Sender<Message> sender;
+    private Sender [] senders;
 
     public SendMessageCommand(Message message, Sender sender) {
         this.message = message;
-        this.sender = sender;
+        this.senders = new Sender[]{sender};
+    }
+
+    public SendMessageCommand(Message message, Sender [] senders) {
+        this.message=message;
+        this.senders=senders;
     }
 
     @Override
     public void execute() {
-        sender.send(message);
+        for (Sender sender : senders) {
+            sender.send(message);
+        }
     }
 
     public Message getMessage() {

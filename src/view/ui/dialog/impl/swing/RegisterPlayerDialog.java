@@ -1,9 +1,8 @@
 package view.ui.dialog.impl.swing;
 
 import model.player.Player;
-import sun.applet.Main;
 import view.ui.frame.impl.swing.LobbyFrame;
-import view.ui.frame.impl.swing.MainFrame;
+import view.ui.frame.impl.swing.MenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +17,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
     private JButton cancelButton;
 
     public RegisterPlayerDialog() {
-        super(MainFrame.mainFrame,"Register / Change Playername",true);
+        super(MenuFrame.menuFrame,"Register / Change Playername",true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         createWidgets();
         setLocation(500,500);
