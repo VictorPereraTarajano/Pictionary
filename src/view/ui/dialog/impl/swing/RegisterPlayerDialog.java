@@ -1,5 +1,6 @@
 package view.ui.dialog.impl.swing;
 
+import model.net.manager.ManagerConnection;
 import model.player.Player;
 import view.ui.frame.impl.swing.LobbyFrame;
 import view.ui.frame.impl.swing.MenuFrame;
@@ -16,8 +17,11 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
     private JButton acceptButton;
     private JButton cancelButton;
 
+    private static JDialog mySelf;
+
     public RegisterPlayerDialog() {
-        super(MenuFrame.menuFrame,"Register / Change Playername",true);
+        super();
+        mySelf=this;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         createWidgets();
         setLocation(500,500);
@@ -49,8 +53,15 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LobbyFrame.myPlayer=getPlayer();
-                setVisible(false);
+                if (playerNameField.getText().trim().isEmpty())
+                    new JOptionPane().showMessageDialog(RegisterPlayerDialog.mySelf,
+                            "Your playername is empty !!",
+                            "Failed to register",
+                            JOptionPane.WARNING_MESSAGE);
+                else {
+                    LobbyFrame.myPlayer = getPlayer();
+                    setVisible(false);
+                }
             }
         });
         return acceptButton;
@@ -63,6 +74,6 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
 
     @Override
     public Player getPlayer() {
-        return new Player(playerNameField.getText(),"localhost");
+        return new Player(playerNameField.getText(), ManagerConnection.DefaultIP);
     }
 }

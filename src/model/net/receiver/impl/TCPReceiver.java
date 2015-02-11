@@ -59,10 +59,7 @@ public class TCPReceiver implements Receiver, Runnable {
                 is.close();
                 socket.close();
                 to.open();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
             }
         }
     }

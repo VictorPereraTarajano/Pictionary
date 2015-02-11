@@ -17,27 +17,24 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
     private static final int WIDTH=350, HEIGHT=100;
 
     private JList list;
-    private JButton deleteButton, cancelButton;
-    private Lobby lobby;
 
     public KickPlayerDialog(Lobby lobby) {
-        this.lobby=lobby;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new GridLayout(2,2));
-        createWidgets();
+        createWidgets(lobby);
         setVisible(true);
     }
 
-    private void createWidgets() {
+    private void createWidgets(Lobby lobby) {
         add(new JLabel("List of current players : "));
-        add(createList());
+        add(createList(lobby));
         add(createCancelButton());
         add(createDeleteButton());
     }
 
     private Component createCancelButton() {
-        cancelButton = new JButton("CANCEL");
+        JButton cancelButton = new JButton("CANCEL");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +45,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
     }
 
     private Component createDeleteButton() {
-        deleteButton = new JButton("DELETE");
+        JButton deleteButton = new JButton("DELETE");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,8 +55,8 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
         return deleteButton;
     }
 
-    private Component createList() {
-        Object [] playerArray = lobby.getPlayerSet().getPlayerList().toArray();
+    private Component createList(Lobby lobby) {
+        Object [] playerArray = lobby.getPlayerSet().toArray();
         if (playerArray.length <= 0) {
             return new JLabel("No players in the lobby yet");
         } else {

@@ -18,7 +18,6 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     private static final int WIDTH=300, HEIGHT=100;
 
     private JTextField playerNameField, ipField;
-    private JButton acceptButton,cancelButton;
     private Lobby lobby;
 
     public InvitePlayerDialog(Lobby lobby) {
@@ -31,14 +30,6 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         setVisible(true);
     }
 
-    public JTextField getPlayerNameField() {
-        return playerNameField;
-    }
-
-    public JTextField getIpField() {
-        return ipField;
-    }
-
     private void createWidgets() {
         add(new JLabel("    Player name : "));
         add(createPlayerNameField());
@@ -49,7 +40,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createButtonCancel() {
-        cancelButton = new JButton("CANCEL");
+        JButton cancelButton = new JButton("CANCEL");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,11 +51,12 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createButtonAccept() {
-        acceptButton = new JButton("OK");
+        JButton acceptButton = new JButton("OK");
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(new Player("MiUsuario","localhost"), lobby)), new UDPSender(ipField.getText())).execute();
+                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(new Player("MiUsuario", "localhost"), lobby)), new UDPSender(ipField.getText())).execute();
+                setVisible(false);
             }
         });
         return acceptButton;
