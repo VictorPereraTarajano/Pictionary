@@ -1,7 +1,20 @@
 package model.message.impl.state.impl;
 
-/**
- * Created by Victor on 09/02/2015.
- */
-public class SendCanvasStateMessage {
+import model.game.Lobby;
+import model.message.impl.state.interfaces.SendStateMessage;
+import model.messagedata.impl.statedata.impl.SendCanvasStateData;
+
+public class SendCanvasStateMessage extends SendStateMessage {
+
+    private SendCanvasStateData sendCanvasStateData;
+
+    public SendCanvasStateMessage(SendCanvasStateData sendCanvasStateData) {
+        super();
+        this.sendCanvasStateData=sendCanvasStateData;
+    }
+
+    @Override
+    public void open() {
+        LobbyFrame.getCanvasPanel().display(sendCanvasStateData);
+    }
 }

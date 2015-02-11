@@ -17,7 +17,6 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
     public ChatPanel() {
         super();
         setBorder(BorderFactory.createTitledBorder("Chat Panel"));
-
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         createWidgets();
     }
