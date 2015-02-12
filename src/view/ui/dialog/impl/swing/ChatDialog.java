@@ -4,11 +4,8 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendChatStateMessage;
 import model.messagedata.impl.statedata.impl.SendChatStateData;
 import model.net.manager.ManagerConnection;
-import model.net.sender.impl.TCPSender;
-import model.net.sender.impl.UDPSender;
-import model.net.sender.interfaces.Sender;
-import model.player.Player;
 import view.ui.frame.impl.swing.LobbyFrame;
+import view.ui.frame.managerlobby.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,8 +35,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SendChatStateMessage.LobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                 clear();
             }
         });
@@ -56,8 +53,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    SendChatStateMessage.LobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                    ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                     clear();
                 }
             }

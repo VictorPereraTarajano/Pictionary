@@ -1,6 +1,5 @@
 package model.message.impl.state.impl;
 
-import model.game.Lobby;
 import model.message.impl.state.interfaces.SendStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
 

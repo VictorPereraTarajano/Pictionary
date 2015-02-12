@@ -35,4 +35,9 @@ public class ArrayListPlayerSet implements model.player.playerset.interfaces.Pla
     public Player [] toArray (){
         return playerList.toArray(new Player [playerList.size()]);
     }
+
+    @Override
+    public int length() {
+        return playerList.size();
+    }
 }

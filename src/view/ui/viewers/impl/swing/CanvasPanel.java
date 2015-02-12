@@ -2,25 +2,25 @@ package view.ui.viewers.impl.swing;
 
 import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendCanvasStateMessage;
-import model.message.impl.state.impl.SendChatStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
 import model.net.manager.ManagerConnection;
+import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.awt.CanvasDisplay;
+import view.ui.frame.managerlobby.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class CanvasPanel extends JPanel {
 
     private CanvasDisplay canvasDisplay;
+    private CanvasDialog canvasDialog;
 
     public CanvasPanel() {
         super();
         setBorder(BorderFactory.createTitledBorder("Canvas Panel"));
-        setLayout(new GridLayout(1,0));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         createWidgets();
         addListeners();
     }
@@ -30,7 +30,13 @@ public class CanvasPanel extends JPanel {
     }
 
     private void createWidgets() {
+        add(createCanvasOptions());
         add(createCanvasDisplay());
+    }
+
+    private Component createCanvasOptions() {
+        canvasDialog =new CanvasDialog();
+        return canvasDialog;
     }
 
     private Component createCanvasDisplay() {
@@ -48,7 +54,7 @@ public class CanvasPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 canvasDisplay.display(new SendCanvasStateData(new Point(e.getX(), e.getY())));
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
             }
 
             @Override
@@ -70,11 +76,31 @@ public class CanvasPanel extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 canvasDisplay.display(new SendCanvasStateData(new Point(e.getX(), e.getY())));
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
 
             }
         });

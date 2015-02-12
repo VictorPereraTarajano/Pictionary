@@ -21,9 +21,7 @@ public class SendMessageCommand implements Command{
 
     @Override
     public void execute() {
-        for (Sender sender : senders) {
-            sender.send(message);
-        }
+        for (Sender sender : senders) sender.send(message);
     }
 
     public Message getMessage() {

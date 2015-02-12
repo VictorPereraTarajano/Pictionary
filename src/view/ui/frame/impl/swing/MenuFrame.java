@@ -1,5 +1,7 @@
 package view.ui.frame.impl.swing;
 
+import controller.impl.command.connection.ConnectCommand;
+import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.player.RegisterPlayerCommand;
 
@@ -16,6 +18,8 @@ public class MenuFrame extends JFrame{
     private JButton createLobby;
     private JButton registerPlayer;
     private JButton exitButton;
+    private JButton connectButton;
+    private JButton disconnectButton;
 
     public static MenuFrame menuFrame;
 
@@ -25,7 +29,7 @@ public class MenuFrame extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
-        setLayout(new GridLayout(3,1));
+        setLayout(new GridLayout(5,1));
         setLocation(500,500);
         setVisible(true);
     }
@@ -34,6 +38,32 @@ public class MenuFrame extends JFrame{
         add(createRegisterPlayerButton());
         add(createLobbyButton());
         add(createExitButton());
+        add(createConnectButton());
+        add(createDisconnectButton());
+    }
+
+    private Component createConnectButton() {
+        connectButton= new JButton("Connect");
+        connectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ConnectCommand().execute();
+                connectButton.setEnabled(false);
+            }
+        });
+        return connectButton;
+    }
+
+    private Component createDisconnectButton() {
+        disconnectButton= new JButton("Disconnect");
+        disconnectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DisconnectCommand().execute();
+                disconnectButton.setEnabled(false);
+            }
+        });
+        return disconnectButton;
     }
 
     private Component createExitButton() {

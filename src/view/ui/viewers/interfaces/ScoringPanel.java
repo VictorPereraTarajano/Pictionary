@@ -1,7 +1,7 @@
 package view.ui.viewers.interfaces;
 
-/**
- * Created by Victor on 10/02/2015.
- */
-public class ScoringPanel {
+import view.ui.display.interfaces.ScoringDisplay;
+
+public interface ScoringPanel {
+    public ScoringDisplay []  getScoringDisplay ();
 }

@@ -7,4 +7,5 @@ public interface PlayerSet {
     public Player get (int i);
     public void remove (Player player);
     public Player [] toArray ();
+    public int length ();
 }
