@@ -5,7 +5,7 @@ import model.message.impl.state.impl.SendCanvasStateMessage;
 import model.message.impl.state.impl.SendChatStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
 import model.net.manager.ManagerConnection;
-import view.ui.display.impl.swing.CanvasDisplay;
+import view.ui.display.impl.awt.CanvasDisplay;
 
 import javax.swing.*;
 import java.awt.*;
