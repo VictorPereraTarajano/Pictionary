@@ -15,6 +15,6 @@ public class SendCanvasStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
-        LobbyFrame.getCanvasPanel().display(sendCanvasStateData);
+        LobbyFrame.getCanvasPanel().getCanvasDisplay().display(sendCanvasStateData);
     }
 }

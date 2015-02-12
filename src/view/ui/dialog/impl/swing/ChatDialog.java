@@ -38,11 +38,16 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SendChatStateMessage.LobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
                 new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
-                textField.setText("");
+                clear();
             }
         });
         return acceptButton;
+    }
+
+    private void clear () {
+        textField.setText("");
     }
 
     private Component createTextField() {
@@ -51,8 +56,9 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
+                    SendChatStateMessage.LobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
                     new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(SendChatStateMessage.LobbyFrame.getLobby().getPlayerSet().toArray())).execute();
-                    textField.setText("");
+                    clear();
                 }
             }
 

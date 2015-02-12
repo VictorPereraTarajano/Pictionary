@@ -1,10 +1,8 @@
 package view.ui.viewers.impl.swing;
 
 
-import model.messagedata.impl.statedata.impl.SendChatStateData;
 import view.ui.dialog.impl.swing.ChatDialog;
 import view.ui.display.impl.swing.ChatDisplay;
-
 
 import javax.swing.*;
 import java.awt.*;

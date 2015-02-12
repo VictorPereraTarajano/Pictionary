@@ -15,16 +15,20 @@ public class ManagerConnection {
     public static Receiver TCPreceiver;
 
     public static Sender []  TCPBroadcast (Player[] players) {
-        Sender[] senders = new Sender[players.length];
-        for (int i = 0; i < senders.length; i++)
+        Sender[] senders = new Sender[players.length-1];
+        for (int i = 0; i < senders.length; i++) {
+            if (players[i].getIp() == "localhost") continue;
             senders[i] = new TCPSender(players[i].getIp());
+        }
         return senders;
     }
 
     public static Sender []  UDPBroadcast (Player[] players) {
-        Sender[] senders = new Sender[players.length];
-        for (int i = 0; i < senders.length; i++)
+        Sender[] senders = new Sender[players.length-1];
+        for (int i = 0; i < senders.length; i++) {
+            if (players[i].getIp() == "localhost") continue;
             senders[i] = new UDPSender(players[i].getIp());
+        }
         return senders;
     }
 
