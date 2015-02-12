@@ -6,6 +6,8 @@ import model.message.impl.InvitePlayerMessage;
 import model.messagedata.impl.InvitePlayerData;
 import model.player.Player;
 import model.net.sender.impl.UDPSender;
+import view.ui.frame.impl.swing.LobbyFrame;
+import view.ui.frame.managerlobby.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +57,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(new Player("MiUsuario", "localhost"), lobby)), new UDPSender(ipField.getText())).execute();
+                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(LobbyFrame.myPlayer, ManagerLobby.myLobby)), new UDPSender(ipField.getText())).execute();
                 setVisible(false);
             }
         });
