@@ -35,8 +35,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(ManagerLobby.myPlayer, getMessage()));
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                 clear();
             }
         });
@@ -54,7 +54,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
                     //ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(LobbyFrame.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray()[0], getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                     clear();
                 }
             }

@@ -2,6 +2,7 @@ package model.message.impl.state.impl;
 
 import model.message.impl.state.interfaces.SendStateMessage;
 import model.messagedata.impl.statedata.impl.SendChatStateData;
+import view.ui.frame.managerlobby.ManagerLobby;
 
 public class SendChatStateMessage extends SendStateMessage{
 
@@ -14,6 +15,6 @@ public class SendChatStateMessage extends SendStateMessage{
 
     @Override
     public void open() {
-        LobbyFrame.getChatPanel().getChatDisplay().display(sendChatStateData);
+        ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(sendChatStateData);
     }
 }

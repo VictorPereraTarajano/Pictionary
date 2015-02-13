@@ -4,6 +4,7 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.game.Lobby;
 import model.message.impl.InvitePlayerMessage;
 import model.messagedata.impl.InvitePlayerData;
+import model.net.sender.impl.TCPSender;
 import model.player.Player;
 import model.net.sender.impl.UDPSender;
 import view.ui.frame.impl.swing.LobbyFrame;
@@ -19,7 +20,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     private static final int MAX_COLUMNS=20;
     private static final int WIDTH=300, HEIGHT=100;
 
-    private JTextField playerNameField, ipField;
+    private JTextField ipField;
     private Lobby lobby;
 
     public InvitePlayerDialog(Lobby lobby) {
@@ -33,8 +34,6 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private void createWidgets() {
-        add(new JLabel("    Player name : "));
-        add(createPlayerNameField());
         add(new JLabel("    IP : "));
         add(createIpField());
         add(createButtonCancel());
@@ -57,7 +56,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(LobbyFrame.myPlayer, ManagerLobby.myLobby)), new UDPSender(ipField.getText())).execute();
+                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
                 setVisible(false);
             }
         });
@@ -67,15 +66,5 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     private Component createIpField() {
         ipField= new JTextField(MAX_COLUMNS);
         return ipField;
-    }
-
-    private Component createPlayerNameField() {
-        playerNameField=new JTextField(MAX_COLUMNS);
-        return playerNameField;
-    }
-
-    @Override
-    public Player getPlayer() {
-        return new Player(playerNameField.getText(), ipField.getText());
     }
 }

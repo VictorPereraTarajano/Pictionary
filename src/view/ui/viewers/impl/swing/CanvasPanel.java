@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CanvasPanel extends JPanel {
+public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.CanvasPanel{
 
     private CanvasDisplay canvasDisplay;
     private CanvasDialog canvasDialog;
@@ -25,8 +25,14 @@ public class CanvasPanel extends JPanel {
         addListeners();
     }
 
+    @Override
     public CanvasDisplay getCanvasDisplay() {
         return canvasDisplay;
+    }
+
+    @Override
+    public CanvasDialog getCanvasDialog() {
+        return canvasDialog;
     }
 
     private void createWidgets() {

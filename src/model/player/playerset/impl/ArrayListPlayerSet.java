@@ -1,19 +1,18 @@
 package model.player.playerset.impl;
 
 import model.player.Player;
-import view.ui.frame.impl.swing.LobbyFrame;
-
+import view.ui.frame.managerlobby.ManagerLobby;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayListPlayerSet implements model.player.playerset.interfaces.PlayerSet, Serializable{
 
-    List<Player> playerList;
+    private List<Player> playerList;
     
     public ArrayListPlayerSet() {
         playerList = new ArrayList<>();
-        add(LobbyFrame.myPlayer);
+        add(ManagerLobby.myPlayer);
     }
 
     @Override

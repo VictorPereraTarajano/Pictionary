@@ -30,7 +30,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private CanvasPanel canvasPanel;
     private JLabel logLabel;
     private Lobby lobby;
-    public static Player myPlayer;
 
     public LobbyFrame(Lobby lobby) {
         super(TITLE);

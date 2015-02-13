@@ -12,14 +12,10 @@ import java.awt.event.ActionListener;
 
 public class MenuFrame extends JFrame{
 
-    private static final int WIDTH=250,HEIGHT=100;
+    private static final int WIDTH=250,HEIGHT=200;
     private static final String TITLE="Menu";
 
-    private JButton createLobby;
-    private JButton registerPlayer;
-    private JButton exitButton;
-    private JButton connectButton;
-    private JButton disconnectButton;
+    private JButton createLobby, connectButton, disconnectButton;
 
     public static MenuFrame menuFrame;
 
@@ -67,7 +63,7 @@ public class MenuFrame extends JFrame{
     }
 
     private Component createExitButton() {
-        exitButton= new JButton("Exit");
+        JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +74,7 @@ public class MenuFrame extends JFrame{
     }
 
     private Component createRegisterPlayerButton() {
-        registerPlayer = new JButton("Register / Change Playername");
+        JButton registerPlayer = new JButton("Register / Change Playername");
         registerPlayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

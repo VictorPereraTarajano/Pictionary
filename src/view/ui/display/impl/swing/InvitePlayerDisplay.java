@@ -2,9 +2,12 @@ package view.ui.display.impl.swing;
 
 import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.ConfirmationMessage;
+import model.messagedata.impl.ConfirmationData;
 import model.messagedata.impl.InvitePlayerData;
+import model.net.sender.impl.TCPSender;
 import model.net.sender.impl.UDPSender;
 import view.ui.frame.impl.swing.LobbyFrame;
+import view.ui.frame.managerlobby.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +18,16 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
 
     private JLabel messageInvitation;
     private InvitePlayerData invitePlayerData;
-    private JButton acceptButton, cancelButton;
 
     public InvitePlayerDisplay(InvitePlayerData invitePlayerData) {
         super();
-        this.invitePlayerData = invitePlayerData;
+        this.invitePlayerData=invitePlayerData;
         setLayout(new GridLayout(0,2));
         createWidgets();
         setVisible(true);
     }
 
     private void createWidgets() {
-        messageInvitation=new JLabel();
         add(createMessageInvitation());
         add(createAcceptButton());
         add(createCancelButton());
@@ -38,7 +39,7 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
     }
 
     private Component createCancelButton() {
-        cancelButton = new JButton("CANCEL");
+        JButton cancelButton = new JButton("CANCEL");
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,12 +50,11 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
     }
 
     private Component createAcceptButton() {
-        acceptButton = new JButton("OK");
+        JButton acceptButton = new JButton("OK");
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new ConfirmationMessage(), new UDPSender(invitePlayerData.getPlayer().getIp())).execute();
-                new LobbyFrame(invitePlayerData.getLobby());
+                new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), new TCPSender(invitePlayerData.getPlayer().getIp())).execute();
                 setVisible(false);
             }
         });
