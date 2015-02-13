@@ -2,7 +2,7 @@ package model.message.impl.state.impl;
 
 import model.message.impl.state.interfaces.SendStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerLobby;
 
 public class SendCanvasStateMessage extends SendStateMessage {
 

@@ -1,7 +1,7 @@
 package model.player.playerset.impl;
 
 import model.player.Player;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerLobby;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

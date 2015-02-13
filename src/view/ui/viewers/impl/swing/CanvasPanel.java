@@ -3,10 +3,10 @@ package view.ui.viewers.impl.swing;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendCanvasStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
-import model.net.manager.ManagerConnection;
+import model.manager.ManagerConnection;
 import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.awt.CanvasDisplay;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;

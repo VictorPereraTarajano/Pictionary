@@ -5,9 +5,7 @@ import model.message.impl.ConfirmationMessage;
 import model.messagedata.impl.ConfirmationData;
 import model.messagedata.impl.InvitePlayerData;
 import model.net.sender.impl.TCPSender;
-import model.net.sender.impl.UDPSender;
-import view.ui.frame.impl.swing.LobbyFrame;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;

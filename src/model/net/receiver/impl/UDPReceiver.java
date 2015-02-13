@@ -1,7 +1,7 @@
 package model.net.receiver.impl;
 
 import model.deserializer.impl.Deserializer;
-import model.net.manager.ManagerConnection;
+import model.manager.ManagerConnection;
 import model.net.receiver.interfaces.Receiver;
 
 import java.io.IOException;

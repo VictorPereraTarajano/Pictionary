@@ -1,8 +1,8 @@
 package view.ui.dialog.impl.swing;
 
-import model.net.manager.ManagerConnection;
+import model.manager.ManagerConnection;
 import model.player.Player;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerLobby;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

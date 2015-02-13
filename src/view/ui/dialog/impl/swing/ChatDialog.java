@@ -3,9 +3,8 @@ package view.ui.dialog.impl.swing;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendChatStateMessage;
 import model.messagedata.impl.statedata.impl.SendChatStateData;
-import model.net.manager.ManagerConnection;
-import view.ui.frame.impl.swing.LobbyFrame;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;

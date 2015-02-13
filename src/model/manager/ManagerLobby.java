@@ -1,4 +1,4 @@
-package view.ui.frame.managerlobby;
+package model.manager;
 
 import model.game.Lobby;
 import model.player.Player;

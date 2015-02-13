@@ -1,6 +1,6 @@
 package model.net.sender.impl;
 
-import model.net.manager.ManagerConnection;
+import model.manager.ManagerConnection;
 import model.net.sender.interfaces.Sender;
 
 import java.io.IOException;

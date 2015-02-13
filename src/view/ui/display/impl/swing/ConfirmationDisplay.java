@@ -4,8 +4,8 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.message.impl.state.impl.SendLobbyStateMessage;
 import model.messagedata.impl.ConfirmationData;
 import model.messagedata.impl.statedata.impl.SendLobbyStateData;
-import model.net.manager.ManagerConnection;
-import view.ui.frame.managerlobby.ManagerLobby;
+import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;

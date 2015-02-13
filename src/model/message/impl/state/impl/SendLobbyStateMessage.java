@@ -1,7 +1,9 @@
 package model.message.impl.state.impl;
 
+import model.manager.ManagerLobby;
 import model.message.impl.state.interfaces.SendStateMessage;
 import model.messagedata.impl.statedata.impl.SendLobbyStateData;
+import view.ui.frame.impl.swing.LobbyFrame;
 
 public class SendLobbyStateMessage extends SendStateMessage{
 
@@ -14,6 +16,7 @@ public class SendLobbyStateMessage extends SendStateMessage{
 
     @Override
     public void open() {
-
+        ManagerLobby.myLobby=sendLobbyStateData.getLobby();
+        ManagerLobby.myLobbyFrame= new LobbyFrame(sendLobbyStateData.getLobby());
     }
 }

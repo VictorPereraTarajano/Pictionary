@@ -1,8 +1,7 @@
 package controller.impl.command.connection;
 
 import controller.interfaces.Command;
-import model.net.manager.ManagerConnection;
-import model.net.receiver.interfaces.Receiver;
+import model.manager.ManagerConnection;
 
 public class DisconnectCommand implements Command {
 
