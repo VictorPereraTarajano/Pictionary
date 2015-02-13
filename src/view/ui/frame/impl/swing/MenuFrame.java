@@ -4,8 +4,10 @@ import controller.impl.command.connection.ConnectCommand;
 import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.player.RegisterPlayerCommand;
+import model.manager.ManagerConnection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +17,9 @@ public class MenuFrame extends JFrame{
     private static final int WIDTH=250,HEIGHT=200;
     private static final String TITLE="Menu";
 
-    private JButton createLobby, connectButton, disconnectButton;
-
     public static MenuFrame menuFrame;
+    private JLabel log;
+    private JButton createLobbyButton;
 
     public MenuFrame() {
         super(TITLE);
@@ -25,76 +27,92 @@ public class MenuFrame extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
-        setLayout(new GridLayout(5,1));
         setLocation(500,500);
         setVisible(true);
     }
 
     private void createWidgets() {
-        add(createRegisterPlayerButton());
-        add(createLobbyButton());
-        add(createExitButton());
-        add(createConnectButton());
-        add(createDisconnectButton());
+        add(createPanelButtons(), BorderLayout.CENTER);
+        add(createLogLabel(), BorderLayout.SOUTH);
     }
 
-    private Component createConnectButton() {
-        connectButton= new JButton("Connect");
-        connectButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ConnectCommand().execute();
-                connectButton.setEnabled(false);
+    private JPanel createPanelButtons() {
+        return new JPanel() {
+            {
+                add(createRegisterPlayerButton());
+                add(createLobbyButton());
+                add(createExitButton());
+                add(createConnectDisconnectButton());
+                setLayout(new GridLayout(4,1));
             }
-        });
-        return connectButton;
+        };
     }
 
-    private Component createDisconnectButton() {
-        disconnectButton= new JButton("Disconnect");
-        disconnectButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DisconnectCommand().execute();
-                disconnectButton.setEnabled(false);
+    private Component createLogLabel() {
+        log = new JLabel(ManagerConnection.getStatus());
+        return log;
+    }
+
+    private Component createConnectDisconnectButton() {
+        return new JButton("Connect") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (ManagerConnection.getStatus().equals("CONNECTED")) {
+                            new DisconnectCommand().execute();
+                            log.setText(ManagerConnection.getStatus());
+                            setText("Connect");
+                        } else {
+                            new ConnectCommand().execute();
+                            log.setText(ManagerConnection.getStatus());
+                            setText("Disconnect");
+                        }
+                    }
+                });
             }
-        });
-        return disconnectButton;
+        };
     }
 
     private Component createExitButton() {
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuFrame.dispose();
+        return new JButton("Exit") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        menuFrame.dispose();
+                    }
+                });
             }
-        });
-        return exitButton;
+        };
     }
 
     private Component createRegisterPlayerButton() {
-        JButton registerPlayer = new JButton("Register / Change Playername");
-        registerPlayer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new RegisterPlayerCommand().execute();
-                createLobby.setEnabled(true);
+        return new JButton("Register Playername") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new RegisterPlayerCommand().execute();
+                        setEnabled(true);
+                        setText("Change Playername");
+                    }
+                });
             }
-        });
-        return registerPlayer;
+        };
     }
 
     private Component createLobbyButton() {
-        createLobby = new JButton("Create Lobby");
-        createLobby.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                new CreateLobbyCommand().execute();
+        return new JButton("Create Lobby"){
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisible(false);
+                        new CreateLobbyCommand().execute();
+                    }
+                });
             }
-        });
-        createLobby.setEnabled(false);
-        return createLobby;
+        };
     }
 }

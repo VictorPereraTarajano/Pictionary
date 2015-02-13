@@ -1,5 +1,6 @@
 package model.manager;
 
+import model.net.receiver.impl.TCPReceiver;
 import model.net.receiver.interfaces.Receiver;
 import model.net.sender.impl.TCPSender;
 import model.net.sender.impl.UDPSender;
@@ -12,6 +13,11 @@ public class ManagerConnection {
 
     public static final String DefaultIP= getDefaultIP();
 
+    public static final int UDPort = 2000;
+    public static final int TCPort = 2000;
+    public static Receiver UDPreceiver;
+    public static Receiver TCPreceiver;
+
     private static String getDefaultIP() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
@@ -20,10 +26,11 @@ public class ManagerConnection {
         }
     }
 
-    public static final int UDPort = 2000;
-    public static final int TCPort = 2000;
-    public static Receiver UDPreceiver;
-    public static Receiver TCPreceiver;
+    public static String getStatus () {
+        if (UDPreceiver != null || TCPreceiver != null)
+            return "CONNECTED";
+        return "DISCONNECTED";
+    }
 
     public static Sender []  TCPBroadcast (Player[] players) {
         Sender[] senders = new Sender[players.length];

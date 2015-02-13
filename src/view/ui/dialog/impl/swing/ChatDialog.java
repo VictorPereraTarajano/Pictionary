@@ -17,7 +17,6 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
 
     private static final int MAX_COLUMNS=24;
     private JTextField textField;
-    private JButton acceptButton;
 
     public ChatDialog() {
         super();
@@ -30,16 +29,18 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private Component createAcceptButton() {
-        acceptButton= new JButton("SEND");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(ManagerLobby.myPlayer, getMessage()));
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
-                clear();
+        return new JButton("SEND") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(ManagerLobby.myPlayer, getMessage()));
+                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                        clear();
+                    }
+                });
             }
-        });
-        return acceptButton;
+        };
     }
 
     private void clear () {
@@ -47,12 +48,11 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private Component createTextField() {
-        this.textField = new JTextField(MAX_COLUMNS);
+        textField = new JTextField(MAX_COLUMNS);
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    //ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(LobbyFrame.myPlayer, getMessage()));
                     new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray()[0], getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                     clear();
                 }

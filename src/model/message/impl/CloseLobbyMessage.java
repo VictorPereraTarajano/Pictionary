@@ -5,7 +5,7 @@ import model.messagedata.impl.CloseLobbyData;
 
 public class CloseLobbyMessage implements Message {
 
-    private CloseLobbyData lobbyData;
+    private CloseLobbyData closeLobbyData;
 
     @Override
     public void open() {

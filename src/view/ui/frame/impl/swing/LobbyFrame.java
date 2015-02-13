@@ -6,6 +6,7 @@ import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import model.game.Lobby;
+import model.manager.ManagerConnection;
 import model.player.Player;
 import view.ui.viewers.impl.swing.CanvasPanel;
 import view.ui.viewers.impl.swing.ChatPanel;
@@ -135,7 +136,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component disconnectOption() {
-        JMenuItem disconnectOption = new JMenuItem("Disconnect");
+        JMenuItem disconnectOption = new JMenuItem(ManagerConnection.getStatus());
         disconnectOption.setVisible(false);
         disconnectOption.addActionListener(new ActionListener() {
             @Override

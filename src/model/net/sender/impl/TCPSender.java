@@ -18,7 +18,7 @@ public class TCPSender<T> implements Sender<T> {
         try {
             socket = new Socket(IP, ManagerConnection.TCPort);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -26,6 +26,7 @@ public class TCPSender<T> implements Sender<T> {
     public void send(T objectToSend) {
         OutputStream os;
         try {
+            if (socket==null) return;
             os = socket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
             oos.writeObject(objectToSend);
