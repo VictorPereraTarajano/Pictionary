@@ -18,31 +18,19 @@ public class CanvasDisplay extends Canvas implements view.ui.display.interfaces.
 
     @Override
     public void update(Graphics g) {
-       /*if (image == null) {
-            image = (BufferedImage) createImage(getSize().width, getSize().height);
-            g2d = (Graphics2D) image.getGraphics();
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(0,0,getSize().width,getSize().height);
-        }
-        paint(g2d);
-        g.drawImage(image, 0, 0, this);*/
         paint(g);
     }
 
     @Override
     public void paint(Graphics g) {
-        //g.setColor(Color.black);
-        //if (sendCanvasStateData != null) applyChanges(g);
-
         if (image == null) {
             image = (BufferedImage) createImage(getSize().width, getSize().height);
             g2d = (Graphics2D) image.getGraphics();
             g2d.setColor(Color.WHITE);
             g2d.fillRect(0,0,getSize().width,getSize().height);
         }
-        if (sendCanvasStateData != null) {
+        if (sendCanvasStateData != null)
             applyChanges(g2d);
-        }
         g.drawImage(image, 0, 0, this);
     }
 

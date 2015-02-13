@@ -117,7 +117,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         invitePlayerOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new InvitePlayerCommand(lobby).execute();
+                new InvitePlayerCommand().execute();
             }
         });
         return invitePlayerOption;

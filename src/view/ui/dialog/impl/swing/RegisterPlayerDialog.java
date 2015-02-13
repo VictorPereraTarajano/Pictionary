@@ -37,30 +37,34 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
     }
 
     private Component createCancelButton() {
-        JButton cancelButton = new JButton("CANCEL");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+        return new JButton("CANCEL"){
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return cancelButton;
+        };
     }
 
     private Component createAcceptButton() {
-        JButton acceptButton = new JButton("OK");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (playerNameField.getText().trim().isEmpty())
-                    new JOptionPane().showMessageDialog(RegisterPlayerDialog.mySelf, "Your playername is empty !!", "Failed to register", JOptionPane.WARNING_MESSAGE);
-                else {
-                    ManagerLobby.myPlayer = getPlayer();
-                    setVisible(false);
-                }
+        return new JButton("OK") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (playerNameField.getText().trim().isEmpty())
+                            new JOptionPane().showMessageDialog(RegisterPlayerDialog.mySelf, "Your playername is empty !!", "Failed to register", JOptionPane.WARNING_MESSAGE);
+                        else {
+                            ManagerLobby.myPlayer = getPlayer();
+                            setVisible(false);
+                        }
+                    }
+                });
             }
-        });
-        return acceptButton;
+        };
     }
 
     private Component createPlayerNameField() {

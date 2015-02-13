@@ -18,11 +18,9 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     private static final int WIDTH=300, HEIGHT=100;
 
     private JTextField ipField;
-    private Lobby lobby;
 
-    public InvitePlayerDialog(Lobby lobby) {
+    public InvitePlayerDialog() {
         super();
-        this.lobby=lobby;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new GridLayout(3, 2));
@@ -38,26 +36,30 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createButtonCancel() {
-        JButton cancelButton = new JButton("CANCEL");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+        return new JButton("CANCEL") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return cancelButton;
+        };
     }
 
     private Component createButtonAccept() {
-        JButton acceptButton = new JButton("OK");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
-                setVisible(false);
+        return new JButton("OK") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return acceptButton;
+        };
     }
 
     private Component createIpField() {

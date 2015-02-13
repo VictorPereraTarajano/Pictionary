@@ -34,36 +34,42 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
     }
 
     private Component createCancelButton() {
-        JButton cancelButton = new JButton("CANCEL");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+        return new JButton("CANCEL") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return cancelButton;
+        };
     }
 
     private Component createDeleteButton() {
-        JButton deleteButton = new JButton("DELETE");
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new KickPlayerMessage(new KickPlayerData()), new UDPSender(((Player) list.getSelectedValue()).getIp())).execute();
+        return new JButton("DELETE") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData()), new UDPSender(((Player) list.getSelectedValue()).getIp())).execute();
+                    }
+                });
             }
-        });
-        return deleteButton;
+        };
     }
 
     private Component createList(Lobby lobby) {
         Object [] playerArray = lobby.getPlayerSet().toArray();
-        if (playerArray.length <= 0) {
+        if (playerArray.length <= 0)
             return new JLabel("No players in the lobby yet");
-        } else {
-            list = new JList(playerArray);
-            list.setOpaque(false);
-            return list;
-        }
+        else
+            return new JList(playerArray){
+                {
+                    setOpaque(false);
+                }
+            };
+
     }
 
     @Override

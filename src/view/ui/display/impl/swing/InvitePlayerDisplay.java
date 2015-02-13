@@ -37,26 +37,30 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
     }
 
     private Component createCancelButton() {
-        JButton cancelButton = new JButton("CANCEL");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+        return new JButton("CANCEL") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return cancelButton;
+        };
     }
 
     private Component createAcceptButton() {
-        JButton acceptButton = new JButton("OK");
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), new TCPSender(invitePlayerData.getPlayer().getIp())).execute();
-                setVisible(false);
+        return new JButton("OK"){
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), new TCPSender(invitePlayerData.getPlayer().getIp())).execute();
+                        setVisible(false);
+                    }
+                });
             }
-        });
-        return acceptButton;
+        };
     }
 
     @Override

@@ -2,7 +2,6 @@ package view.ui.viewers.impl.swing;
 
 import view.ui.display.impl.swing.ScoringDisplay;
 import model.manager.ManagerLobby;
-
 import javax.swing.*;
 import java.awt.*;
 

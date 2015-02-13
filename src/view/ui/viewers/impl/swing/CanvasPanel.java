@@ -7,7 +7,6 @@ import model.manager.ManagerConnection;
 import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.awt.CanvasDisplay;
 import model.manager.ManagerLobby;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
