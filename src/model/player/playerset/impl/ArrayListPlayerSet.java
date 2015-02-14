@@ -21,6 +21,13 @@ public class ArrayListPlayerSet implements model.player.playerset.interfaces.Pla
     }
 
     @Override
+    public void addAll(Player[] players) {
+        for (Player player : players) {
+            playerList.add(player);
+        }
+    }
+
+    @Override
     public Player get (int i) {
         return playerList.get(i);
     }
@@ -38,5 +45,10 @@ public class ArrayListPlayerSet implements model.player.playerset.interfaces.Pla
     @Override
     public int length() {
         return playerList.size();
+    }
+
+    @Override
+    public void clear() {
+        playerList.clear();
     }
 }

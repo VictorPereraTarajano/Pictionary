@@ -4,5 +4,5 @@ import model.messagedata.impl.statedata.impl.SendScoringStateData;
 import model.player.Player;
 
 public interface ScoringDisplay {
-    public void display(SendScoringStateData sendScoringStateData);
+    public void display(Player player);
 }

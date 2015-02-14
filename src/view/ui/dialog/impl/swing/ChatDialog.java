@@ -34,7 +34,6 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobbyFrame.getChatPanel().getChatDisplay().display(new SendChatStateData(ManagerLobby.myPlayer, getMessage()));
                         new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
                         clear();
                     }

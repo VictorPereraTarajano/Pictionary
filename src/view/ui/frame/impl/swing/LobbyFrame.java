@@ -90,8 +90,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         menu.add(invitePlayerOption());
         menu.add(kickPlayerOption());
         menu.add(startGameOption());
-        menu.add(connectOption());
-        menu.add(disconnectOption());
         setJMenuBar(menu);
     }
 
@@ -135,37 +133,8 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return kickPlayerOption;
     }
 
-    private Component disconnectOption() {
-        JMenuItem disconnectOption = new JMenuItem(ManagerConnection.getStatus());
-        disconnectOption.setVisible(false);
-        disconnectOption.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DisconnectCommand().execute();
-                ((JMenuItem) e.getSource()).setVisible(false);
-                (menu.getComponent(menu.getMenuCount()-2)).setVisible(true);
-                logLabel.setText(" Disconnected");
-            }
-        });
-        return disconnectOption;
-    }
-
-    private Component connectOption() {
-        JMenuItem connectOption = new JMenuItem("Connect");
-        connectOption.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ConnectCommand().execute();
-                ((JMenuItem) e.getSource()).setVisible(false);
-                (menu.getComponent(menu.getMenuCount()-1)).setVisible(true);
-                logLabel.setText(" Connected");
-            }
-        });
-        return connectOption;
-    }
-
     private Component createLogLabel() {
-        logLabel=new JLabel(" Disconnected");
+        logLabel=new JLabel(" Connected");
         return logLabel;
     }
 

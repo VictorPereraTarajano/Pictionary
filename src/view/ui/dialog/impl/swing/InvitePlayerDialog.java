@@ -2,22 +2,24 @@ package view.ui.dialog.impl.swing;
 
 import controller.impl.sendcommand.SendMessageCommand;
 import model.game.Lobby;
+import model.manager.ManagerConnection;
 import model.message.impl.InvitePlayerMessage;
 import model.messagedata.impl.InvitePlayerData;
 import model.net.sender.impl.TCPSender;
 import model.manager.ManagerLobby;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interfaces.InvitePlayerDialog {
 
-    private static final int MAX_COLUMNS=20;
     private static final int WIDTH=300, HEIGHT=100;
 
-    private JTextField ipField;
+    private JFormattedTextField ipField;
 
     public InvitePlayerDialog() {
         super();
@@ -54,8 +56,11 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
-                        setVisible(false);
+                        if (ManagerConnection.isValidConnection(ipField.getText())) {
+                            new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
+                            setVisible(false);
+                        } else
+                            ipField.setText("");
                     }
                 });
             }
@@ -63,7 +68,11 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createIpField() {
-        ipField= new JTextField(MAX_COLUMNS);
+        try {
+            ipField= new JFormattedTextField(new MaskFormatter("###.###.###.###"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return ipField;
     }
 }

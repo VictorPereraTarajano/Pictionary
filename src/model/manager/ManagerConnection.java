@@ -6,6 +6,8 @@ import model.net.sender.impl.TCPSender;
 import model.net.sender.impl.UDPSender;
 import model.net.sender.interfaces.Sender;
 import model.player.Player;
+import sun.net.util.IPAddressUtil;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -44,5 +46,9 @@ public class ManagerConnection {
         for (int i = 0; i < senders.length; i++)
             senders[i] = new UDPSender(players[i].getIp());
         return senders;
+    }
+
+    public static boolean isValidConnection (String IP) {
+        return IPAddressUtil.isIPv4LiteralAddress(IP);
     }
 }
