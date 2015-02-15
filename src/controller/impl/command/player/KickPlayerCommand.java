@@ -2,9 +2,10 @@ package controller.impl.command.player;
 
 import controller.interfaces.Command;
 import model.game.Lobby;
-import view.ui.dialog.impl.swing.KickPlayerDialog;
+import model.manager.ManagerLobby;
+import view.ui.dialog.impl.swing.kickplayerdialog.KickPlayerDialog;
 
-public class KickPlayerCommand implements Command{
+public class KickPlayerCommand implements Command {
 
     private Lobby lobby;
 
@@ -14,6 +15,6 @@ public class KickPlayerCommand implements Command{
 
     @Override
     public void execute() {
-        new KickPlayerDialog(lobby);
+        if (ManagerLobby.ownerLobby.equals(ManagerLobby.myPlayer)) new KickPlayerDialog(lobby);
     }
 }

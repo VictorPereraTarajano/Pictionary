@@ -2,8 +2,9 @@ package model.game;
 
 import model.canvas.Canvas;
 import model.chat.Chat;
-import model.player.playerset.impl.ArrayListPlayerSet;
-import model.scoring.Scoring;
+import model.playerset.impl.ArrayListPlayerSet;
+import model.timer.Timer;
+import model.word.Word;
 
 import java.io.Serializable;
 
@@ -14,6 +15,8 @@ public class Lobby implements Serializable {
     private Canvas canvas;
     private Scoring scoring;
     private Game game;
+    private Timer timer;
+    private Word word;
 
     public Lobby() {
         playerSet = new ArrayListPlayerSet();
@@ -21,10 +24,17 @@ public class Lobby implements Serializable {
         canvas = new Canvas();
         scoring = new Scoring();
         game = new Game();
+        timer=new Timer();
+        word =new Word();
+
     }
 
     public ArrayListPlayerSet getPlayerSet() {
         return playerSet;
+    }
+
+    public Word getWord() {
+        return word;
     }
 
     public Game getGame() {
@@ -41,5 +51,9 @@ public class Lobby implements Serializable {
 
     public Scoring getScoring() {
         return scoring;
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 }

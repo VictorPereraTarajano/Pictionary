@@ -1,6 +1,6 @@
 package view.persistence.impl;
 
-import model.canvas.Word;
+import model.word.Word;
 import view.persistence.interfaces.Loader;
 
 public class WordSetLoader implements Loader<Word>{

@@ -1,12 +1,10 @@
 package model.manager;
 
-import model.net.receiver.impl.TCPReceiver;
-import model.net.receiver.interfaces.Receiver;
-import model.net.sender.impl.TCPSender;
-import model.net.sender.impl.UDPSender;
-import model.net.sender.interfaces.Sender;
+import model.network.receiver.interfaces.Receiver;
+import model.network.sender.impl.TCPSender;
+import model.network.sender.impl.UDPSender;
+import model.network.sender.interfaces.Sender;
 import model.player.Player;
-import sun.net.util.IPAddressUtil;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -48,7 +46,4 @@ public class ManagerConnection {
         return senders;
     }
 
-    public static boolean isValidConnection (String IP) {
-        return IPAddressUtil.isIPv4LiteralAddress(IP);
-    }
 }

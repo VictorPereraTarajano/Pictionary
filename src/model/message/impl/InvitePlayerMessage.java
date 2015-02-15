@@ -2,7 +2,7 @@ package model.message.impl;
 
 import model.message.interfaces.Message;
 import model.messagedata.impl.InvitePlayerData;
-import view.ui.display.impl.swing.InvitePlayerDisplay;
+import view.ui.display.impl.swing.inviteplayerdisplay.InvitePlayerDisplay;
 
 import java.io.Serializable;
 

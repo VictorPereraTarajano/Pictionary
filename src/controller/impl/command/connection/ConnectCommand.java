@@ -2,8 +2,8 @@ package controller.impl.command.connection;
 
 import controller.interfaces.Command;
 import model.manager.ManagerConnection;
-import model.net.receiver.impl.TCPReceiver;
-import model.net.receiver.impl.UDPReceiver;
+import model.network.receiver.impl.TCPReceiver;
+import model.network.receiver.impl.UDPReceiver;
 
 public class ConnectCommand implements Command {
 

@@ -1,19 +1,23 @@
 package view.ui.frame.impl.swing;
 
-import controller.impl.command.game.StartGameCommand;
-import controller.impl.command.connection.ConnectCommand;
-import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
+import controller.impl.sendcommand.SendMessageCommand;
 import model.game.Lobby;
 import model.manager.ManagerConnection;
-import model.player.Player;
-import view.ui.viewers.impl.swing.CanvasPanel;
-import view.ui.viewers.impl.swing.ChatPanel;
-import view.ui.viewers.impl.swing.ScoringPanel;
+import model.manager.ManagerLobby;
+import model.message.impl.CloseLobbyMessage;
+import model.message.impl.StartGameMessage;
+import model.messagedata.impl.CloseLobbyData;
+import model.messagedata.impl.StartGameData;
+import model.messagedata.impl.statedata.impl.SendLobbyStateData;
+import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
+import view.ui.viewers.impl.swing.chatpanel.ChatPanel;
+import view.ui.viewers.impl.swing.scoringpanel.ScoringPanel;
+import view.ui.viewers.impl.swing.timerpanel.TimerPanel;
+import view.ui.viewers.impl.swing.wordpanel.WordPanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,11 +35,14 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private CanvasPanel canvasPanel;
     private JLabel logLabel;
     private Lobby lobby;
+    private TimerPanel timerPanel;
+    private WordPanel wordPanel;
 
     public LobbyFrame(Lobby lobby) {
         super(TITLE);
         this.lobby=lobby;
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         createMenu();
         createWidgets();
         createListeners();
@@ -90,14 +97,39 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         menu.add(invitePlayerOption());
         menu.add(kickPlayerOption());
         menu.add(startGameOption());
+        menu.add(closeGameOption());
         setJMenuBar(menu);
     }
 
+    private Component closeGameOption() {
+        JMenuItem closeGameOption = new JMenuItem("Close Lobby");
+        closeGameOption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
+                ManagerLobby.myLobbyFrame.setVisible(false);
+            }
+        });
+        return closeGameOption;
+    }
+
     private void createWidgets() {
-        add(createScoringPanel(), BorderLayout.WEST);
-        add(createCanvasPanel(), BorderLayout.CENTER);
-        add(createChatPanel(), BorderLayout.EAST);
-        add(createLogLabel(), BorderLayout.SOUTH);
+        add(createScoringPanel());
+        add(createCanvasPanel());
+        add(createChatPanel());
+        add(createTimerPanel());
+        add(createWordPanel());
+        add(createLogLabel());
+    }
+
+    private Component createWordPanel() {
+        wordPanel=new WordPanel();
+        return wordPanel;
+    }
+
+    private Component createTimerPanel() {
+        timerPanel=new TimerPanel();
+        return timerPanel;
     }
 
     private Component startGameOption() {
@@ -105,7 +137,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new StartGameCommand().execute();
+                new SendMessageCommand(new StartGameMessage(new StartGameData()), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
             }
         });
         return startGameOption;
@@ -167,4 +199,22 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     public ScoringPanel getScoringPanel() {
         return scoringPanel;
     }
+
+    @Override
+    public TimerPanel getTimerPanel() {
+        return timerPanel;
+    }
+
+    @Override
+    public WordPanel getWordPanel() {
+        return wordPanel;
+    }
+
+    @Override
+    public void refresh(SendLobbyStateData sendLobbyStateData) {
+        ManagerLobby.myLobby.getPlayerSet().clear();
+        ManagerLobby.myLobby.getPlayerSet().addAll(sendLobbyStateData.getLobby().getPlayerSet().toArray());
+        scoringPanel.refresh();
+    }
+
 }

@@ -8,5 +8,5 @@ public class ManagerLobby {
     public static Lobby myLobby;
     public static LobbyFrame myLobbyFrame;
     public static Player myPlayer;
-
+    public static Player ownerLobby;
 }

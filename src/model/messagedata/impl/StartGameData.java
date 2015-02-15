@@ -1,4 +1,8 @@
 package model.messagedata.impl;
 
-public class StartGameData {
+import model.messagedata.interfaces.MessageData;
+
+import java.io.Serializable;
+
+public class StartGameData implements Serializable, MessageData {
 }

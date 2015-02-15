@@ -1,8 +1,8 @@
 package model.message.impl.state.impl;
 
+import model.manager.ManagerLobby;
 import model.message.impl.state.interfaces.SendStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
-import model.manager.ManagerLobby;
 
 public class SendCanvasStateMessage extends SendStateMessage {
 
@@ -15,6 +15,7 @@ public class SendCanvasStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().display(sendCanvasStateData);
+        ManagerLobby.myLobby.getCanvas().add(sendCanvasStateData.getPoint());
+        ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 }

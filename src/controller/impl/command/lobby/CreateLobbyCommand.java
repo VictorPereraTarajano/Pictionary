@@ -14,5 +14,6 @@ public class CreateLobbyCommand implements Command {
         if (ManagerConnection.getStatus().equals("DISCONNECTED")) new ConnectCommand().execute();
         ManagerLobby.myLobby=new Lobby();
         ManagerLobby.myLobbyFrame=new LobbyFrame(ManagerLobby.myLobby);
+        ManagerLobby.ownerLobby=ManagerLobby.myPlayer;
     }
 }

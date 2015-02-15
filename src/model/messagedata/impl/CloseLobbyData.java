@@ -1,11 +1,20 @@
 package model.messagedata.impl;
 
-import model.data.Data;
 import model.messagedata.interfaces.MessageData;
+import model.player.Player;
 
-public class CloseLobbyData implements MessageData {
-    @Override
-    public Data[] getData() {
-        return new Data[0];
+import java.io.Serializable;
+
+public class CloseLobbyData implements MessageData, Serializable {
+
+    private Player player;
+
+    public CloseLobbyData(Player player) {
+        this.player = player;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
 }

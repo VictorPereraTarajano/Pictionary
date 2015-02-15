@@ -1,8 +1,7 @@
 package model.messagedata.impl;
 
-import model.data.Data;
-import model.messagedata.interfaces.MessageData;
 import model.game.Lobby;
+import model.messagedata.interfaces.MessageData;
 import model.player.Player;
 
 import java.io.Serializable;
@@ -15,11 +14,6 @@ public class InvitePlayerData implements MessageData, Serializable {
     public InvitePlayerData(Player player, Lobby lobby) {
         this.player = player;
         this.lobby = lobby;
-    }
-
-    @Override
-    public Data[] getData() {
-        return new Data[0];
     }
 
     public Player getPlayer() {

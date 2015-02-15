@@ -2,9 +2,9 @@ package controller.impl.sendcommand;
 
 import controller.interfaces.Command;
 import model.message.interfaces.Message;
-import model.net.sender.interfaces.Sender;
+import model.network.sender.interfaces.Sender;
 
-public class SendMessageCommand implements Command{
+public class SendMessageCommand implements Command {
 
     private Message message;
     private Sender [] senders;

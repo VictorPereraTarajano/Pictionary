@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pinturillo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Pinturillo_jar</output-path>
+    <root id="archive" name="Pinturillo.jar">
+      <element id="module-output" name="Pinturillo" />
+    </root>
+  </artifact>
+</component>
