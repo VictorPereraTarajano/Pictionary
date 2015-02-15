@@ -51,4 +51,16 @@ public class ArrayListPlayerSet implements model.playerset.interfaces.PlayerSet,
     public void clear() {
         playerList.clear();
     }
+
+    @Override
+    public Player[] getAllWithoutMe() {
+        Player [] playersWithoutMe = new Player [playerList.size()-1];
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i) == ManagerLobby.myPlayer) continue;
+                playersWithoutMe[i]=playerList.get(i);
+        }
+        return playersWithoutMe;
+    }
+
+
 }

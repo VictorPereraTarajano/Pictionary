@@ -15,8 +15,7 @@ public class SendScoringStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
-        ManagerLobby.myLobby.getPlayerSet().clear();
-        ManagerLobby.myLobby.getPlayerSet().addAll(sendScoringStateData.getPlayers());
+        ManagerLobby.myLobby.setScoring(sendScoringStateData.getScoring());
         ManagerLobby.myLobbyFrame.getScoringPanel().refresh();
     }
 }

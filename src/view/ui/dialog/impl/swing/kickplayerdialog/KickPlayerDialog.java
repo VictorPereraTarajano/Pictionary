@@ -1,11 +1,11 @@
 package view.ui.dialog.impl.swing.kickplayerdialog;
 
 import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 import model.message.impl.KickPlayerMessage;
 import model.messagedata.impl.KickPlayerData;
-import model.game.Lobby;
 import model.player.Player;
-import model.network.sender.impl.UDPSender;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,17 +18,17 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
 
     private JList list;
 
-    public KickPlayerDialog(Lobby lobby) {
+    public KickPlayerDialog() {
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new GridLayout(2,2));
-        createWidgets(lobby);
+        createWidgets();
         setVisible(true);
     }
 
-    private void createWidgets(Lobby lobby) {
+    private void createWidgets() {
         add(new JLabel("List of current players : "));
-        add(createList(lobby));
+        add(createList());
         add(createCancelButton());
         add(createDeleteButton());
     }
@@ -52,15 +52,15 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData()), new UDPSender(((Player) list.getSelectedValue()).getIp())).execute();
+                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
                     }
                 });
             }
         };
     }
 
-    private Component createList(Lobby lobby) {
-        Object [] playerArray = lobby.getPlayerSet().toArray();
+    private Component createList() {
+        Player [] playerArray = ManagerLobby.myLobby.getPlayerSet().getAllWithoutMe();
         if (playerArray.length <= 0)
             return new JLabel("No players in the lobby yet");
         else

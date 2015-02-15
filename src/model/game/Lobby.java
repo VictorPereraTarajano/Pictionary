@@ -3,6 +3,8 @@ package model.game;
 import model.canvas.Canvas;
 import model.chat.Chat;
 import model.playerset.impl.ArrayListPlayerSet;
+import model.scoring.Scoring;
+import model.scoring.ScoringLoader;
 import model.timer.Timer;
 import model.word.Word;
 
@@ -20,13 +22,12 @@ public class Lobby implements Serializable {
 
     public Lobby() {
         playerSet = new ArrayListPlayerSet();
+        scoring = new ScoringLoader().load(playerSet);
         chat = new Chat();
         canvas = new Canvas();
-        scoring = new Scoring();
         game = new Game();
         timer=new Timer();
         word =new Word();
-
     }
 
     public ArrayListPlayerSet getPlayerSet() {
@@ -47,6 +48,10 @@ public class Lobby implements Serializable {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public void setScoring (Scoring scoring) {
+        this.scoring=scoring;
     }
 
     public Scoring getScoring() {

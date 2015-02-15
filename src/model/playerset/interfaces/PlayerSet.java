@@ -10,4 +10,5 @@ public interface PlayerSet {
     public Player [] toArray ();
     public int length ();
     public void clear();
+    public Player [] getAllWithoutMe ();
 }

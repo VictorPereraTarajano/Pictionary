@@ -18,7 +18,7 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.s
     }
 
     private void createWidgets() {
-        scoringDisplay= new ScoringDisplay [ManagerLobby.myLobby.getPlayerSet().length()];
+        scoringDisplay= new ScoringDisplay [ManagerLobby.myLobby.getScoring().size()];
         for (int i  = 0; i < scoringDisplay.length; i++)
             add(createScoringDisplay(i));
     }

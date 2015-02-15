@@ -1,5 +1,6 @@
 package view.ui.display.impl.swing.scoringdisplay;
 
+import model.manager.ManagerLobby;
 import model.player.Player;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
 
     public ScoringDisplay(Player player) {
         super();
+        setBorder(BorderFactory.createTitledBorder("Scoring Display"));
         this.player=player;
         createWidgets();
     }
@@ -21,12 +23,8 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     }
 
     private Component createPlayerName() {
-        playername = new JLabel(this.player.getName());
+        playername = new JLabel(player.getName()+","+ ManagerLobby.myLobby.getScoring().getScore(player).getScore());
         return playername;
     }
 
-    @Override
-    public void display(Player player) {
-        playername.setText(player.getName());
-    }
 }

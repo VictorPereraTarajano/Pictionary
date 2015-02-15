@@ -1,18 +1,18 @@
 package model.messagedata.impl.statedata.impl;
 
 import model.messagedata.impl.statedata.interfaces.SendStateData;
-import model.player.Player;
+import model.scoring.Scoring;
 
 public class SendScoringStateData extends SendStateData {
 
-    private Player[] players;
+    private Scoring scoring;
 
-    public SendScoringStateData(Player[] players) {
-        this.players = players;
+    public SendScoringStateData(Scoring scoring) {
+        super();
+        this.scoring = scoring;
     }
 
-    public Player[] getPlayers() {
-        return players;
+    public Scoring getScoring() {
+        return scoring;
     }
-
 }
