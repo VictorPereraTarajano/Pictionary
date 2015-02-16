@@ -17,9 +17,10 @@ public class SendLobbyStateMessage extends SendStateMessage{
     @Override
     public void open() {
         ManagerLobby.myLobby=sendLobbyStateData.getLobby();
-        if (ManagerLobby.myLobbyFrame==null) {
+        if (ManagerLobby.myLobbyFrame==null)
             ManagerLobby.myLobbyFrame= new LobbyFrame(sendLobbyStateData.getLobby());
-        } else
+        else
             ManagerLobby.myLobbyFrame.refresh();
+        ManagerLobby.myLobbyFrame.setVisible(true);
     }
 }
