@@ -17,7 +17,7 @@ public class ManagerLobby {
     }
 
     public static Player getAnotherHost() {
-        Player newHost = myLobby.getPlayerSet().get(new Random(System.currentTimeMillis()).nextInt(myLobby.getPlayerSet().length() - 1));
+        Player newHost = myLobby.getScoring().getPlayers()[new Random(System.currentTimeMillis()).nextInt(myLobby.getScoring().getPlayers().length - 1)];
         if (!newHost.equals(myPlayer))
             return newHost;
         return getAnotherHost();

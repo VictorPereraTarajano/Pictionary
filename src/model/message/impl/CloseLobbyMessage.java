@@ -16,7 +16,7 @@ public class CloseLobbyMessage implements Message, Serializable {
 
     @Override
     public void open() {
-        ManagerLobby.myLobby.getPlayerSet().remove(sendCloseLobbyData.getPlayer());
+        ManagerLobby.myLobby.getScoring().remove(sendCloseLobbyData.getPlayer());
         ManagerLobby.myLobbyFrame.getScoringPanel().refresh();
     }
 }

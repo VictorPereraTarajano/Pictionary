@@ -36,9 +36,8 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobby.getPlayerSet().add(confirmationData.getPlayer());
                         ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
-                        new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
+                        new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                     }
                 });
             }

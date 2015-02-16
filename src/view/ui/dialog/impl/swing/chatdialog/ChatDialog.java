@@ -34,7 +34,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.chat
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getScoring().getPlayers())).execute();
                         clear();
                     }
                 });
@@ -52,7 +52,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray()[0], getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getPlayerSet().toArray())).execute();
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myLobbyFrame.getLobby().getScoring().getPlayers()[0], getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getScoring().getPlayers())).execute();
                     clear();
                 }
             }

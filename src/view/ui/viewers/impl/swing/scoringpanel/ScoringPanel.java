@@ -24,7 +24,7 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.s
     }
 
     private Component createScoringDisplay(int i) {
-        scoringDisplay[i]= new ScoringDisplay(ManagerLobby.myLobby.getPlayerSet().get(i));
+        scoringDisplay[i]= new ScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
         return scoringDisplay[i];
     }
 

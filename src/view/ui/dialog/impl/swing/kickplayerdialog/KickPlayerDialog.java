@@ -52,7 +52,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
+                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                     }
                 });
             }
@@ -60,7 +60,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
     }
 
     private Component createList() {
-        Player [] playerArray = ManagerLobby.myLobby.getPlayerSet().getAllWithoutMe();
+        Player [] playerArray = ManagerLobby.myLobby.getScoring().getAllWithoutMe();
         if (playerArray.length <= 0)
             return new JLabel("No players in the lobby yet");
         else
