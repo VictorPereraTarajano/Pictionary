@@ -1,5 +1,7 @@
 package model.network.sender.interfaces;
 
-public interface Sender<T> {
-    public void send (T objectToSend);
+import model.message.interfaces.Message;
+
+public interface Sender {
+    public void send (Message objectToSend);
 }

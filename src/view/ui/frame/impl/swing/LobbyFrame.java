@@ -7,8 +7,10 @@ import model.game.Lobby;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.message.impl.CloseLobbyMessage;
+import model.message.impl.HostMigrationMessage;
 import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
+import model.messagedata.impl.HostMigrationData;
 import model.messagedata.impl.StartGameData;
 import model.messagedata.impl.statedata.impl.SendLobbyStateData;
 import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
@@ -101,18 +103,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         setJMenuBar(menu);
     }
 
-    private Component closeGameOption() {
-        JMenuItem closeGameOption = new JMenuItem("Close Lobby");
-        closeGameOption.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
-                ManagerLobby.myLobbyFrame.setVisible(false);
-            }
-        });
-        return closeGameOption;
-    }
-
     private void createWidgets() {
         add(createScoringPanel());
         add(createCanvasPanel());
@@ -130,6 +120,21 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private Component createTimerPanel() {
         timerPanel=new TimerPanel();
         return timerPanel;
+    }
+
+    private Component closeGameOption() {
+        JMenuItem closeGameOption = new JMenuItem("Close Lobby");
+        closeGameOption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ManagerLobby.host.equals(ManagerLobby.myPlayer))
+                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(),ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().getAllWithoutMe())).execute();
+                else
+                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().getAllWithoutMe())).execute();
+                ManagerLobby.myLobbyFrame.setVisible(false);
+            }
+        });
+        return closeGameOption;
     }
 
     private Component startGameOption() {

@@ -15,6 +15,6 @@ public class KickPlayerCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerLobby.ownerLobby.equals(ManagerLobby.myPlayer)) new KickPlayerDialog();
+        if (ManagerLobby.host.equals(ManagerLobby.myPlayer)) new KickPlayerDialog();
     }
 }

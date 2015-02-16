@@ -1,14 +1,18 @@
 package model.network.sender.impl;
 
 import model.manager.ManagerConnection;
+import model.message.interfaces.Message;
 import model.network.sender.interfaces.Sender;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 
-public class UDPSender<T> implements Sender<T> {
+public class UDPSender implements Sender {
 
     private static final int MAX_SIZE_ARRAY=6400;
 
@@ -29,7 +33,7 @@ public class UDPSender<T> implements Sender<T> {
     }
 
     @Override
-    public void send(T objectToSend) {
+    public void send(Message objectToSend) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(MAX_SIZE_ARRAY);
             new ObjectOutputStream(baos).writeObject(objectToSend);

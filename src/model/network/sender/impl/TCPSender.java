@@ -1,6 +1,7 @@
 package model.network.sender.impl;
 
 import model.manager.ManagerConnection;
+import model.message.interfaces.Message;
 import model.network.sender.interfaces.Sender;
 
 import java.io.IOException;
@@ -8,12 +9,14 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class TCPSender<T> implements Sender<T> {
+public class TCPSender implements Sender, Runnable  {
 
     private Socket socket;
+    private Thread thread;
 
     public TCPSender(String IP) {
         createSocket(IP);
+        thread = new Thread(this);
     }
 
     private void createSocket(String IP) {
@@ -25,7 +28,7 @@ public class TCPSender<T> implements Sender<T> {
     }
 
     @Override
-    public void send(T objectToSend) {
+    public void send(Message objectToSend) {
         OutputStream os;
         try {
             if (socket==null) return;
@@ -38,5 +41,10 @@ public class TCPSender<T> implements Sender<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }
