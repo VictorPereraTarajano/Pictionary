@@ -1,11 +1,12 @@
 package view.ui.display.impl.swing.confirmationdisplay;
 
 import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 import model.message.impl.state.impl.SendLobbyStateMessage;
 import model.messagedata.impl.ConfirmationData;
 import model.messagedata.impl.statedata.impl.SendLobbyStateData;
-import model.manager.ManagerConnection;
-import model.manager.ManagerLobby;
+import model.scoring.Score;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ManagerLobby.myLobby.getPlayerSet().add(confirmationData.getPlayer());
+                        ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
                         new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getPlayerSet().toArray())).execute();
                     }
                 });

@@ -14,11 +14,12 @@ import java.awt.event.ActionListener;
 public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interfaces.inviteplayerdialog.InvitePlayerDialog {
 
     private static final int WIDTH=300, HEIGHT=100;
-
     private JTextField ipField;
+    private InvitePlayerDialog mySelf;
 
     public InvitePlayerDialog() {
         super();
+        mySelf=this;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new GridLayout(3, 2));
@@ -53,7 +54,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
-                        setVisible(false);
+                        mySelf.setVisible(false);
                     }
                 });
             }

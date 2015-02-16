@@ -1,6 +1,5 @@
 package view.ui.frame.interfaces;
 
-import model.messagedata.impl.statedata.impl.SendLobbyStateData;
 import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
 import view.ui.viewers.impl.swing.chatpanel.ChatPanel;
 import view.ui.viewers.impl.swing.scoringpanel.ScoringPanel;
@@ -13,5 +12,5 @@ public interface LobbyFrame {
     public ScoringPanel getScoringPanel();
     public TimerPanel getTimerPanel();
     public WordPanel getWordPanel();
-    public void refresh(SendLobbyStateData sendLobbyStateData);
+    public void refresh();
 }

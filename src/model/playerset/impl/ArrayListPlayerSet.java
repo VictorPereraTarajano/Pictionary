@@ -1,7 +1,8 @@
 package model.playerset.impl;
 
-import model.player.Player;
 import model.manager.ManagerLobby;
+import model.player.Player;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,10 @@ public class ArrayListPlayerSet implements model.playerset.interfaces.PlayerSet,
     public Player[] getAllWithoutMe() {
         Player [] playersWithoutMe = new Player [playerList.size()-1];
         for (int i = 0; i < playerList.size(); i++) {
-            if (playerList.get(i) == ManagerLobby.myPlayer) continue;
+            if (playerList.get(i) == ManagerLobby.myPlayer) {
+                i--;
+                continue;
+            }
                 playersWithoutMe[i]=playerList.get(i);
         }
         return playersWithoutMe;

@@ -2,10 +2,11 @@ package model.scoring;
 
 import model.player.Player;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Scoring {
+public class Scoring implements Serializable {
 
     private Map<Player, Score> scoring;
 

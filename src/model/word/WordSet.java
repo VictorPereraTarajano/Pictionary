@@ -1,7 +1,6 @@
 package model.word;
 
-/**
- * Created by Victor on 08/02/2015.
- */
-public class WordSet {
+import java.io.Serializable;
+
+public class WordSet implements Serializable{
 }

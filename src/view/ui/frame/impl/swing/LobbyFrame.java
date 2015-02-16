@@ -12,7 +12,6 @@ import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
 import model.messagedata.impl.HostMigrationData;
 import model.messagedata.impl.StartGameData;
-import model.messagedata.impl.statedata.impl.SendLobbyStateData;
 import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
 import view.ui.viewers.impl.swing.chatpanel.ChatPanel;
 import view.ui.viewers.impl.swing.scoringpanel.ScoringPanel;
@@ -216,9 +215,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     @Override
-    public void refresh(SendLobbyStateData sendLobbyStateData) {
-        ManagerLobby.myLobby.getPlayerSet().clear();
-        ManagerLobby.myLobby.getPlayerSet().addAll(sendLobbyStateData.getLobby().getPlayerSet().toArray());
+    public void refresh() {
         scoringPanel.refresh();
     }
 
