@@ -7,9 +7,10 @@ import view.ui.frame.impl.swing.LobbyFrame;
 import java.util.Random;
 
 public class ManagerLobby {
+
     public static Lobby myLobby;
     public static LobbyFrame myLobbyFrame;
-    public static Player myPlayer = defaultPlayerName();
+    public static Player myPlayer;
     public static Player host;
 
     private static Player defaultPlayerName() {

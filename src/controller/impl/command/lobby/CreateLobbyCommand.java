@@ -13,7 +13,7 @@ public class CreateLobbyCommand implements Command {
     public void execute() {
         if (ManagerConnection.getStatus().equals("DISCONNECTED")) new ConnectCommand().execute();
         ManagerLobby.myLobby=new Lobby();
-        ManagerLobby.myLobbyFrame=new LobbyFrame(ManagerLobby.myLobby);
+        ManagerLobby.myLobbyFrame=new LobbyFrame();
         ManagerLobby.host =ManagerLobby.myPlayer;
     }
 }

@@ -58,7 +58,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.ca
 
             @Override
             public void mousePressed(MouseEvent e) {
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getScoring().getPlayers())).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
             }
 
             @Override
@@ -79,7 +79,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobbyFrame.getLobby().getScoring().getPlayers())).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
             }
 
             @Override

@@ -7,12 +7,6 @@ import view.ui.dialog.impl.swing.kickplayerdialog.KickPlayerDialog;
 
 public class KickPlayerCommand implements Command {
 
-    private Lobby lobby;
-
-    public KickPlayerCommand(Lobby lobby) {
-        this.lobby = lobby;
-    }
-
     @Override
     public void execute() {
         if (ManagerLobby.host.equals(ManagerLobby.myPlayer)) new KickPlayerDialog();

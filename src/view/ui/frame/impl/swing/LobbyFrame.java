@@ -27,21 +27,17 @@ import java.awt.event.WindowListener;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
-    private static final String TITLE ="Pinturillo";
+    private static final String TITLE ="Pictionary";
     private static final int WIDTH=1024, HEIGHT=720;
 
-    private JMenuBar menu;
     private ScoringPanel scoringPanel;
     private ChatPanel chatPanel;
     private CanvasPanel canvasPanel;
-    private JLabel logLabel;
-    private Lobby lobby;
     private TimerPanel timerPanel;
     private WordPanel wordPanel;
 
-    public LobbyFrame(Lobby lobby) {
+    public LobbyFrame() {
         super(TITLE);
-        this.lobby=lobby;
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
         createMenu();
@@ -89,12 +85,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         });
     }
 
-    public Lobby getLobby() {
-        return lobby;
-    }
 
     private void createMenu() {
-        menu = new JMenuBar();
+        JMenuBar menu = new JMenuBar();
         menu.add(invitePlayerOption());
         menu.add(kickPlayerOption());
         menu.add(startGameOption());
@@ -163,14 +156,14 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         kickPlayerOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new KickPlayerCommand(lobby).execute();
+                new KickPlayerCommand().execute();
             }
         });
         return kickPlayerOption;
     }
 
     private Component createLogLabel() {
-        logLabel=new JLabel(" Connected");
+        JLabel logLabel = new JLabel(" Connected");
         return logLabel;
     }
 

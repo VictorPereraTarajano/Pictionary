@@ -18,7 +18,7 @@ public class SendLobbyStateMessage extends SendStateMessage{
     public void open() {
         ManagerLobby.myLobby=sendLobbyStateData.getLobby();
         if (ManagerLobby.myLobbyFrame==null)
-            ManagerLobby.myLobbyFrame= new LobbyFrame(sendLobbyStateData.getLobby());
+            ManagerLobby.myLobbyFrame= new LobbyFrame();
         else
             ManagerLobby.myLobbyFrame.refresh();
         ManagerLobby.myLobbyFrame.setVisible(true);
