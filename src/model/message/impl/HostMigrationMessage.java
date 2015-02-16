@@ -4,7 +4,9 @@ import model.manager.ManagerLobby;
 import model.message.interfaces.Message;
 import model.messagedata.impl.HostMigrationData;
 
-public class HostMigrationMessage implements Message {
+import java.io.Serializable;
+
+public class HostMigrationMessage implements Message, Serializable {
 
     private HostMigrationData hostMigrationData;
 

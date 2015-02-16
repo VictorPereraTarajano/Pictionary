@@ -5,9 +5,9 @@ import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.player.RegisterPlayerCommand;
 import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,7 +94,7 @@ public class MenuFrame extends JFrame{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new RegisterPlayerCommand().execute();
-                        setEnabled(true);
+                        createLobbyButton.setEnabled(true);
                         setText("Change Playername");
                     }
                 });
@@ -103,16 +103,19 @@ public class MenuFrame extends JFrame{
     }
 
     private Component createLobbyButton() {
-        return new JButton("Create Lobby"){
+        createLobbyButton = new JButton("Create Lobby"){
             {
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        setVisible(false);
                         new CreateLobbyCommand().execute();
+                        ManagerLobby.myLobbyFrame.setVisible(true);
+                        menuFrame.setVisible(false);
                     }
                 });
+                setEnabled(false);
             }
         };
+        return createLobbyButton;
     }
 }

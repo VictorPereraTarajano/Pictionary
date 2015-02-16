@@ -4,7 +4,9 @@ import model.game.Lobby;
 import model.messagedata.interfaces.MessageData;
 import model.player.Player;
 
-public class HostMigrationData implements MessageData {
+import java.io.Serializable;
+
+public class HostMigrationData implements MessageData, Serializable {
 
     private Player newHost;
     private Lobby lobby;

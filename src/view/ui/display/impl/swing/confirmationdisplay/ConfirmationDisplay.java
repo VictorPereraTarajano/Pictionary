@@ -15,12 +15,18 @@ import java.awt.event.ActionListener;
 
 public class ConfirmationDisplay extends JDialog implements view.ui.display.interfaces.confirmationdisplay.ConfirmationDisplay {
 
+    private static final int WIDTH=200, HEIGHT=200;
+    private static ConfirmationDisplay mySelf;
+
     private JLabel messageConfirmation;
     private ConfirmationData confirmationData;
 
     public ConfirmationDisplay(ConfirmationData confirmationData) {
         super();
+        mySelf=this;
         this.confirmationData = confirmationData;
+        setLocation(500,500);
+        setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
         setVisible(true);
     }
@@ -38,6 +44,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     public void actionPerformed(ActionEvent e) {
                         ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
                         new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        mySelf.setVisible(false);
                     }
                 });
             }

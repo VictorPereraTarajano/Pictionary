@@ -3,7 +3,6 @@ package view.ui.frame.impl.swing;
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.sendcommand.SendMessageCommand;
-import model.game.Lobby;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.message.impl.CloseLobbyMessage;
@@ -43,7 +42,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         createMenu();
         createWidgets();
         createListeners();
-        setVisible(true);
     }
 
     private void createListeners() {

@@ -15,13 +15,19 @@ import java.awt.event.ActionListener;
 
 public class InvitePlayerDisplay extends JDialog implements view.ui.display.interfaces.inviteplayerdisplay.InvitePlayerDisplay {
 
+    private static final int WIDTH=200, HEIGHT=200;
+    private static InvitePlayerDisplay mySelf;
+
     private JLabel messageInvitation;
     private InvitePlayerData invitePlayerData;
 
     public InvitePlayerDisplay(InvitePlayerData invitePlayerData) {
         super();
+        mySelf=this;
         this.invitePlayerData=invitePlayerData;
         setLayout(new GridLayout(0,2));
+        setLocation(500,500);
+        setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
         setVisible(true);
     }
@@ -59,9 +65,8 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
                         ManagerLobby.myLobby=invitePlayerData.getLobby();
                         ManagerLobby.myLobbyFrame=new LobbyFrame();
                         ManagerLobby.host =invitePlayerData.getPlayer();
-                        ManagerLobby.myLobbyFrame.setVisible(false);
                         new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), new TCPSender(invitePlayerData.getPlayer().getIp())).execute();
-                        setVisible(false);
+                        mySelf.setVisible(false);
                     }
                 });
             }
