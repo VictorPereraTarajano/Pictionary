@@ -1,10 +1,10 @@
 package view.ui.frame.interfaces;
 
-import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
-import view.ui.viewers.impl.swing.chatpanel.ChatPanel;
-import view.ui.viewers.impl.swing.scoringpanel.ScoringPanel;
-import view.ui.viewers.interfaces.timerpanel.TimerPanel;
-import view.ui.viewers.interfaces.wordpanel.WordPanel;
+import view.ui.viewers.impl.swing.CanvasPanel;
+import view.ui.viewers.impl.swing.ChatPanel;
+import view.ui.viewers.impl.swing.ScoringPanel;
+import view.ui.viewers.interfaces.TimerPanel;
+import view.ui.viewers.interfaces.WordPanel;
 
 public interface LobbyFrame {
     public CanvasPanel getCanvasPanel();

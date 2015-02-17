@@ -27,6 +27,6 @@ public class Player implements Serializable {
     @Override
     public boolean equals(Object obj) {
         Player player = (Player) obj;
-        return player.getName() == name && player.getIp() == ip;
+        return player.getName().equals(name) && player.getIp().equals(ip);
     }
 }

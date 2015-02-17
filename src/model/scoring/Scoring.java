@@ -39,9 +39,8 @@ public class Scoring implements Serializable {
 
     public Player[] getAllWithoutMe() {
         ArrayList<Player> playerWithoutMe = new ArrayList<>();
-        for (Player player : ManagerLobby.myLobby.getScoring().getPlayers()) {
+        for (Player player : getPlayers())
             if (!player.equals(ManagerLobby.myPlayer)) playerWithoutMe.add(player);
-        }
         return playerWithoutMe.toArray(new Player[playerWithoutMe.size()]);
     }
 }

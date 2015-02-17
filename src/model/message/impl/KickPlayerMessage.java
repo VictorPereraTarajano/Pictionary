@@ -3,7 +3,7 @@ package model.message.impl;
 import model.manager.ManagerLobby;
 import model.message.interfaces.Message;
 import model.messagedata.impl.KickPlayerData;
-import view.ui.display.impl.swing.kickplayerdisplay.KickPlayerDisplay;
+import view.ui.display.impl.swing.KickPlayerDisplay;
 
 import java.io.Serializable;
 

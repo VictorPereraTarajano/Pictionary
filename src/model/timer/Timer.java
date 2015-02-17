@@ -3,8 +3,8 @@ package model.timer;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import model.message.impl.state.impl.SendTimerStateMessage;
-import model.messagedata.impl.statedata.impl.SendTimerStateData;
+import model.statemessage.impl.SendTimerStateMessage;
+import model.statemessagedata.impl.SendTimerStateData;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

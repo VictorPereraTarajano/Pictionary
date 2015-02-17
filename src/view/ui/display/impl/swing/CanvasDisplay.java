@@ -1,11 +1,12 @@
-package view.ui.display.impl.awt;
+package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CanvasDisplay extends Canvas implements view.ui.display.interfaces.CanvasDisplay {
+public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.CanvasDisplay {
 
     private Graphics2D g2d;
     public BufferedImage image = null;
@@ -48,4 +49,5 @@ public class CanvasDisplay extends Canvas implements view.ui.display.interfaces.
             clear();
         repaint();
     }
+
 }

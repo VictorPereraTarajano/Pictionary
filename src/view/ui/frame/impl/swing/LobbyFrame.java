@@ -12,11 +12,7 @@ import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
 import model.messagedata.impl.HostMigrationData;
 import model.messagedata.impl.StartGameData;
-import view.ui.viewers.impl.swing.canvaspanel.CanvasPanel;
-import view.ui.viewers.impl.swing.chatpanel.ChatPanel;
-import view.ui.viewers.impl.swing.scoringpanel.ScoringPanel;
-import view.ui.viewers.impl.swing.timerpanel.TimerPanel;
-import view.ui.viewers.impl.swing.wordpanel.WordPanel;
+import view.ui.viewers.impl.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
