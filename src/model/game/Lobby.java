@@ -2,6 +2,8 @@ package model.game;
 
 import model.canvas.Canvas;
 import model.chat.Chat;
+import model.manager.ManagerLobby;
+import model.player.Player;
 import model.scoring.Scoring;
 import model.timer.Timer;
 
@@ -9,6 +11,7 @@ import java.io.Serializable;
 
 public class Lobby implements Serializable {
 
+    public static Player host;
     private Chat chat;
     private Canvas canvas;
     private Scoring scoring;
@@ -16,6 +19,7 @@ public class Lobby implements Serializable {
     private Timer timer;
 
     public Lobby() {
+        host = ManagerLobby.myPlayer;
         scoring = new Scoring();
         chat = new Chat();
         canvas = new Canvas();

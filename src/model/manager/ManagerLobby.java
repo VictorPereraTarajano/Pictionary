@@ -11,7 +11,6 @@ public class ManagerLobby {
     public static Lobby  myLobby;
     public static LobbyFrame myLobbyFrame;
     public static Player myPlayer;
-    public static Player host;
 
     public static Player getAnotherHost() {
         Player newHost = myLobby.getScoring().getPlayers()[new Random(System.currentTimeMillis()).nextInt(myLobby.getScoring().getPlayers().length - 1)];
