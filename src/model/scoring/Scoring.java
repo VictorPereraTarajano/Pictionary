@@ -4,6 +4,7 @@ import model.manager.ManagerLobby;
 import model.player.Player;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,15 +38,10 @@ public class Scoring implements Serializable {
     }
 
     public Player[] getAllWithoutMe() {
-        Player [] players = getPlayers();
-        Player [] playersWithoutMe = new Player [players.length-1];
-        int k= 0;
-        for (int i = 0; i < scoring.size(); i++) {
-            if (!players[i].equals(ManagerLobby.myPlayer)) {
-                playersWithoutMe[k] = players[i];
-                k++;
-            }
+        ArrayList<Player> playerWithoutMe = new ArrayList<>();
+        for (Player player : ManagerLobby.myLobby.getScoring().getPlayers()) {
+            if (!player.equals(ManagerLobby.myPlayer)) playerWithoutMe.add(player);
         }
-        return playersWithoutMe;
+        return playerWithoutMe.toArray(new Player[playerWithoutMe.size()]);
     }
 }

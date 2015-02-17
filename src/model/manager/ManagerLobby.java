@@ -11,6 +11,6 @@ public class ManagerLobby {
     public static Player myPlayer;
 
     public static Player getAnotherHost() {
-        return myLobby.getScoring().getAllWithoutMe()[0];
+        return ManagerLobby.myLobby.getScoring().getAllWithoutMe()[0];
     }
 }
