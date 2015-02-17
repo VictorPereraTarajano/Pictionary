@@ -122,8 +122,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1) {
-                    ManagerLobby.myLobby.host = ManagerLobby.getAnotherHost();
-                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 } else
                     new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 ManagerLobby.myLobbyFrame.setVisible(false);
