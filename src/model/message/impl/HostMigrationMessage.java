@@ -16,9 +16,9 @@ public class HostMigrationMessage implements Message, Serializable {
 
     @Override
     public void open() {
-            ManagerLobby.myLobby=hostMigrationData.getLobby();
-            ManagerLobby.myLobby.host=hostMigrationData.getAnotherHost();
-            ManagerLobby.myLobby.getScoring().remove(hostMigrationData.getLobby().host);
-             ManagerLobby.myLobbyFrame.refresh();
+        ManagerLobby.myLobby=hostMigrationData.getLobby();
+        ManagerLobby.myLobby.host=hostMigrationData.getAnotherHost();
+        ManagerLobby.myLobby.getScoring().remove(hostMigrationData.getLobby().host);
+        ManagerLobby.myLobbyFrame.refresh();
     }
 }

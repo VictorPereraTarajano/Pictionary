@@ -5,6 +5,7 @@ import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import model.manager.ManagerMenu;
 import model.message.impl.CloseLobbyMessage;
 import model.message.impl.HostMigrationMessage;
 import model.message.impl.StartGameMessage;
@@ -53,12 +54,12 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
 
             @Override
             public void windowClosing(WindowEvent e) {
-                MenuFrame.menuFrame.setVisible(true);
+                ManagerMenu.menuFrame.setVisible(true);
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                MenuFrame.menuFrame.setVisible(true);
+                ManagerMenu.menuFrame.setVisible(true);
             }
 
             @Override
@@ -121,11 +122,12 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         closeGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1) {
+                if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
                     new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                } else
+                else
                     new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 ManagerLobby.myLobbyFrame.setVisible(false);
+                ManagerMenu.menuFrame.setVisible(true);
             }
         });
         return closeGameOption;

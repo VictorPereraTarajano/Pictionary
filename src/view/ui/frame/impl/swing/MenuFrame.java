@@ -6,6 +6,7 @@ import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.player.RegisterPlayerCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import model.manager.ManagerMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,12 +18,11 @@ public class MenuFrame extends JFrame{
     private static final int WIDTH=250,HEIGHT=200;
     private static final String TITLE="Menu";
 
-    public static MenuFrame menuFrame;
     private JLabel log;
 
     public MenuFrame() {
         super(TITLE);
-        menuFrame=this;
+        ManagerMenu.menuFrame=this;
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
@@ -79,7 +79,7 @@ public class MenuFrame extends JFrame{
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        menuFrame.dispose();
+                        ManagerMenu.menuFrame.dispose();
                     }
                 });
             }
@@ -110,7 +110,7 @@ public class MenuFrame extends JFrame{
                     public void actionPerformed(ActionEvent e) {
                         new CreateLobbyCommand().execute();
                         ManagerLobby.myLobbyFrame.setVisible(true);
-                        menuFrame.setVisible(false);
+                        ManagerMenu.menuFrame.setVisible(false);
                     }
                 });
             }
