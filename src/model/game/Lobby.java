@@ -4,7 +4,6 @@ import model.canvas.Canvas;
 import model.chat.Chat;
 import model.scoring.Scoring;
 import model.timer.Timer;
-import model.word.Word;
 
 import java.io.Serializable;
 
@@ -15,7 +14,6 @@ public class Lobby implements Serializable {
     private Scoring scoring;
     private Game game;
     private Timer timer;
-    private Word word;
 
     public Lobby() {
         scoring = new Scoring();
@@ -23,11 +21,6 @@ public class Lobby implements Serializable {
         canvas = new Canvas();
         game = new Game();
         timer=new Timer();
-        word =new Word();
-    }
-
-    public Word getWord() {
-        return word;
     }
 
     public Game getGame() {

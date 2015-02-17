@@ -41,4 +41,5 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.chat
     public void refresh() {
         chatDisplay.display();
     }
+
 }

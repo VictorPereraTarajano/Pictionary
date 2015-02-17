@@ -13,10 +13,6 @@ public class ManagerLobby {
     public static Player myPlayer;
     public static Player host;
 
-    private static Player defaultPlayerName() {
-        return new Player("defaultUser", ManagerConnection.DefaultIP);
-    }
-
     public static Player getAnotherHost() {
         Player newHost = myLobby.getScoring().getPlayers()[new Random(System.currentTimeMillis()).nextInt(myLobby.getScoring().getPlayers().length - 1)];
         if (!newHost.equals(myPlayer))

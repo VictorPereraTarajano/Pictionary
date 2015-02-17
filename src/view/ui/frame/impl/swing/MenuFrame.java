@@ -19,7 +19,6 @@ public class MenuFrame extends JFrame{
 
     public static MenuFrame menuFrame;
     private JLabel log;
-    private JButton createLobbyButton;
 
     public MenuFrame() {
         super(TITLE);
@@ -94,8 +93,9 @@ public class MenuFrame extends JFrame{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new RegisterPlayerCommand().execute();
-                        createLobbyButton.setEnabled(true);
-                        setText("Change Playername");
+                        if (ManagerLobby.myPlayer!=null) {
+                            setText("Change Playername");
+                        }
                     }
                 });
             }
@@ -103,7 +103,7 @@ public class MenuFrame extends JFrame{
     }
 
     private Component createLobbyButton() {
-        createLobbyButton = new JButton("Create Lobby"){
+        return new JButton("Create Lobby"){
             {
                 addActionListener(new ActionListener() {
                     @Override
@@ -113,9 +113,7 @@ public class MenuFrame extends JFrame{
                         menuFrame.setVisible(false);
                     }
                 });
-                setEnabled(false);
             }
         };
-        return createLobbyButton;
     }
 }

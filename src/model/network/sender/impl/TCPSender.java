@@ -13,6 +13,7 @@ public class TCPSender implements Sender, Runnable  {
 
     private Socket socket;
     private Thread thread;
+    private Message message;
 
     public TCPSender(String IP) {
         createSocket(IP);
@@ -29,22 +30,23 @@ public class TCPSender implements Sender, Runnable  {
 
     @Override
     public void send(Message objectToSend) {
+        this.message=objectToSend;
+        thread.start();
+    }
+
+    @Override
+    public void run() {
         OutputStream os;
         try {
             if (socket==null) return;
             os = socket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(objectToSend);
+            oos.writeObject(message);
             oos.close();
             os.close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void run() {
-
     }
 }

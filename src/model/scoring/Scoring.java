@@ -4,7 +4,7 @@ import model.manager.ManagerLobby;
 import model.player.Player;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Scoring implements Serializable {
@@ -12,7 +12,7 @@ public class Scoring implements Serializable {
     private Map<Player, Score> scoring;
 
     public Scoring() {
-        scoring = new HashMap<>();
+        scoring = new LinkedHashMap<>();
         add(ManagerLobby.myPlayer,new Score(0));
     }
 

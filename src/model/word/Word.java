@@ -2,8 +2,15 @@ package model.word;
 
 import java.io.Serializable;
 
-/**
- * Created by Victor on 08/02/2015.
- */
-public class Word implements Serializable{
+public class Word implements Serializable {
+
+    private String word;
+
+    public Word(String word) {
+        this.word = word;
+    }
+
+    public String getWord() {
+        return word;
+    }
 }

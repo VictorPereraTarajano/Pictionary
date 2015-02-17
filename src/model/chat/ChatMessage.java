@@ -2,7 +2,9 @@ package model.chat;
 
 import model.player.Player;
 
-public class ChatMessage {
+import java.io.Serializable;
+
+public class ChatMessage implements Serializable{
 
     private Player player;
     private String message;

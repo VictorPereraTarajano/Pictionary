@@ -27,7 +27,7 @@ import java.awt.event.WindowListener;
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
     private static final String TITLE ="Pictionary";
-    private static final int WIDTH=1024, HEIGHT=720;
+    private static final int WIDTH=1280, HEIGHT=1024;
 
     private ScoringPanel scoringPanel;
     private ChatPanel chatPanel;
@@ -38,7 +38,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     public LobbyFrame() {
         super(TITLE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
         createMenu();
         createWidgets();
         createListeners();
@@ -83,7 +83,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         });
     }
 
-
     private void createMenu() {
         JMenuBar menu = new JMenuBar();
         menu.add(invitePlayerOption());
@@ -108,7 +107,12 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createTimerPanel() {
-        timerPanel=new TimerPanel();
+        timerPanel=new TimerPanel() {
+            @Override
+            public Dimension getMaximumSize() {
+                return new Dimension(100,100);
+            }
+        };
         return timerPanel;
     }
 
@@ -117,7 +121,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         closeGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.host.equals(ManagerLobby.myPlayer))
+                if (ManagerLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
                     new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(),ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 else
                     new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
@@ -208,6 +212,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     @Override
     public void refresh() {
         scoringPanel.refresh();
+        chatPanel.refresh();
     }
 
 }

@@ -24,6 +24,6 @@ public class TimerDisplay extends JPanel {
     }
 
     public void display() {
-
+        timer.setText(String.valueOf(ManagerLobby.myLobby.getTimer().getCount()));
     }
 }

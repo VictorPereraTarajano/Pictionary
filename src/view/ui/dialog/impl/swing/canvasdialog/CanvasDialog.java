@@ -13,17 +13,11 @@ import java.awt.event.ActionListener;
 
 public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.canvasdialog.CanvasDialog {
 
-    private static final int WIDTH=600, HEIGHT=100;
-
     public CanvasDialog() {
         super();
         setBorder(BorderFactory.createTitledBorder("Canvas Options"));
+        setLayout(new GridLayout(1,1));
         createWidgets();
-    }
-
-    @Override
-    public Dimension getMaximumSize() {
-        return new Dimension(WIDTH,HEIGHT);
     }
 
     private void createWidgets() {

@@ -1,12 +1,13 @@
 package view.ui.viewers.impl.swing.canvaspanel;
 
 import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 import model.message.impl.state.impl.SendCanvasStateMessage;
 import model.messagedata.impl.statedata.impl.SendCanvasStateData;
-import model.manager.ManagerConnection;
 import view.ui.dialog.impl.swing.canvasdialog.CanvasDialog;
-import view.ui.display.impl.awt.CanvasDisplay;
-import model.manager.ManagerLobby;
+import view.ui.display.impl.swing.canvasdisplay.CanvasDisplay;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -87,26 +88,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.ca
 
             }
         });
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-            }
 
-            @Override
-            public void componentMoved(ComponentEvent e) {
 
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-
-            }
-        });
     }
-
 }

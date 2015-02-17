@@ -1,8 +1,9 @@
 package view.ui.dialog.impl.swing.registerplayerdialog;
 
 import model.manager.ManagerConnection;
-import model.player.Player;
 import model.manager.ManagerLobby;
+import model.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +43,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        setVisible(false);
+                        mySelf.setVisible(false);
                     }
                 });
             }

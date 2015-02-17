@@ -1,10 +1,10 @@
 package view.ui.dialog.impl.swing.chatdialog;
 
 import controller.impl.sendcommand.SendMessageCommand;
-import model.message.impl.state.impl.SendChatStateMessage;
-import model.messagedata.impl.statedata.impl.SendChatStateData;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import model.message.impl.state.impl.SendChatStateMessage;
+import model.messagedata.impl.statedata.impl.SendChatStateData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +35,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.chat
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        //new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                         clear();
                     }
                 });
@@ -52,7 +53,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myLobby.getScoring().getPlayers()[0], getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                     clear();
                 }
             }
@@ -69,6 +70,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.chat
         });
         return textField;
     }
+
 
     @Override
     public String getMessage() {

@@ -1,5 +1,7 @@
 package view.persistence.interfaces;
 
-public interface Loader<T> {
-    public T load ();
+import model.word.WordSet;
+
+public interface Loader {
+    public WordSet load ();
 }
