@@ -11,10 +11,6 @@ public class ManagerLobby {
     public static Player myPlayer;
 
     public static Player getAnotherHost() {
-        return myLobby.getScoring().getPlayers()[1];
-        /*Player newHost = myLobby.getScoring().getPlayers()[new Random(System.currentTimeMillis()).nextInt(myLobby.getScoring().getPlayers().length - 1)];
-        if (!newHost.equals(myPlayer))
-            return newHost;
-        return getAnotherHost();*/
+        return myLobby.getScoring().getAllWithoutMe()[0];
     }
 }
