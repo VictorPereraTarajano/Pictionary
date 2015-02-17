@@ -28,7 +28,7 @@ import java.awt.event.WindowListener;
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
     private static final String TITLE ="Pictionary";
-    private static final int WIDTH=1280, HEIGHT=1024;
+    private static final int WIDTH=800, HEIGHT=500;
 
     private ScoringPanel scoringPanel;
     private ChatPanel chatPanel;

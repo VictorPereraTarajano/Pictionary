@@ -39,12 +39,12 @@ public class Scoring implements Serializable {
     public Player[] getAllWithoutMe() {
         Player [] players = getPlayers();
         Player [] playersWithoutMe = new Player [players.length-1];
+        int k= 0;
         for (int i = 0; i < scoring.size(); i++) {
-            if (players[i].equals(ManagerLobby.myPlayer)) {
-                i--;
-                continue;
+            if (!players[i].equals(ManagerLobby.myPlayer)) {
+                playersWithoutMe[k] = players[i];
+                k++;
             }
-            playersWithoutMe[i]=players[i];
         }
         return playersWithoutMe;
     }
