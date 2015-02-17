@@ -29,4 +29,11 @@ public class Player implements Serializable {
         Player player = (Player) obj;
         return player.getName().equals(name) && player.getIp().equals(ip);
     }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (ip != null ? ip.hashCode() : 0);
+        return result;
+    }
 }

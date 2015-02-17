@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Chat implements Serializable {
 
+    private final int MAX_SIZE_BUFFER=1;
     private List<ChatMessage> messages;
 
     public Chat() {
@@ -13,6 +14,7 @@ public class Chat implements Serializable {
     }
 
     public void add(ChatMessage chatMessage) {
+        if (messages.size() >= MAX_SIZE_BUFFER) clear();
         messages.add(chatMessage);
     }
 

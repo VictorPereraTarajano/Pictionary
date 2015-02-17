@@ -14,7 +14,7 @@ import java.net.SocketException;
 
 public class UDPSender implements Sender, Runnable {
 
-    private static final int MAX_SIZE_ARRAY=6400;
+    private static final int MAX_SIZE_ARRAY=2000;
 
     private String IP;
     private DatagramSocket socket;
@@ -38,7 +38,18 @@ public class UDPSender implements Sender, Runnable {
     @Override
     public void send(Message objectToSend) {
         this.message=objectToSend;
-        thread.start();
+
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(MAX_SIZE_ARRAY);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
+            objectOutputStream.writeObject(message);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+            DatagramPacket datagramPacket = new DatagramPacket(baos.toByteArray(), baos.toByteArray().length, InetAddress.getByName(IP), ManagerConnection.UDPort);
+            socket.send(datagramPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

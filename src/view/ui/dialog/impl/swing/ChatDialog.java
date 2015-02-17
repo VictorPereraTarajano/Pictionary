@@ -1,6 +1,7 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.sendcommand.SendMessageCommand;
+import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.statemessage.impl.SendChatStateMessage;
@@ -34,8 +35,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                        //new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
+                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                         clear();
                     }
                 });
@@ -53,7 +54,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
+                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                     clear();
                 }
             }

@@ -1,16 +1,19 @@
 package model.network.receiver.impl;
 
 import model.manager.ManagerConnection;
+import model.message.interfaces.Message;
 import model.network.receiver.interfaces.Receiver;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class UDPReceiver implements Receiver, Runnable {
 
-    private static final int MAX_BUFFER_SIZE=2048;
+    private static final int MAX_BUFFER_SIZE=6000;
 
     private Thread thread;
     private DatagramSocket socket;
@@ -53,8 +56,16 @@ public class UDPReceiver implements Receiver, Runnable {
             try {
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(receivePacket);
-                new model.deserializer.Deserializer().deserialize(receiveData, receivePacket.getLength()).open();
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(receivePacket.getData());
+                ObjectInputStream iStream = new ObjectInputStream(byteArrayInputStream);
+                Message messageCommand = (Message) iStream.readObject();
+                byteArrayInputStream.close();
+                iStream.close();
+                messageCommand.open();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }

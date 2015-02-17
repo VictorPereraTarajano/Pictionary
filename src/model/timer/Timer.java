@@ -4,7 +4,9 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.statemessage.impl.SendTimerStateMessage;
+import model.statemessage.impl.SendTurnStateMessage;
 import model.statemessagedata.impl.SendTimerStateData;
+import model.statemessagedata.impl.SendTurnStateData;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +22,16 @@ public class Timer extends javax.swing.Timer implements Serializable {
         super(1000,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(--mySelf.count)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                if (mySelf.count <= 88) {
+                    try {
+                        new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(0)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        finalize();
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                } else {
+                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(--mySelf.count)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                }
             }
         });
         mySelf=this;

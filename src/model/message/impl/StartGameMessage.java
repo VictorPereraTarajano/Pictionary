@@ -16,27 +16,30 @@ public class StartGameMessage implements Message, Serializable {
 
     @Override
     public void open() {
-        refreshCanvas();
-        refreshChat();
-        refreshWord();
-        refreshTimer();
+        initCanvas();
+        initChat();
+        initWord();
+        initTimer();
     }
 
-    private void refreshCanvas() {
+    private void initCanvas() {
         ManagerLobby.myLobby.getCanvas().clear();
+        if (!ManagerLobby.myPlayer.equals(startGameData.getTurn().getPlayer())) ManagerLobby.myLobby.getCanvas().lock();
         ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 
-    private void refreshChat () {
+    private void initChat() {
         ManagerLobby.myLobby.getChat().clear();
         ManagerLobby.myLobbyFrame.getChatPanel().refresh();
     }
 
-    private void refreshWord() {
+    private void initWord() {
+        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().clear();
+        ManagerLobby.myLobby.getGame().addTurn(startGameData.getTurn());
         ManagerLobby.myLobbyFrame.getWordPanel().refresh();
     }
 
-    private void refreshTimer ( ){
+    private void initTimer(){
         ManagerLobby.myLobby.getTimer().start();
     }
 }

@@ -3,6 +3,7 @@ package view.ui.frame.impl.swing;
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.sendcommand.SendMessageCommand;
+import model.game.Turn;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
@@ -12,6 +13,7 @@ import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
 import model.messagedata.impl.HostMigrationData;
 import model.messagedata.impl.StartGameData;
+import model.word.Word;
 import view.ui.viewers.impl.swing.*;
 
 import javax.swing.*;
@@ -31,6 +33,8 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private CanvasPanel canvasPanel;
     private TimerPanel timerPanel;
     private WordPanel wordPanel;
+
+    private JLabel logLabel;
 
     public LobbyFrame() {
         super(TITLE);
@@ -134,7 +138,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new StartGameMessage(new StartGameData()), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                new SendMessageCommand(new StartGameMessage(new StartGameData(new Turn(new Word("asd"),ManagerLobby.myPlayer))), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
             }
         });
         return startGameOption;
@@ -163,7 +167,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createLogLabel() {
-        JLabel logLabel = new JLabel(" Connected");
+        logLabel = new JLabel(" Connected");
         return logLabel;
     }
 
@@ -211,6 +215,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     public void refresh() {
         scoringPanel.refresh();
         chatPanel.refresh();
+        canvasPanel.refresh();
+        timerPanel.refresh();
+        wordPanel.refresh();
     }
 
 }

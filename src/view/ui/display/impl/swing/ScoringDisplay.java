@@ -27,4 +27,13 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
         return playername;
     }
 
+    @Override
+    public void refresh() {
+        playername.setText(player.getName()+","+ ManagerLobby.myLobby.getScoring().getScore(player).getScore());
+    }
+
+    @Override
+    public Player getPlayer() {
+        return this.player;
+    }
 }

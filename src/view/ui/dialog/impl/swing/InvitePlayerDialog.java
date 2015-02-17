@@ -22,7 +22,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         mySelf=this;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        setLayout(new GridLayout(3, 2));
+        setLayout(new GridLayout(2, 2));
         createWidgets();
         setVisible(true);
     }

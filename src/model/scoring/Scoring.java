@@ -17,6 +17,10 @@ public class Scoring implements Serializable {
         add(ManagerLobby.myPlayer,new Score(0));
     }
 
+    public boolean exists (Player player) {
+        return scoring.get(player)!=null;
+    }
+
     public void remove (Player player) {
         scoring.remove(player);
     }

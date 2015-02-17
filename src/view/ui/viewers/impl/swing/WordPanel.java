@@ -25,8 +25,12 @@ public class WordPanel extends JPanel implements view.ui.viewers.interfaces.Word
         return wordDisplay;
     }
 
+    public WordDisplay getWordDisplay() {
+        return wordDisplay;
+    }
+
     @Override
     public void refresh() {
-
+        wordDisplay.display();
     }
 }

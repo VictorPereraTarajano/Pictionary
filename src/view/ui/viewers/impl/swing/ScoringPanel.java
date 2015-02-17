@@ -30,8 +30,13 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
 
     @Override
     public void refresh() {
-        removeAll();
-        createWidgets();
+        for (int i  = 0; i < scoringDisplay.length; i++) {
+            if (ManagerLobby.myLobby.getScoring().exists(scoringDisplay[i].getPlayer())) {
+                scoringDisplay[i].refresh();
+            } else {
+                remove(i);
+            }
+        }
         revalidate();
         repaint();
     }
