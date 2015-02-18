@@ -26,7 +26,7 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
             add(createScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]));
     }
 
-    private Component createScoringDisplay(Player player) {
+    private ScoringDisplay createScoringDisplay(Player player) {
         scoringDisplay.add(new ScoringDisplay(player));
         return scoringDisplay.get(scoringDisplay.size()-1);
     }
@@ -42,13 +42,12 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
     public void refresh() {
         for (int i  = 0; i < ManagerLobby.myLobby.getScoring().size() ; i++) {
             ScoringDisplay sc = exists(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
-            if (sc != null){
-                sc.refresh();
+            if (sc == null) {
+                add(createScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]));
             } else {
-                createScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
+                sc.refresh();
             }
         }
         revalidate();
-        repaint();
     }
 }
