@@ -48,6 +48,9 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
                 sc.refresh();
             }
         }
+        for (int i = 0; i < scoringDisplay.size(); i++) {
+            if (!ManagerLobby.myLobby.getScoring().exists(scoringDisplay.get(i).getPlayer())) remove(scoringDisplay.get(i));
+        }
         revalidate();
     }
 }
