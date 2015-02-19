@@ -9,8 +9,10 @@ import java.util.List;
 
 public class Game implements Serializable {
 
+    public static final int MAX_TURNS=10;
     private List<Turn> turns;
     private WordSet wordSet;
+    private int iterator=0;
 
     public Game() {
         turns=new ArrayList<>();
@@ -25,7 +27,11 @@ public class Game implements Serializable {
         turns.add(turn);
     }
 
+    public void finishTurn () {
+        iterator++;
+    }
+
     public Turn getActualTurn () {
-        return turns.get(turns.size()-1);
+        return turns.get(iterator);
     }
 }

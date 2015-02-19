@@ -3,7 +3,7 @@ package view.ui.frame.impl.swing;
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.sendcommand.SendMessageCommand;
-import model.game.Turn;
+import model.game.GameBuilder;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
@@ -13,7 +13,6 @@ import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
 import model.messagedata.impl.HostMigrationData;
 import model.messagedata.impl.StartGameData;
-import model.word.Word;
 import view.ui.viewers.impl.swing.*;
 
 import javax.swing.*;
@@ -138,7 +137,8 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SendMessageCommand(new StartGameMessage(new StartGameData(new Turn(new Word("asd"),ManagerLobby.myPlayer))), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                if (ManagerLobby.myLobby.getScoring().size() > 1)
+                    new SendMessageCommand(new StartGameMessage(new StartGameData(new GameBuilder().load())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
             }
         });
         return startGameOption;

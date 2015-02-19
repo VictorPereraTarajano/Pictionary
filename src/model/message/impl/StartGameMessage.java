@@ -16,15 +16,19 @@ public class StartGameMessage implements Message, Serializable {
 
     @Override
     public void open() {
+        initGame();
         initCanvas();
         initChat();
         initWord();
         initTimer();
     }
 
+    private void initGame() {
+        ManagerLobby.myLobby.setGame(startGameData.getGame());
+    }
+
     private void initCanvas() {
         ManagerLobby.myLobby.getCanvas().clear();
-        if (!ManagerLobby.myPlayer.equals(startGameData.getTurn().getPlayer())) ManagerLobby.myLobby.getCanvas().lock();
         ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 
@@ -35,7 +39,6 @@ public class StartGameMessage implements Message, Serializable {
 
     private void initWord() {
         ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().clear();
-        ManagerLobby.myLobby.getGame().addTurn(startGameData.getTurn());
         ManagerLobby.myLobbyFrame.getWordPanel().refresh();
     }
 

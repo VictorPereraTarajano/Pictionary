@@ -23,8 +23,11 @@ public class Lobby implements Serializable {
         scoring = new Scoring();
         chat = new Chat();
         canvas = new Canvas();
-        game = new Game();
         timer=new Timer();
+    }
+
+    public void setGame(Game game) {
+        this.game=game;
     }
 
     public Game getGame() {

@@ -61,10 +61,8 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!ManagerLobby.myLobby.getCanvas().isLocked()) {
                     ManagerLobby.myLobby.getCanvas().add(new Point(e.getX(), e.getY()));
                     new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                }
             }
 
             @Override
@@ -85,10 +83,8 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (!ManagerLobby.myLobby.getCanvas().isLocked()) {
                     ManagerLobby.myLobby.getCanvas().add(new Point(e.getX(), e.getY()));
                     new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                }
             }
 
             @Override

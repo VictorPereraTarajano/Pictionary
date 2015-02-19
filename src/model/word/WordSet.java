@@ -15,4 +15,12 @@ public class WordSet implements Serializable {
     public void add(Word word) {
         wordList.add(word);
     }
+
+    public Word get(int i){
+        return wordList.get(i);
+    }
+
+    public int size () {
+        return wordList.size();
+    }
 }

@@ -3,8 +3,8 @@ package view.ui.dialog.impl.swing;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import model.statemessage.impl.SendLobbyStateMessage;
-import model.statemessagedata.impl.SendLobbyStateData;
+import model.statemessage.impl.SendCanvasStateMessage;
+import model.statemessagedata.impl.SendCanvasStateData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,10 +30,8 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (!ManagerLobby.myLobby.getCanvas().isLocked()) {
                             ManagerLobby.myLobby.getCanvas().clear();
-                            new SendMessageCommand(new SendLobbyStateMessage(new SendLobbyStateData(ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                        }
+                            new SendMessageCommand(new SendCanvasStateMessage(SendCanvasStateData.CLEAR), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                     }
             });
             }
