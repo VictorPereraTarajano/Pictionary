@@ -13,12 +13,11 @@ public class Scoring implements Serializable {
     private Map<Player, Score> scoring;
 
     public Scoring() {
-        scoring = new LinkedHashMap<>();
-        add(ManagerLobby.myPlayer,new Score(0));
-    }
-
-    public boolean exists (Player player) {
-        return scoring.get(player)!=null;
+        scoring = new LinkedHashMap() {
+            {
+                put(ManagerLobby.myPlayer,new Score(0));
+            }
+        };
     }
 
     public void remove (Player player) {

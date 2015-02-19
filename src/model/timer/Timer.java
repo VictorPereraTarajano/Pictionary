@@ -22,7 +22,7 @@ public class Timer extends javax.swing.Timer implements Serializable {
         super(1000,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mySelf.count <= 88) {
+                if (mySelf.count <= 0) {
                     try {
                         new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(0)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                         finalize();

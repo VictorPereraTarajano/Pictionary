@@ -5,7 +5,6 @@ import model.player.Player;
 import view.ui.display.impl.swing.ScoringDisplay;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,26 +30,17 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
         return scoringDisplay.get(scoringDisplay.size()-1);
     }
 
-    public ScoringDisplay exists (Player player) {
-        for (int i =0 ;  i < scoringDisplay.size(); i++) {
-            if (player.equals(scoringDisplay.get(i).getPlayer())) return scoringDisplay.get(i);
-        }
-        return null;
-    }
-
     @Override
     public void refresh() {
-        for (int i  = 0; i < ManagerLobby.myLobby.getScoring().size() ; i++) {
-            ScoringDisplay sc = exists(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
-            if (sc == null) {
+        for (int i = 0; i < ManagerLobby.myLobby.getScoring().size() ; i++) {
+            if (scoringDisplay.get(i) != null)
+                scoringDisplay.get(i).setPlayer(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
+            else
                 add(createScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]));
-            } else {
-                sc.refresh();
-            }
+            scoringDisplay.get(i).refresh();
         }
-        for (int i = 0; i < scoringDisplay.size(); i++) {
-            if (!ManagerLobby.myLobby.getScoring().exists(scoringDisplay.get(i).getPlayer())) remove(scoringDisplay.get(i));
-        }
+        for (int i = ManagerLobby.myLobby.getScoring().size(); i < scoringDisplay.size();i++)
+            remove(scoringDisplay.get((i)));
         revalidate();
     }
 }

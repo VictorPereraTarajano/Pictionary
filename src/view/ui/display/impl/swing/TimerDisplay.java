@@ -5,7 +5,7 @@ import model.manager.ManagerLobby;
 import javax.swing.*;
 import java.awt.*;
 
-public class TimerDisplay extends JPanel {
+public class TimerDisplay extends JPanel implements view.ui.display.interfaces.TimerDisplay{
 
     private JLabel timer;
 
@@ -23,6 +23,7 @@ public class TimerDisplay extends JPanel {
         return timer;
     }
 
+    @Override
     public void display() {
         timer.setText(String.valueOf(ManagerLobby.myLobby.getTimer().getCount()));
     }

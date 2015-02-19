@@ -33,6 +33,11 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     }
 
     @Override
+    public void setPlayer (Player player) {
+        this.player=player;
+    }
+
+    @Override
     public Player getPlayer() {
         return this.player;
     }

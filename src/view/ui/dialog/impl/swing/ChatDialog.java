@@ -35,13 +35,17 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
-                        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                        clear();
+                        sendMessage();
                     }
                 });
             }
         };
+    }
+
+    private void sendMessage () {
+        ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
+        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+        clear();
     }
 
     private void clear () {
@@ -54,9 +58,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n'){
-                    ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
-                    new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                    clear();
+                    sendMessage();
                 }
             }
 
