@@ -32,15 +32,17 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
 
     @Override
     public void refresh() {
-        for (int i = 0; i < ManagerLobby.myLobby.getScoring().size() ; i++) {
-            if (scoringDisplay.get(i) != null)
+        for (int i = 0; i < ManagerLobby.myLobby.getScoring().size(); i++) {
+            if (scoringDisplay.size() - 1 >= i)
                 scoringDisplay.get(i).setPlayer(ManagerLobby.myLobby.getScoring().getPlayers()[i]);
             else
                 add(createScoringDisplay(ManagerLobby.myLobby.getScoring().getPlayers()[i]));
             scoringDisplay.get(i).refresh();
         }
-        for (int i = ManagerLobby.myLobby.getScoring().size(); i < scoringDisplay.size();i++)
+        for (int i = ManagerLobby.myLobby.getScoring().size(); i < scoringDisplay.size(); i++) {
             remove(scoringDisplay.get((i)));
-        revalidate();
+            scoringDisplay.remove(scoringDisplay.get(i));
+        }
+    revalidate();
     }
 }
