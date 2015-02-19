@@ -137,7 +137,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.myLobby.getScoring().size() > 1)
+                if (ManagerLobby.myLobby.getScoring().size() > 1 && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer))
                     new SendMessageCommand(new StartGameMessage(new StartGameData(new GameBuilder().load())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
             }
         });

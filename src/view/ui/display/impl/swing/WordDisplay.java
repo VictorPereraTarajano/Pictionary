@@ -29,10 +29,12 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
 
     @Override
     public void display() {
-        for(int i = 0; i < ManagerLobby.myLobby.getGame().getActualTurn().getWord().getWord().length(); i++) {
-            word.setText(word.getText()+" _");
+        if (!ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+            for (int i = 0; i < ManagerLobby.myLobby.getGame().getActualTurn().getWord().getWord().length(); i++) {
+                word.setText(word.getText() + " _");
+            }
+        } else {
+            word.setText(ManagerLobby.myLobby.getGame().getActualTurn().getWord().getWord());
         }
     }
-
-
 }
