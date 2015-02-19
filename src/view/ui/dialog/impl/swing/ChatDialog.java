@@ -4,8 +4,11 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import model.scoring.Score;
 import model.statemessage.impl.SendChatStateMessage;
 import model.statemessagedata.impl.SendChatStateData;
+import model.word.Word;
+import view.process.WordMatcher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,10 +46,14 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private void sendMessage () {
-        if (!ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer, getMessage()));
-            new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-            clear();
+        if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+            if (WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().getActualTurn().getWord())) {
+                ManagerLobby.myLobby.getScoring().add(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getScoring().getScore(ManagerLobby.myPlayer).getScore()+10));
+            } else {
+                ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer, getMessage()));
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                clear();
+            }
         }
     }
 

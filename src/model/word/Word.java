@@ -13,4 +13,10 @@ public class Word implements Serializable {
     public String getWord() {
         return word;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Word word1 =  (Word) obj;
+        return word1.word.toUpperCase().equals(word);
+    }
 }

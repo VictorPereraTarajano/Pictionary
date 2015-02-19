@@ -85,7 +85,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+                if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
                     ManagerLobby.myLobby.getCanvas().add(new Point(e.getX(), e.getY()));
                     new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 }
