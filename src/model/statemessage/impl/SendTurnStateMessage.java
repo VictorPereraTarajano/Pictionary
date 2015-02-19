@@ -1,5 +1,6 @@
 package model.statemessage.impl;
 
+import model.manager.ManagerLobby;
 import model.message.interfaces.Message;
 import model.statemessagedata.impl.SendTurnStateData;
 
@@ -16,13 +17,29 @@ public class SendTurnStateMessage implements Message,Serializable {
 
     @Override
     public void open() {
-      /*  switch (sendTurnStateData.getTurnState()) {
-            case Turn.RUNNING:
-                break;
-            case Turn.STOPPED:
-                    new SendMessageCommand(new StartGameMessage(new StartGameData(new Turn (new Word("hola"),ManagerLobby.myPlayer))), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                break;
-            default:
-        }*/
+        initCanvas();
+        initChat();
+        initWord();
+        initTimer();
+    }
+
+    private void initCanvas() {
+        ManagerLobby.myLobby.getCanvas().clear();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
+    }
+
+    private void initChat() {
+        ManagerLobby.myLobby.getChat().clear();
+        ManagerLobby.myLobbyFrame.getChatPanel().refresh();
+    }
+
+    private void initWord() {
+        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().clear();
+        ManagerLobby.myLobbyFrame.getWordPanel().refresh();
+    }
+
+    private void initTimer(){
+        if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer))
+            ManagerLobby.myLobby.getTimer().start();
     }
 }

@@ -43,9 +43,11 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private void sendMessage () {
-        ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer,getMessage()));
-        new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())),ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-        clear();
+        if (!ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+            ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer, getMessage()));
+            new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+            clear();
+        }
     }
 
     private void clear () {

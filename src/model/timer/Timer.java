@@ -24,13 +24,14 @@ public class Timer extends javax.swing.Timer implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 if (mySelf.count <= 0) {
                     try {
+                        ManagerLobby.myLobby.getGame().finishTurn();
                         new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(0)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                         finalize();
                     } catch (Throwable throwable) {
                         throwable.printStackTrace();
                     }
                 } else {
-                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(--mySelf.count)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(--mySelf.count)), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
                 }
             }
         });
