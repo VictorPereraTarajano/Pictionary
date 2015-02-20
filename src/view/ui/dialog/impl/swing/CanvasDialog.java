@@ -31,7 +31,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                     @Override
                     public void actionPerformed(ActionEvent e) {
                             ManagerLobby.myLobby.getCanvas().clear();
-                            new SendMessageCommand(new SendCanvasStateMessage(SendCanvasStateData.CLEAR), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                            new SendMessageCommand(new SendCanvasStateMessage(SendCanvasStateData.CLEAR), ManagerConnection.TCPBroadcast()).execute();
                     }
             });
             }

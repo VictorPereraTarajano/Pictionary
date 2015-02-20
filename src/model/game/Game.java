@@ -12,7 +12,7 @@ public class Game implements Serializable {
     public static final int MAX_TURNS=10;
     private List<Turn> turns;
     private WordSet wordSet;
-    private int iterator=0;
+    private int pointer=0;
 
     public Game() {
         turns=new ArrayList<>();
@@ -27,11 +27,12 @@ public class Game implements Serializable {
         turns.add(turn);
     }
 
-    public void finishTurn () {
-        iterator++;
+    public Turn currentTurn () {
+        return turns.get(pointer);
     }
 
-    public Turn getActualTurn () {
-        return turns.get(iterator);
+    public Turn nextTurn() {
+        return turns.get(++pointer);
     }
+
 }

@@ -21,13 +21,12 @@ public class Player implements Serializable {
     }
 
     public String toString () {
-        return name+","+ip;
+        return name;
     }
 
     @Override
     public boolean equals(Object obj) {
-        Player player = (Player) obj;
-        return player.getName().equals(name) && player.getIp().equals(ip);
+        return ((Player) obj).getName().equals(name) && ((Player) obj).getIp().equals(ip);
     }
 
     @Override

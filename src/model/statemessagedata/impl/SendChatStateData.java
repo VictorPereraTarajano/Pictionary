@@ -1,24 +1,17 @@
 package model.statemessagedata.impl;
 
+import model.chat.ChatMessage;
 import model.statemessagedata.interfaces.SendStateData;
-import model.player.Player;
 
 public class SendChatStateData extends SendStateData {
 
-    private Player player;
-    private String message;
+    private ChatMessage chatMessage;
 
-    public SendChatStateData(Player player, String message) {
-        this.player = player;
-        this.message = message;
+    public SendChatStateData(ChatMessage chatMessage) {
+        this.chatMessage = chatMessage;
     }
 
-    public Player getPlayer() {
-        return player;
+    public ChatMessage getChatMessage() {
+        return chatMessage;
     }
-
-    public String getMessage() {
-        return message;
-    }
-
 }

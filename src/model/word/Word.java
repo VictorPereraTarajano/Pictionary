@@ -16,7 +16,6 @@ public class Word implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Word word1 =  (Word) obj;
-        return word1.word.toUpperCase().equals(word);
+        return ((Word) obj).word.toUpperCase().equals(word);
     }
 }

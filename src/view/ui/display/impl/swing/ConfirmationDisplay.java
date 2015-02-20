@@ -43,7 +43,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
-                        new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });

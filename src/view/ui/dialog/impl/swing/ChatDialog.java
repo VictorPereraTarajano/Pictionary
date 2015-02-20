@@ -48,13 +48,13 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private void sendMessage () {
-        if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            if (ManagerLobby.myLobby.getGame() != null&& WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().getActualTurn().getWord())) {
+        if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+            if (ManagerLobby.myLobby.getGame() != null&& WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
+                ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().lock();
                 ManagerLobby.myLobby.getScoring().add(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getScoring().getScore(ManagerLobby.myPlayer).getScore()+10));
-                new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
             } else {
-                ManagerLobby.myLobby.getChat().add(new ChatMessage(ManagerLobby.myPlayer, getMessage()));
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(new ChatMessage(ManagerLobby.myPlayer, getMessage()))), ManagerConnection.TCPBroadcast()).execute();
             }
             clear();
         }
@@ -91,5 +91,13 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     @Override
     public String getMessage() {
         return textField.getText();
+    }
+
+    public void unlock() {
+        textField.setEnabled(true);
+    }
+
+    public void lock() {
+        textField.setEnabled(false);
     }
 }

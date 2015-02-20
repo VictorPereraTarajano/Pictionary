@@ -32,6 +32,14 @@ public class ManagerConnection {
         return "DISCONNECTED";
     }
 
+    public static Sender []  TCPBroadcast () {
+        return TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers());
+    }
+
+    public static Sender []  UDPBroadcast () {
+        return UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers());
+    }
+
     public static Sender []  TCPBroadcast (Player[] players) {
         Sender[] senders = new Sender[players.length];
         for (int i = 0; i < senders.length; i++)

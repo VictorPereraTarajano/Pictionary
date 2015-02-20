@@ -1,18 +1,19 @@
 package model.statemessagedata.impl;
 
+import model.game.Turn;
 import model.messagedata.interfaces.MessageData;
 
 import java.io.Serializable;
 
 public class SendTurnStateData implements MessageData,Serializable {
 
-    private int turnState;
+    private Turn turn;
 
-    public SendTurnStateData(int turnState) {
-        this.turnState=turnState;
+    public SendTurnStateData(Turn turn) {
+        this.turn = turn;
     }
 
-    public int getTurnState() {
-        return turnState;
+    public Turn getTurn() {
+        return turn;
     }
 }

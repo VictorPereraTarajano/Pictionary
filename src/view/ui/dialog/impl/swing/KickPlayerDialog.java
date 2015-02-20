@@ -52,7 +52,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                        new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast()).execute();
                     }
                 });
             }

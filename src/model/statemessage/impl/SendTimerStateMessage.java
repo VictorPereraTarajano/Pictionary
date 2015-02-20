@@ -14,7 +14,7 @@ public class SendTimerStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
-        ManagerLobby.myLobby.getTimer().setCount(sendTimerStateData.getCount());
+        ManagerLobby.myLobby.getTimer().setCount(sendTimerStateData.getTimer().getCount());
         ManagerLobby.myLobbyFrame.getTimerPanel().refresh();
     }
 }

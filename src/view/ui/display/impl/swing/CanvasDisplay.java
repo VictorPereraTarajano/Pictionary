@@ -50,4 +50,11 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         repaint();
     }
 
+    public void lock() {
+        setEnabled(false);
+    }
+
+    public void unlock() {
+        setEnabled(true);
+    }
 }

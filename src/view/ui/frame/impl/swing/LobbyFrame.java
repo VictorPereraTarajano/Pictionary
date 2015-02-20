@@ -5,14 +5,15 @@ import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.game.GameBuilder;
 import model.manager.ManagerConnection;
+import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
 import model.message.impl.CloseLobbyMessage;
 import model.message.impl.HostMigrationMessage;
-import model.message.impl.StartGameMessage;
 import model.messagedata.impl.CloseLobbyData;
 import model.messagedata.impl.HostMigrationData;
-import model.messagedata.impl.StartGameData;
+import model.statemessage.impl.SendTurnStateMessage;
+import model.statemessagedata.impl.SendTurnStateData;
 import view.ui.viewers.impl.swing.*;
 
 import javax.swing.*;
@@ -122,9 +123,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
-                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast()).execute();
                 else
-                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast()).execute();
                 ManagerLobby.myLobbyFrame.setVisible(false);
                 ManagerMenu.menuFrame.setVisible(true);
             }
@@ -137,9 +138,11 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.myLobby.getScoring().size() > 1 && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer))
-                    new SendMessageCommand(new StartGameMessage(new StartGameData(new GameBuilder().load())), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-            }
+                if (ManagerLobby.myLobby.getScoring().size() > ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
+                    ManagerLobby.myLobby.setGame(new GameBuilder().load());
+                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                }
+                }
         });
         return startGameOption;
     }
@@ -184,6 +187,10 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private Component createScoringPanel() {
         scoringPanel=new ScoringPanel();
         return scoringPanel;
+    }
+
+    public JLabel getLogLabel() {
+        return logLabel;
     }
 
     @Override

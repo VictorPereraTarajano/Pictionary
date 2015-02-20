@@ -1,17 +1,17 @@
 package model.statemessagedata.impl;
 
 import model.statemessagedata.interfaces.SendStateData;
+import model.timer.Timer;
 
 public class SendTimerStateData extends SendStateData {
 
-    private int count;
+    private Timer timer;
 
-    public SendTimerStateData(int count) {
-        this.count = count;
+    public SendTimerStateData(Timer timer) {
+        this.timer = timer;
     }
 
-    public int getCount() {
-        return count;
+    public Timer getTimer() {
+        return timer;
     }
-
 }

@@ -52,6 +52,14 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         return canvasDisplay;
     }
 
+    private void sendMessage (Point point) {
+        if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
+            ManagerLobby.myLobby.getCanvas().add(point);
+            new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((point))), ManagerConnection.UDPBroadcast()).execute();
+        }
+    }
+
+
     private void addListeners() {
         canvasDisplay.addMouseListener(new MouseListener() {
             @Override
@@ -61,10 +69,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-                    ManagerLobby.myLobby.getCanvas().add(new Point(e.getX(), e.getY()));
-                    new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                }
+                sendMessage(new Point(e.getX(), e.getY()));
             }
 
             @Override
@@ -85,10 +90,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().getActualTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-                    ManagerLobby.myLobby.getCanvas().add(new Point(e.getX(), e.getY()));
-                    new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData(new Point(e.getX(), e.getY()))), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                }
+                sendMessage(new Point(e.getX(), e.getY()));
             }
 
             @Override

@@ -14,24 +14,19 @@ import java.io.Serializable;
 
 public class Timer extends javax.swing.Timer implements Serializable {
 
-    public static final int initCount = 90;
+    public static final int initCount = 20;
     private int count = initCount;
     private static Timer mySelf;
 
     public Timer() {
         super(1000,new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 if (mySelf.count <= 0) {
-                    try {
-                        ManagerLobby.myLobby.getGame().finishTurn();
-                        new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(0)), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
-                        finalize();
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
+                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
                 } else {
-                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(--mySelf.count)), ManagerConnection.UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers())).execute();
+                    mySelf.count--;
+                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(ManagerLobby.myLobby.getTimer())), ManagerConnection.UDPBroadcast()).execute();
                 }
             }
         });

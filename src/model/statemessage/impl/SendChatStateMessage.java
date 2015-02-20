@@ -16,7 +16,7 @@ public class SendChatStateMessage extends SendStateMessage{
 
     @Override
     public void open() {
-        ManagerLobby.myLobby.getChat().add(new ChatMessage(sendChatStateData.getPlayer(),sendChatStateData.getMessage()));
+        ManagerLobby.myLobby.getChat().add(new ChatMessage(sendChatStateData.getChatMessage().getPlayer(),sendChatStateData.getChatMessage().getMessage()));
         ManagerLobby.myLobbyFrame.getChatPanel().refresh();
     }
 }

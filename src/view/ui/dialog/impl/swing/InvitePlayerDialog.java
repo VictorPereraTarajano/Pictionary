@@ -1,10 +1,11 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.message.impl.InvitePlayerMessage;
 import model.messagedata.impl.InvitePlayerData;
-import model.network.sender.impl.TCPSender;
+import model.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +54,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), new TCPSender(ipField.getText())).execute();
+                        new SendMessageCommand(new InvitePlayerMessage(new InvitePlayerData(ManagerLobby.myPlayer, ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast(new Player[]{new Player("", ipField.getText())})).execute();
                         mySelf.setVisible(false);
                     }
                 });

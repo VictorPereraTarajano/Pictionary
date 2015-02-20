@@ -33,6 +33,11 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
     }
 
     @Override
+    public ChatDialog getChatDialog() {
+        return chatDialog;
+    }
+
+    @Override
     public ChatDisplay getChatDisplay() {
         return chatDisplay;
     }
