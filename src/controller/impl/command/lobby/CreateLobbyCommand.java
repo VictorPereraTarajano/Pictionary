@@ -4,6 +4,7 @@ import controller.impl.command.connection.ConnectCommand;
 import controller.interfaces.Command;
 import model.game.Lobby;
 import model.manager.ManagerConnection;
+import model.manager.ManagerGame;
 import view.ui.frame.impl.swing.LobbyFrame;
 import model.manager.ManagerLobby;
 
@@ -14,6 +15,7 @@ public class CreateLobbyCommand implements Command {
         if (ManagerConnection.getStatus().equals("DISCONNECTED")) new ConnectCommand().execute();
         ManagerLobby.myLobby=new Lobby();
         ManagerLobby.myLobbyFrame=new LobbyFrame();
+        ManagerLobby.myPlayer.setColor(ManagerGame.getAvailableColor());
         ManagerLobby.myLobby.host =ManagerLobby.myPlayer;
     }
 }

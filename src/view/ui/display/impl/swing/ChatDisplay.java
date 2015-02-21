@@ -1,14 +1,18 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
+import view.ui.frame.impl.swing.LobbyFrame;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 public class ChatDisplay extends JPanel implements view.ui.display.interfaces.ChatDisplay {
 
-    private static final int NUM_ROWS=30, NUM_COLUMNS=35;
-    private JTextArea textArea;
+    private JTextPane textArea;
 
     public ChatDisplay(){
         super();
@@ -29,7 +33,16 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
     }
 
     private Component createTextArea() {
-        textArea=new JTextArea(NUM_COLUMNS,NUM_ROWS);
+        textArea=new JTextPane() {
+            {
+
+            }
+            @Override
+            public Dimension getPreferredSize() {
+                LobbyFrame panel = (LobbyFrame) getTopLevelAncestor();
+                return new Dimension(panel.getChatPanel().getSize().width-20,panel.getChatPanel().getSize().height/2 + panel.getChatPanel().getSize().height/4);
+            }
+        };
         textArea.setOpaque(false);
         textArea.setEditable(false);
         return textArea;
@@ -37,9 +50,18 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
 
     @Override
     public void display() {
+        StyledDocument d = textArea.getStyledDocument();
+        SimpleAttributeSet aatrs = new SimpleAttributeSet();
         if (ManagerLobby.myLobby.getChat().isEmpty())
             textArea.setText("");
-        else
-            textArea.append(ManagerLobby.myLobby.getChat().getLastMessage().getPlayer().getName()+" : "+ManagerLobby.myLobby.getChat().getLastMessage().getMessage()+"\n");
+        else {
+            StyleConstants.setForeground(aatrs, ManagerLobby.myLobby.getChat().getLastMessage().getPlayer().getColor());
+            try {
+                d.insertString(d.getLength(), ManagerLobby.myLobby.getChat().getLastMessage().getPlayer().getName() + " : ", aatrs);
+                d.insertString(d.getLength(), ManagerLobby.myLobby.getChat().getLastMessage().getMessage() + "\n", null);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

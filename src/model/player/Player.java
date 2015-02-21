@@ -1,11 +1,13 @@
 package model.player;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public class Player implements Serializable {
 
     private String name;
     private String ip;
+    private Color color;
 
     public Player(String name, String ip) {
         this.name = name;
@@ -34,5 +36,13 @@ public class Player implements Serializable {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (ip != null ? ip.hashCode() : 0);
         return result;
+    }
+
+    public void setColor (Color color) {
+        this.color=color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
