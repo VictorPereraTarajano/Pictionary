@@ -17,7 +17,7 @@ public class ManagerGame {
 
     public static boolean isColorAvailable (Color color) {
         for (Player player : ManagerLobby.myLobby.getScoring().getPlayers()) {
-            if (player == null && player.getColor().equals(color))  return false;
+            if (player.getColor() != null && player.getColor().equals(color))  return false;
         }
         return true;
     }

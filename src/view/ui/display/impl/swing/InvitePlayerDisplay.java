@@ -64,7 +64,7 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ManagerLobby.myLobby=invitePlayerData.getLobby();
-                        ManagerLobby.myLobbyFrame=new LobbyFrame();
+                        //ManagerLobby.myLobbyFrame=new LobbyFrame();
                         ManagerLobby.myLobby.host =invitePlayerData.getPlayer();
                         new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(new Player[] {invitePlayerData.getPlayer()})).execute();
                         mySelf.setVisible(false);

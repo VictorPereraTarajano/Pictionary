@@ -1,5 +1,6 @@
 package model.statemessagedata.impl;
 
+import model.player.Player;
 import model.statemessagedata.interfaces.SendStateData;
 import model.scoring.Scoring;
 
