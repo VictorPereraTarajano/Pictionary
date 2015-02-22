@@ -1,5 +1,6 @@
 package model.statemessage.impl;
 
+import model.game.Game;
 import model.manager.ManagerLobby;
 import model.message.interfaces.Message;
 import model.statemessagedata.impl.SendTurnStateData;
@@ -52,6 +53,7 @@ public class SendTurnStateMessage implements Message,Serializable {
     }
 
     private void initTurn() {
+        if (ManagerLobby.myLobby.getGame() == null) ManagerLobby.myLobby.setGame(new Game());
         ManagerLobby.myLobby.getGame().addTurn(sendTurnStateData.getTurn());
     }
 
