@@ -6,8 +6,11 @@ import model.network.sender.impl.UDPSender;
 import model.network.sender.interfaces.Sender;
 import model.player.Player;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class ManagerConnection {
 
@@ -20,10 +23,14 @@ public class ManagerConnection {
 
     private static String getDefaultIP() {
         try {
-            return InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            return null;
+            URLConnection provider = new URL("http://api.ipify.org?format=json").openConnection();
+            BufferedReader exchangeRateInfo = new BufferedReader(new InputStreamReader(provider.getInputStream()));
+            String ip = exchangeRateInfo.readLine().split(":")[1];
+            return ip.substring(1,ip.length()-2 );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     public static String getStatus () {

@@ -22,7 +22,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         createWidgets();
         setLocation(500,500);
-        setLayout(new GridLayout(3,2));
+        setLayout(new GridLayout(2,2));
         setMinimumSize(new Dimension(300,100));
         setVisible(true);
     }
@@ -30,20 +30,8 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
     private void createWidgets() {
         add(createPlayerLabel());
         add(createPlayerNameField());
-        add(createIpLabel());
-        add(createIpField());
         add(createCancelButton());
         add(createAcceptButton());
-    }
-
-    private Component createIpLabel() {
-        return new JLabel(" Your IP : ");
-    }
-
-    private Component createIpField() {
-        ipField = new JTextField();
-        ipField.setToolTipText("Your ip");
-        return ipField;
     }
 
     private JLabel createPlayerLabel() {
@@ -89,9 +77,6 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
 
     @Override
     public Player getPlayer() {
-        if (ipField.getText().trim().isEmpty())
-            return new Player(playerNameField.getText(), ManagerConnection.DefaultIP);
-        else
-            return new Player(playerNameField.getText(), ipField.getText());
+        return new Player(playerNameField.getText(), ManagerConnection.DefaultIP);
     }
 }
