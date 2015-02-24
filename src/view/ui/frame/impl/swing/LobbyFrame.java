@@ -73,7 +73,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             }
 
             @Override
-            public void windowIconified(WindowEvent e) {
+            public void windowIconified(WindowEvent e)  {
 
             }
 
