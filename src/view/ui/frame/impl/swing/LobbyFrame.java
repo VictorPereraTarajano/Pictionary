@@ -16,15 +16,12 @@ import model.statemessage.impl.SendTurnStateMessage;
 import model.statemessagedata.impl.SendTurnStateData;
 import view.ui.viewers.impl.swing.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.IOException;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
@@ -51,11 +48,11 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void setIcon() {
-        try {
-            setIconImage(ImageIO.read(new File("C:\\Users\\Victor\\Desktop\\pinturillo.png")));
+        /*try {
+            setIconImage();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void createListeners() {

@@ -34,7 +34,7 @@ public class MenuFrame extends JFrame {
 
     private void setIcon() {
         try {
-            setIconImage(ImageIO.read(new File("C:\\Users\\Victor\\Desktop\\pinturillo.png")));
+            setIconImage(ImageIO.read(new File("")));
         } catch (IOException e) {
             e.printStackTrace();
         }
