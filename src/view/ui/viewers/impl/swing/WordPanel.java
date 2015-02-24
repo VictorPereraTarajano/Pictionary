@@ -4,6 +4,7 @@ package view.ui.viewers.impl.swing;
 import view.ui.display.impl.swing.WordDisplay;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class WordPanel extends JPanel implements view.ui.viewers.interfaces.WordPanel {
@@ -12,8 +13,9 @@ public class WordPanel extends JPanel implements view.ui.viewers.interfaces.Word
 
     public WordPanel() {
         super();
-        setBorder(BorderFactory.createTitledBorder("Word Panel"));
+        setBorder(new EmptyBorder(10,10,10,10));
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {

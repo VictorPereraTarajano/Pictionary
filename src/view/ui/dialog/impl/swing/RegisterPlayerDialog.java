@@ -2,6 +2,7 @@ package view.ui.dialog.impl.swing;
 
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import model.manager.ManagerMenu;
 import model.player.Player;
 
 import javax.swing.*;
@@ -12,7 +13,6 @@ import java.awt.event.ActionListener;
 public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.interfaces.RegisterPlayerDialog {
 
     private JTextField playerNameField;
-    private JTextField ipField;
 
     private static JDialog mySelf;
 
@@ -61,6 +61,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
                             new JOptionPane().showMessageDialog(mySelf, "Your playername is empty !!", "Failed to register", JOptionPane.WARNING_MESSAGE);
                         else {
                             ManagerLobby.myPlayer = getPlayer();
+                            ((JPanel)ManagerMenu.menuFrame.getContentPane().getComponents()[0]).getComponent(1).setEnabled(true);
                             mySelf.setVisible(false);
                         }
                     }

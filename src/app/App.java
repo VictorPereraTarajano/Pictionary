@@ -1,10 +1,10 @@
 package app;
 
-import view.ui.frame.impl.swing.MenuFrame;
+import model.manager.ManagerMenu;
 
 public class App {
 
     public static void main(String[] args) {
-        new MenuFrame();
+        ManagerMenu.menuFrame.setVisible(true);
     }
 }

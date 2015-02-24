@@ -2,6 +2,7 @@ package model.timer;
 
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
+import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.statemessage.impl.SendTimerStateMessage;
 import model.statemessage.impl.SendTurnStateMessage;
@@ -16,21 +17,24 @@ public class Timer extends javax.swing.Timer implements Serializable {
 
     public static final int initCount = 20;
     private int count = initCount;
-    private static Timer mySelf;
 
     public Timer() {
         super(1000,new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                if (mySelf.count <= 0) {
-                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
+                    ((Timer) e.getSource()).stop();
+                    if (ManagerLobby.myLobby.getGame().getPointer() < ManagerGame.NUM_MAX_TURNS)
+                        new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                    else
+                        System.out.println("Show scoring");
+                        //Muestro puntuaciones
                 } else {
-                    mySelf.count--;
+                    ManagerLobby.myLobby.getTimer().setCount(ManagerLobby.myLobby.getTimer().getCount() - 1);
                     new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(ManagerLobby.myLobby.getTimer())), ManagerConnection.UDPBroadcast()).execute();
                 }
             }
         });
-        mySelf=this;
     }
 
     public void setCount(int count) {
@@ -43,7 +47,7 @@ public class Timer extends javax.swing.Timer implements Serializable {
 
     @Override
     public void start() {
-        count=initCount;
+        ManagerLobby.myLobby.getTimer().setCount(Timer.initCount);
         super.start();
     }
 }

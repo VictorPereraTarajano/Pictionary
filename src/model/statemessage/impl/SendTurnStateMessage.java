@@ -1,6 +1,7 @@
 package model.statemessage.impl;
 
 import model.game.Game;
+import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.message.interfaces.Message;
 import model.statemessagedata.impl.SendTurnStateData;
@@ -46,7 +47,7 @@ public class SendTurnStateMessage implements Message,Serializable {
 
     private void sleep () {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -59,23 +60,28 @@ public class SendTurnStateMessage implements Message,Serializable {
 
     private void initCanvas() {
         ManagerLobby.myLobby.getCanvas().clear();
-        if (!ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer))
-            ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().unlock();
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().lock();
+        if (!ManagerGame.isPainter(ManagerLobby.myPlayer))
+            ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
+        else
+            ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(true);
         ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 
     private void initChat() {
         ManagerLobby.myLobby.getChat().clear();
-        if (!ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer))
-            ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().unlock();
+        if (!ManagerGame.isPainter(ManagerLobby.myPlayer))
+            ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(true);
         else
-            ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().lock();
+            ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
         ManagerLobby.myLobbyFrame.getChatPanel().refresh();
     }
 
     private void initWord() {
         ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().clear();
+        if (!ManagerGame.isPainter(ManagerLobby.myPlayer))
+            ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(false);
+        else
+            ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
         ManagerLobby.myLobbyFrame.getWordPanel().refresh();
     }
 

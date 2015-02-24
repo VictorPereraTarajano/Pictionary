@@ -8,28 +8,58 @@ import java.awt.*;
 
 public class ScoringDisplay extends JPanel implements view.ui.display.interfaces.ScoringDisplay {
 
+    private final int HEIGHT=50;
+
     private JLabel playername;
+    private JLabel score;
+
     private Player player;
 
     public ScoringDisplay(Player player) {
         super();
-        setBorder(BorderFactory.createTitledBorder("Scoring Display"));
+        setLayout(new GridLayout(1,2));
+        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         this.player=player;
         createWidgets();
     }
 
     private void createWidgets() {
-        add(createPlayerName());
+        add(new JPanel () {
+            {
+                add(createScore());
+            }
+        });
+        add(new JPanel () {
+            {
+                add(createPlayerName());
+            }
+        });
+    }
+
+    private Component createScore() {
+        return score = new JLabel(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore())) {
+            {
+                this.setFont(new Font("Lobster", Font.BOLD, 30));
+            }
+        };
     }
 
     private Component createPlayerName() {
-        playername = new JLabel(player.getName()+","+ ManagerLobby.myLobby.getScoring().getScore(player).getScore());
-        return playername;
+        return playername = new JLabel(player.getName()){
+            {
+                this.setFont(new Font("Lobster", Font.BOLD, 30));
+            }
+        };
     }
 
     @Override
     public void refresh() {
         playername.setText(player.getName()+","+ ManagerLobby.myLobby.getScoring().getScore(player).getScore());
+    }
+
+    @Override
+    public Dimension getMaximumSize() {
+        return new Dimension(ManagerLobby.myLobbyFrame.getScoringPanel().getWidth(), HEIGHT);
     }
 
     @Override

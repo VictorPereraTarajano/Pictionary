@@ -8,26 +8,36 @@ import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
-public class MenuFrame extends JFrame{
+public class MenuFrame extends JFrame {
 
     private static final int WIDTH=250,HEIGHT=200;
-    private static final String TITLE="Menu";
+    private static final String TITLE="Menu Pictionary";
 
     private JLabel log;
 
     public MenuFrame() {
         super(TITLE);
-        ManagerMenu.menuFrame=this;
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIcon();
         setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
         setLocation(500,500);
-        setVisible(true);
+    }
+
+    private void setIcon() {
+        try {
+            setIconImage(ImageIO.read(new File("C:\\Users\\Victor\\Desktop\\pinturillo.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createWidgets() {
@@ -48,8 +58,7 @@ public class MenuFrame extends JFrame{
     }
 
     private Component createLogLabel() {
-        log = new JLabel(ManagerConnection.getStatus());
-        return log;
+        return log = new JLabel(ManagerConnection.getStatus());
     }
 
     private Component createConnectDisconnectButton() {
@@ -60,13 +69,12 @@ public class MenuFrame extends JFrame{
                     public void actionPerformed(ActionEvent e) {
                         if (ManagerConnection.getStatus().equals("CONNECTED")) {
                             new DisconnectCommand().execute();
-                            log.setText(ManagerConnection.getStatus());
                             setText("Connect");
                         } else {
                             new ConnectCommand().execute();
-                            log.setText(ManagerConnection.getStatus());
                             setText("Disconnect");
                         }
+                        log.setText(ManagerConnection.getStatus());
                     }
                 });
             }
@@ -79,7 +87,7 @@ public class MenuFrame extends JFrame{
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerMenu.menuFrame.dispose();
+                        System.exit(0);
                     }
                 });
             }
@@ -93,9 +101,7 @@ public class MenuFrame extends JFrame{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new RegisterPlayerCommand().execute();
-                        if (ManagerLobby.myPlayer!=null) {
-                            setText("Change Playername");
-                        }
+                        if (ManagerLobby.myPlayer!=null) setText("Change Playername");
                     }
                 });
             }
@@ -113,6 +119,7 @@ public class MenuFrame extends JFrame{
                         ManagerMenu.menuFrame.setVisible(false);
                     }
                 });
+                setEnabled(false);
             }
         };
     }

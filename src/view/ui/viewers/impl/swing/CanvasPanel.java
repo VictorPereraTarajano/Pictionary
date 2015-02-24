@@ -9,6 +9,7 @@ import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.swing.CanvasDisplay;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,10 +22,11 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
     public CanvasPanel() {
         super();
-        setBorder(BorderFactory.createTitledBorder("Canvas Panel"));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(new EmptyBorder(10,10,10,10));
+        setLayout(new BorderLayout());
         createWidgets();
         addListeners();
+        setBackground(new Color(250,56,56));
     }
 
     @Override
@@ -38,8 +40,8 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private void createWidgets() {
-        add(createCanvasOptions());
-        add(createCanvasDisplay());
+        add(createCanvasOptions(), BorderLayout.NORTH);
+        add(createCanvasDisplay(), BorderLayout.CENTER);
     }
 
     private Component createCanvasOptions() {
@@ -59,6 +61,10 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         }
     }
 
+    @Override
+    public Dimension getMinimumSize() {
+        return new Dimension(500,100);
+    }
 
     private void addListeners() {
         canvasDisplay.addMouseListener(new MouseListener() {

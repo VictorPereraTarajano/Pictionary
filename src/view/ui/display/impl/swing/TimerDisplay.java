@@ -12,6 +12,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
     public TimerDisplay() {
         super();
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
@@ -19,8 +20,16 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
     }
 
     private Component createTimerLabel() {
-        timer = new JLabel(String.valueOf(ManagerLobby.myLobby.getTimer().getCount()));
-        return timer;
+        return timer = new JLabel(String.valueOf(ManagerLobby.myLobby.getTimer().getCount())) {
+            {
+                this.setFont(new Font("Lobster", Font.BOLD, 25));
+            }
+        };
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(200,50);
     }
 
     @Override

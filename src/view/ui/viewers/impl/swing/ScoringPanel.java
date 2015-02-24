@@ -5,6 +5,8 @@ import model.player.Player;
 import view.ui.display.impl.swing.ScoringDisplay;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,10 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
 
     public ScoringPanel() {
         super();
-        setBorder(BorderFactory.createTitledBorder("Scoring Panel"));
+        setBorder(new EmptyBorder(10,10,10,10));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
@@ -28,6 +31,11 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
     private ScoringDisplay createScoringDisplay(Player player) {
         scoringDisplay.add(new ScoringDisplay(player));
         return scoringDisplay.get(scoringDisplay.size()-1);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(200,200);
     }
 
     @Override
@@ -43,6 +51,6 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
             remove(scoringDisplay.get((i)));
             scoringDisplay.remove(scoringDisplay.get(i));
         }
-    revalidate();
+        revalidate();
     }
 }

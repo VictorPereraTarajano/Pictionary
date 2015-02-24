@@ -16,17 +16,20 @@ import model.statemessage.impl.SendTurnStateMessage;
 import model.statemessagedata.impl.SendTurnStateData;
 import view.ui.viewers.impl.swing.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
     private static final String TITLE ="Pictionary";
-    private static final int WIDTH=800, HEIGHT=500;
+    private static final int WIDTH=1280, HEIGHT=720;
 
     private ScoringPanel scoringPanel;
     private ChatPanel chatPanel;
@@ -39,10 +42,20 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     public LobbyFrame() {
         super(TITLE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
+        setIcon();
+        getContentPane().setLayout(new BorderLayout());
         createMenu();
         createWidgets();
         createListeners();
+        setBackground(Color.white);
+    }
+
+    private void setIcon() {
+        try {
+            setIconImage(ImageIO.read(new File("C:\\Users\\Victor\\Desktop\\pinturillo.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createListeners() {
@@ -85,21 +98,48 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void createMenu() {
-        JMenuBar menu = new JMenuBar();
-        menu.add(invitePlayerOption());
-        menu.add(kickPlayerOption());
-        menu.add(startGameOption());
-        menu.add(closeGameOption());
+        JMenuBar menu = new JMenuBar() {
+            {
+                add(invitePlayerOption());
+                add(kickPlayerOption());
+                add(startGameOption());
+                add(closeGameOption());
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(Color.RED);
+                g2d.drawImage(createImage(100,100),0,0, Color.blue, null);
+                super.paintComponent(g);
+            }
+        };
         setJMenuBar(menu);
     }
 
     private void createWidgets() {
-        add(createScoringPanel());
-        add(createCanvasPanel());
-        add(createChatPanel());
-        add(createTimerPanel());
-        add(createWordPanel());
-        add(createLogLabel());
+        add(new JPanel(){
+            {
+                setLayout(new BorderLayout());
+                add(createWordPanel(), BorderLayout.CENTER);
+                add(createTimerPanel(), BorderLayout.WEST);
+            }
+        }, BorderLayout.NORTH);
+        add(new JPanel() {
+            {
+                setLayout(new BorderLayout());
+                add(createScoringPanel(), BorderLayout.WEST);
+                add(createCanvasPanel(), BorderLayout.CENTER);
+                add(createChatPanel(), BorderLayout.EAST);
+            }
+        }, BorderLayout.CENTER);
+        add(new JPanel () {
+            {
+                setLayout(new FlowLayout(FlowLayout.LEFT));
+                add(createLogLabel());
+                setBackground(Color.DARK_GRAY);
+            }
+        }, BorderLayout.SOUTH);
     }
 
     private Component createWordPanel() {
@@ -170,7 +210,11 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createLogLabel() {
-        logLabel = new JLabel(" Connected");
+        logLabel = new JLabel(" Connected") {
+            {
+                setForeground(Color.WHITE);
+            }
+        };
         return logLabel;
     }
 
@@ -220,11 +264,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
 
     @Override
     public void refresh() {
-        scoringPanel.refresh();
-        chatPanel.refresh();
-        canvasPanel.refresh();
-        timerPanel.refresh();
-        wordPanel.refresh();
     }
 
 }

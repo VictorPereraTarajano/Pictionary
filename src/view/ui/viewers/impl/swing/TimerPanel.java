@@ -3,6 +3,7 @@ package view.ui.viewers.impl.swing;
 import view.ui.display.impl.swing.TimerDisplay;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.TimerPanel {
@@ -11,8 +12,9 @@ public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.Tim
 
     public TimerPanel() {
         super();
-        setBorder(BorderFactory.createTitledBorder("Timer Panel"));
+        setBorder(new EmptyBorder(10,10,10,10));
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {

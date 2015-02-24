@@ -15,9 +15,10 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
 
     public CanvasDialog() {
         super();
-        setBorder(BorderFactory.createTitledBorder("Canvas Options"));
-        setLayout(new GridLayout(1,1));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setPreferredSize(new Dimension(100,100));
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
@@ -34,7 +35,9 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                             new SendMessageCommand(new SendCanvasStateMessage(SendCanvasStateData.CLEAR), ManagerConnection.TCPBroadcast()).execute();
                     }
             });
+
             }
+
         };
     }
 

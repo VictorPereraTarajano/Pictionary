@@ -13,6 +13,7 @@ import model.word.Word;
 import view.process.WordMatcher;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,17 +22,20 @@ import java.awt.event.KeyListener;
 
 public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.ChatDialog {
 
-    private static final int MAX_COLUMNS=24;
+    private static final int MAX_COLUMNS=27;
     private JTextField textField;
 
     public ChatDialog() {
         super();
+        setBorder(new EmptyBorder(10,10,10,10));
+        setLayout(new BorderLayout());
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
-        add(createTextField());
-        add(createAcceptButton());
+        add(createTextField(), BorderLayout.WEST);
+        add(createAcceptButton(), BorderLayout.EAST);
     }
 
     private Component createAcceptButton() {
@@ -49,9 +53,10 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
 
     private void sendMessage () {
         if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            if (ManagerLobby.myLobby.getGame() != null&& WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
-                ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().lock();
-                ManagerLobby.myLobby.getScoring().add(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getScoring().getScore(ManagerLobby.myPlayer).getScore()+10));
+            if (ManagerLobby.myLobby.getGame() != null && WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
+                ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
+                ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
+                ManagerLobby.myLobby.getScoring().add(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getScoring().getScore(ManagerLobby.myPlayer).getScore() + 10));
                 new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
             } else {
                 new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(new ChatMessage(ManagerLobby.myPlayer, getMessage()))), ManagerConnection.TCPBroadcast()).execute();
@@ -65,13 +70,17 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
     }
 
     private Component createTextField() {
-        textField = new JTextField(MAX_COLUMNS);
+        textField = new JTextField(MAX_COLUMNS) {
+
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(200,20);
+            }
+        };
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar()=='\n'){
-                    sendMessage();
-                }
+                if (e.getKeyChar()=='\n') sendMessage();
             }
 
             @Override
@@ -93,11 +102,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         return textField.getText();
     }
 
-    public void unlock() {
-        textField.setEnabled(true);
+    public void setEditable(boolean editable) {
+        textField.setEnabled(editable);
     }
 
-    public void lock() {
-        textField.setEnabled(false);
-    }
 }

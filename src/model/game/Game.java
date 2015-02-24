@@ -19,6 +19,10 @@ public class Game implements Serializable {
         wordSet = new WordSetLoader().load();
     }
 
+    public int getPointer() {
+        return pointer;
+    }
+
     public WordSet getWordSet() {
         return wordSet;
     }

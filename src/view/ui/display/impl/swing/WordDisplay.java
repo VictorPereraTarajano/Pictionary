@@ -8,10 +8,12 @@ import java.awt.*;
 public class WordDisplay extends JPanel implements view.ui.display.interfaces.WordDisplay {
 
     private JLabel word;
+    private boolean visible=false;
 
     public WordDisplay() {
         super();
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
@@ -19,22 +21,35 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     }
 
     private Component createWordLabel() {
-        word=new JLabel();
-        return word;
+        return word=new JLabel() {
+            {
+                this.setFont(new Font("Lobster", Font.BOLD, 25));
+            }
+        };
     }
 
     public void clear () {
         word.setText("");
     }
 
+    private void showCodifiedWord () {
+        for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length(); i++) word.setText(word.getText() + " _");
+    }
+
+    private void showWord () {
+        word.setText(ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord());
+    }
+
     @Override
     public void display() {
-        if (!ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length(); i++) {
-                word.setText(word.getText() + " _");
-            }
-        } else {
-            word.setText(ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord());
-        }
+        if (visible)
+            showWord();
+        else
+            showCodifiedWord();
     }
+
+    public void setVisible(boolean visible) {
+        this.visible=visible;
+    }
+
 }
