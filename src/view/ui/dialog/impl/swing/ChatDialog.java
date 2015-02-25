@@ -13,7 +13,6 @@ import model.word.Word;
 import view.process.WordMatcher;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +26,6 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
 
     public ChatDialog() {
         super();
-        setBorder(new EmptyBorder(10,10,10,10));
         setLayout(new BorderLayout());
         createWidgets();
         setBackground(new Color(250,56,56));
@@ -71,10 +69,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
 
     private Component createTextField() {
         textField = new JTextField(MAX_COLUMNS) {
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(200,20);
+            {
+                setPreferredSize(new Dimension(100,30));
             }
         };
         textField.addKeyListener(new KeyListener() {

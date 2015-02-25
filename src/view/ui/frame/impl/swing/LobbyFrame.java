@@ -16,12 +16,16 @@ import model.statemessage.impl.SendTurnStateMessage;
 import model.statemessagedata.impl.SendTurnStateData;
 import view.ui.viewers.impl.swing.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
@@ -48,11 +52,11 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void setIcon() {
-        /*try {
-            setIconImage();
+        try {
+            setIconImage(ImageIO.read(getClass().getResource("/pinturillo.png")));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     private void createListeners() {
@@ -95,23 +99,30 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void createMenu() {
-        JMenuBar menu = new JMenuBar() {
+        JMenuBar menuBar = new JMenuBar() {
             {
-                add(invitePlayerOption());
-                add(kickPlayerOption());
-                add(startGameOption());
-                add(closeGameOption());
+                setBorder(null);
+            }
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(30,30);
             }
 
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.setColor(Color.RED);
-                g2d.drawImage(createImage(100,100),0,0, Color.blue, null);
-                super.paintComponent(g);
+                super.paintComponent(g2d);
+                g2d.setPaint(Color.DARK_GRAY);
+                g2d.fillRect(0,0,getWidth(),60);
             }
         };
-        setJMenuBar(menu);
+        menuBar.setLayout(new BoxLayout(menuBar, BoxLayout.X_AXIS));
+        menuBar.add(invitePlayerOption());
+        menuBar.add(kickPlayerOption());
+        menuBar.add(startGameOption());
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(closeGameOption());
+        setJMenuBar(menuBar);
     }
 
     private void createWidgets() {
@@ -154,8 +165,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return timerPanel;
     }
 
-    private Component closeGameOption() {
-        JMenuItem closeGameOption = new JMenuItem("Close Lobby");
+    private JMenu closeGameOption() {
+        JMenu closeGameOption = new JMenu("Close Lobby");
+        closeGameOption.setForeground(Color.WHITE);
         closeGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,8 +182,28 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return closeGameOption;
     }
 
-    private Component startGameOption() {
-        JMenuItem startGameOption = new JMenuItem("Start Game");
+    private JMenu startGameOption() {
+        JMenu startGameOption = new JMenu("Start Game");
+        startGameOption.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
+                    ManagerLobby.myLobby.setGame(new GameBuilder().load());
+                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                }
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
+        startGameOption.setForeground(Color.WHITE);
         startGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -184,8 +216,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return startGameOption;
     }
 
-    private Component invitePlayerOption() {
-        JMenuItem invitePlayerOption = new JMenuItem("Invite Player");
+    private JMenu invitePlayerOption() {
+        JMenu invitePlayerOption = new JMenu("Invite Player");
+        invitePlayerOption.setForeground(Color.WHITE);
         invitePlayerOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,8 +228,9 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return invitePlayerOption;
     }
 
-    private Component kickPlayerOption() {
-        JMenuItem kickPlayerOption = new JMenuItem("Kick Player");
+    private JMenu kickPlayerOption() {
+        JMenu kickPlayerOption = new JMenu("Kick Player");
+        kickPlayerOption.setForeground(Color.WHITE);
         kickPlayerOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

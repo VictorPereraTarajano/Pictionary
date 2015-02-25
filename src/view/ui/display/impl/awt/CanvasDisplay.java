@@ -33,8 +33,8 @@ public class CanvasDisplay extends Canvas implements view.ui.display.interfaces.
 
     private void applyChanges(Graphics g) {
         g.setColor(Color.BLACK);
-        if (!ManagerLobby.myLobby.getCanvas().isEmpty())
-            g.fillOval(ManagerLobby.myLobby.getCanvas().getLastPoint().x, ManagerLobby.myLobby.getCanvas().getLastPoint().y,10,10);
+        //if (!ManagerLobby.myLobby.getCanvas().isEmpty())
+            //g.fillOval(ManagerLobby.myLobby.getCanvas().getLastPoint().x, ManagerLobby.myLobby.getCanvas().getLastPoint().y,10,10);
     }
 
     public void clear () {

@@ -16,6 +16,7 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
     public ChatDisplay(){
         super();
         createWidgets();
+        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
@@ -27,26 +28,30 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
         return new JScrollPane(textArea) {
             {
                 setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+                setBorder(null);
             }
+
         };
     }
 
     private Component createTextArea() {
         textArea=new JTextPane() {
-
+            {
+                setBorder(null);
+                setPreferredSize(new Dimension(500,500));
+            }
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                g2d.drawImage(createImage(this.getSize().width, this.getSize().height),0,0,Color.blue, null);
+                super.paintComponent(g2d);
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(new Color(250, 56, 56));
+                g2d.fillRect(0,0,getSize().width,getSize().height);
+                g2d.setColor(Color.GRAY);
+                g2d.fillRoundRect(0, 0, this.getSize().width, this.getSize().height, 25, 25);
                 super.paintComponent(g2d);
             }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(ManagerLobby.myLobbyFrame.getChatPanel().getSize().width,ManagerLobby.myLobbyFrame.getChatPanel().getSize().height - ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().getSize().height);
-            }
         };
-        textArea.setOpaque(false);
         textArea.setEditable(false);
         return textArea;
     }

@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 public class MenuFrame extends JFrame {
@@ -34,7 +33,7 @@ public class MenuFrame extends JFrame {
 
     private void setIcon() {
         try {
-            setIconImage(ImageIO.read(new File("")));
+            setIconImage(ImageIO.read(getClass().getResource("/pinturillo.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

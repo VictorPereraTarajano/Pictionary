@@ -19,7 +19,17 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
         setBorder(new EmptyBorder(10,10,10,10));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         createWidgets();
-        setBackground(new Color(250,56,56));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        super.paintComponent(g2d);
+        g2d.setColor(new Color(250, 56, 56));
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.fillRect(0,0,getWidth(), getHeight());
+        g2d.setColor(Color.WHITE);
+        g2d.fillRoundRect(5,5,getWidth()-5, getHeight()-15,20,20);
     }
 
     private void createWidgets() {

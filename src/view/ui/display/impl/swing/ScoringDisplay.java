@@ -11,16 +11,20 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     private final int HEIGHT=50;
 
     private JLabel playername;
-    private JLabel score;
-
     private Player player;
 
     public ScoringDisplay(Player player) {
         super();
-        setLayout(new GridLayout(1,2));
-        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        this.player=player;
+        setLayout(new GridLayout(1, 2));
+        this.player = player;
         createWidgets();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.green);
+        g.fillRect(0,0,100,100);
     }
 
     private void createWidgets() {
@@ -37,6 +41,7 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     }
 
     private Component createScore() {
+        JLabel score;
         return score = new JLabel(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore())) {
             {
                 this.setFont(new Font("Lobster", Font.BOLD, 30));

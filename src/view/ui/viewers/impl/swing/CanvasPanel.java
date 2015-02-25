@@ -45,19 +45,18 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private Component createCanvasOptions() {
-        canvasDialog =new CanvasDialog();
-        return canvasDialog;
+        return canvasDialog =new CanvasDialog();
     }
 
     private Component createCanvasDisplay() {
-        canvasDisplay = new CanvasDisplay();
-        return canvasDisplay;
+        return canvasDisplay = new CanvasDisplay();
     }
 
     private void sendMessage (Point point) {
         if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
             ManagerLobby.myLobby.getCanvas().add(point);
-            new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((point))), ManagerConnection.UDPBroadcast()).execute();
+            if (ManagerLobby.myLobby.getCanvas().getPointList().size() >= ManagerLobby.myLobby.getCanvas().MAX_SIZE_BUFFER)
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])))), ManagerConnection.UDPBroadcast()).execute();
         }
     }
 

@@ -15,9 +15,10 @@ public class SendCanvasStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
-        if (sendCanvasStateData.isCleared()) ManagerLobby.myLobby.getCanvas().clear();
+        if (sendCanvasStateData.isCleared())
+            ManagerLobby.myLobby.getCanvas().clear();
         else
-            ManagerLobby.myLobby.getCanvas().add(sendCanvasStateData.getPoint());
+            ManagerLobby.myLobby.getCanvas().addAll(sendCanvasStateData.getPoints());
         ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 }

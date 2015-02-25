@@ -2,24 +2,36 @@ package model.canvas;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Canvas implements Serializable {
 
-    private final int MAX_SIZE_BUFFER=10;
+    public final int MAX_SIZE_BUFFER=20;
     private java.util.List<Point> pointList;
+
+    private Pencil pencil;
 
     public Canvas() {
         pointList=new ArrayList<>();
+        pencil=new Pencil();
+    }
+
+    public Pencil getPencil() {
+        return pencil;
+    }
+
+    public java.util.List<Point> getPointList() {
+        return pointList;
     }
 
     public void add(Point point) {
-        if (pointList.size() >= MAX_SIZE_BUFFER) clear();
+        if (pointList.size() > MAX_SIZE_BUFFER)
+            clear();
         pointList.add(point);
     }
 
-    public Point getLastPoint () {
-        return pointList.get(pointList.size()-1);
+    public void addAll (Point [] points) {
+        for (Point point : points) pointList.add(point);
     }
 
     public void clear ( ){

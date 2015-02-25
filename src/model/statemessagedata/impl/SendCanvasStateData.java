@@ -8,7 +8,8 @@ public class SendCanvasStateData extends SendStateData{
 
     public static SendCanvasStateData CLEAR = new SendCanvasStateData(true);
 
-    private Point point;
+    private Point [] points;
+
     private boolean isCleared;
     private Color color;
     private Dimension size;
@@ -17,13 +18,14 @@ public class SendCanvasStateData extends SendStateData{
         this.isCleared = isCleared;
     }
 
-    public SendCanvasStateData (Point point) {
-        this.point=point;
+
+    public SendCanvasStateData (Point [] points) {
+        this.points=points;
         this.isCleared=false;
     }
 
-    public Point getPoint() {
-        return point;
+    public Point[] getPoints() {
+        return points;
     }
 
     public boolean isCleared() {
