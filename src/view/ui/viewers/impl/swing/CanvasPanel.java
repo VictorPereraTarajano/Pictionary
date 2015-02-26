@@ -56,7 +56,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
             ManagerLobby.myLobby.getCanvas().add(point);
             if (ManagerLobby.myLobby.getCanvas().getPointList().size() >= ManagerLobby.myLobby.getCanvas().MAX_SIZE_BUFFER)
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])))), ManagerConnection.UDPBroadcast()).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])))), ManagerConnection.TCPBroadcast()).execute();
         }
     }
 

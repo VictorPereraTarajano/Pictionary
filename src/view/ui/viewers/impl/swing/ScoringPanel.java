@@ -28,7 +28,7 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
         g2d.setColor(new Color(250, 56, 56));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.fillRect(0,0,getWidth(), getHeight());
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(new Color(219,192,76));
         g2d.fillRoundRect(5,5,getWidth()-5, getHeight()-15,20,20);
     }
 

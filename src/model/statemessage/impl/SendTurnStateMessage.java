@@ -20,34 +20,37 @@ public class SendTurnStateMessage implements Message,Serializable {
     @Override
     public void open() {
         ManagerLobby.myLobbyFrame.getLogLabel().setText("Initializing new turn ...");
-        sleep();
+        sleep(500);
         initTurn();
         ManagerLobby.myLobbyFrame.getLogLabel().setText("Clearing Canvas ...");
-        sleep();
+        sleep(500);
         initCanvas();
         ManagerLobby.myLobbyFrame.getLogLabel().setText("Clearing Chat ...");
-        sleep();
+        sleep(500);
         initChat();
         ManagerLobby.myLobbyFrame.getLogLabel().setText("Changing Word  ...");
-        sleep();
+        sleep(500);
         initWord();
         ManagerLobby.myLobbyFrame.getLogLabel().setText("The turn begin in ...");
-        sleep();
-        ManagerLobby.myLobbyFrame.getLogLabel().setText("3 ...");
-        sleep();
-        ManagerLobby.myLobbyFrame.getLogLabel().setText("2 ...");
-        sleep();
-        ManagerLobby.myLobbyFrame.getLogLabel().setText("1 ...");
-        sleep();
+        sleep(500);
+        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("3");
+        sleep(1000);
+        clearCanvas();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("2");
+        sleep(1000);
+        clearCanvas();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("1");
+        sleep(1000);
+        clearCanvas();
         ManagerLobby.myLobbyFrame.getLogLabel().setText("GOOD LUCK");
-        sleep();
-        ManagerLobby.myLobbyFrame.getLogLabel().setText("");
+        sleep(500);
+        ManagerLobby.myLobbyFrame.getLogLabel().setText("Connected");
         initTimer();
     }
 
-    private void sleep () {
+    private void sleep (int delay) {
         try {
-            Thread.sleep(500);
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -58,13 +61,17 @@ public class SendTurnStateMessage implements Message,Serializable {
         ManagerLobby.myLobby.getGame().addTurn(sendTurnStateData.getTurn());
     }
 
-    private void initCanvas() {
+    private void clearCanvas () {
         ManagerLobby.myLobby.getCanvas().clear();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
+    }
+
+    private void initCanvas() {
         if (!ManagerGame.isPainter(ManagerLobby.myPlayer))
             ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
         else
             ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(true);
-        ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
+        clearCanvas();
     }
 
     private void initChat() {

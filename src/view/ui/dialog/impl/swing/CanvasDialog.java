@@ -28,6 +28,37 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         add(createBigPencilButton());
         add(createMediumPencilButton());
         add(createSmallPencilButton());
+        add(createPalette());
+    }
+
+    private Component createPalette() {
+        final JPopupMenu popupMenu = new JPopupMenu() {
+            {
+                setPopupSize(new Dimension(50,50));
+                setBackground(Color.BLUE);
+                setVisible(false);
+            }
+        };
+        return new JButton () {
+            {
+                setPreferredSize(new Dimension(25,25));
+                add(popupMenu);
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        popupMenu.setVisible(true);
+                    }
+                });
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                super.paintComponent(g2d);
+                g2d.setColor(Color.BLACK);
+                g2d.fillRect(2,2,getSize().width-4, getSize().height-4);
+            }
+        };
     }
 
     private Component createSmallPencilButton() {

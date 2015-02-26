@@ -14,8 +14,6 @@ import view.process.WordMatcher;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -28,25 +26,10 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         super();
         setLayout(new BorderLayout());
         createWidgets();
-        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
-        add(createTextField(), BorderLayout.WEST);
-        add(createAcceptButton(), BorderLayout.EAST);
-    }
-
-    private Component createAcceptButton() {
-        return new JButton("SEND") {
-            {
-                addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        sendMessage();
-                    }
-                });
-            }
-        };
+        add(createTextField(), BorderLayout.CENTER);
     }
 
     private void sendMessage () {
@@ -69,8 +52,14 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
 
     private Component createTextField() {
         textField = new JTextField(MAX_COLUMNS) {
+
             {
-                setPreferredSize(new Dimension(100,30));
+                setBorder(BorderFactory.createLineBorder(new Color(173,172,159)));
+                setBackground(new Color(217,216,196));
+            }
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(300,20);
             }
         };
         textField.addKeyListener(new KeyListener() {

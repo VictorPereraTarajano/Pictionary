@@ -23,7 +23,8 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     private Component createWordLabel() {
         return word=new JLabel() {
             {
-                this.setFont(new Font("Lobster", Font.BOLD, 25));
+                setForeground(Color.YELLOW);
+                setFont(new Font("Montserrat", Font.BOLD, 25));
             }
         };
     }

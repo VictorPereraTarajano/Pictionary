@@ -4,8 +4,7 @@ import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.CanvasDisplay {
@@ -15,47 +14,36 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
 
     public CanvasDisplay() {
         super();
-        setBorder(BorderFactory.createLineBorder(Color.WHITE, 10, true));
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                //image = image.getScaledInstance(((JPanel) e.getSource()).getWidth(), ((JPanel) e.getSource()).getHeight(), Image.SCALE_SMOOTH);
-                g2d = (Graphics2D) image.getGraphics();
-                System.out.println("asd");
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-
-            }
-        });
     }
 
     @Override
     public void update(Graphics g) {
-        paint(g);
+        paintComponent(g);
     }
 
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        if (image == null) {
-            image = (BufferedImage) createImage(getSize().width, getSize().height);
-            g2d = (Graphics2D) image.getGraphics();
-            clear();
-        }
+        if (image == null)
+            initComponents();
         applyChanges(g2d);
         g.drawImage(image, 0, 0, this);
+    }
+
+    private void initComponents () {
+        image = (BufferedImage) createImage(getSize().width, getSize().height);
+        g2d = (Graphics2D) image.getGraphics();
+        clear();
+    }
+
+    public void drawString (String number) {
+        g2d.setFont(new Font("Montserrat" , Font.BOLD, 400));
+        FontMetrics fm = getFontMetrics(g2d.getFont());
+        Rectangle2D textsize = fm.getStringBounds(number, g2d);
+        int xPos = (int) ((getSize().width - textsize.getWidth()) / 2);
+        int yPos = (int) ((getSize().height - textsize.getHeight()) / 2 + fm.getAscent());
+        g2d.drawString(number, xPos, yPos);
+        repaint();
     }
 
     private void applyChanges(Graphics2D g) {
@@ -66,7 +54,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         ManagerLobby.myLobby.getCanvas().clear();
     }
 
-    public void clear () {
+    private void clear () {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(new Color(250,56,56));
         g2d.fillRect(0,0,getSize().width,getSize().height);

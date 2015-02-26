@@ -3,10 +3,7 @@ package view.ui.display.impl.swing;
 import model.manager.ManagerLobby;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
 import java.awt.*;
 
 public class ChatDisplay extends JPanel implements view.ui.display.interfaces.ChatDisplay {
@@ -15,20 +12,40 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
 
     public ChatDisplay(){
         super();
+        setLayout(new BorderLayout());
         createWidgets();
-        setBackground(new Color(250,56,56));
     }
 
     private void createWidgets() {
-        add(createTextArea());
+        add(createChatLabel(), BorderLayout.NORTH);
+        add(createTextArea(), BorderLayout.CENTER);
         add(createScrollPane());
+    }
+
+
+    private Component createChatLabel() {
+        return new JLabel(" Chat"){
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, getSize().width, getSize().height);
+                g2d.setColor(new Color(225,218,89));
+                g2d.fillRoundRect(0, 0, getSize().width, getSize().height, 10, 10);
+                g2d.setColor(new Color(178,172,64));
+                g2d.drawRoundRect(0, 0, getSize().width, getSize().height, 10, 10);
+                super.paintComponent(g2d);
+            }
+        };
     }
 
     private Component createScrollPane() {
         return new JScrollPane(textArea) {
             {
                 setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-                setBorder(null);
+                setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                this.setBorder(null);
             }
 
         };
@@ -37,20 +54,18 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
     private Component createTextArea() {
         textArea=new JTextPane() {
             {
-                setBorder(null);
-                setPreferredSize(new Dimension(500,500));
+                setAutoscrolls(true);
+                DefaultCaret caret = (DefaultCaret)getCaret();
+                caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
             }
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
-                super.paintComponent(g2d);
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(new Color(250, 56, 56));
-                g2d.fillRect(0,0,getSize().width,getSize().height);
-                g2d.setColor(Color.GRAY);
-                g2d.fillRoundRect(0, 0, this.getSize().width, this.getSize().height, 25, 25);
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, getSize().width, getSize().height);
                 super.paintComponent(g2d);
             }
+
         };
         textArea.setEditable(false);
         return textArea;
