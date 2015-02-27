@@ -4,7 +4,7 @@ import model.word.Word;
 import model.word.WordSet;
 import view.persistence.interfaces.Loader;
 
-public class WordSetLoader implements Loader{
+public class WordSetLoader implements Loader<WordSet>{
     @Override
     public WordSet load() {
         WordSet wordSet = new WordSet();

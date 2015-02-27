@@ -11,6 +11,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
 
     private BufferedImage image;
     private Graphics2D g2d;
+    private Color backgroundColor;
 
     private JLabel timer;
 
@@ -34,7 +35,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
 
     private void clear() {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(new Color(250, 56, 56));
+        g2d.setColor(backgroundColor);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.WHITE);
         g2d.fillOval(5, 5, getWidth() - 10, getHeight() - 10);
@@ -81,5 +82,9 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
     public void display() {
         timer.setText(String.valueOf(ManagerLobby.myLobby.getTimer().getCount()));
         repaint();
+    }
+
+    public void setBackgroundColor(Color color) {
+        backgroundColor=color;
     }
 }

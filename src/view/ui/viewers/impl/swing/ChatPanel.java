@@ -11,13 +11,13 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
 
     private ChatDialog chatDialog;
     private ChatDisplay chatDisplay;
+    private Color backgroundColor;
 
     public ChatPanel() {
         super();
         setBorder(new EmptyBorder(10,10,10,10));
         setLayout(new BorderLayout());
         createWidgets();
-        setBackground(new Color(250,56,56));
         setOpaque(false);
     }
 
@@ -40,7 +40,7 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(new Color(250,56,56));
+        g2d.setColor(backgroundColor);
         g2d.fillRect(0,0,getSize().width,getSize().height);
         g2d.setColor(Color.WHITE);
         g2d.fillRoundRect(0, 0, this.getSize().width-5, this.getSize().height-5, 25, 25);
@@ -62,4 +62,8 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
         chatDisplay.display();
     }
 
+    public void setBackgroundColor(Color color) {
+        chatDialog.setBackgroundColor(color);
+        backgroundColor=color;
+    }
 }

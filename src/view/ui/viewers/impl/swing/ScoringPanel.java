@@ -13,6 +13,7 @@ import java.util.List;
 public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.ScoringPanel {
 
     private List<ScoringDisplay> scoringDisplay;
+    private Color backgroundColor;
 
     public ScoringPanel() {
         super();
@@ -25,10 +26,10 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g2d);
-        g2d.setColor(new Color(250, 56, 56));
+        g2d.setColor(backgroundColor);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.fillRect(0,0,getWidth(), getHeight());
-        g2d.setColor(new Color(219,192,76));
+        g2d.setColor(Color.WHITE);
         g2d.fillRoundRect(5,5,getWidth()-5, getHeight()-15,20,20);
     }
 
@@ -62,5 +63,9 @@ public class ScoringPanel extends JPanel implements view.ui.viewers.interfaces.S
             scoringDisplay.remove(scoringDisplay.get(i));
         }
         revalidate();
+    }
+
+    public void setBackgroundColor(Color color) {
+        backgroundColor=color;
     }
 }

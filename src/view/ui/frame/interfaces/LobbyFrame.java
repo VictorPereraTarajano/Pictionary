@@ -12,5 +12,4 @@ public interface LobbyFrame {
     public ScoringPanel getScoringPanel();
     public TimerPanel getTimerPanel();
     public WordPanel getWordPanel();
-    public void refresh();
 }

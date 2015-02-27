@@ -9,6 +9,7 @@ import java.awt.*;
 public class ChatDisplay extends JPanel implements view.ui.display.interfaces.ChatDisplay {
 
     private JTextPane textArea;
+    private Color backgroundColor;
 
     public ChatDisplay(){
         super();
@@ -87,4 +88,5 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
             }
         }
     }
+
 }

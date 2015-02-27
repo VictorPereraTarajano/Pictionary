@@ -14,7 +14,7 @@ public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.Tim
         super();
         setBorder(new EmptyBorder(10,10,10,10));
         createWidgets();
-        setBackground(new Color(250,56,56));
+        setBackground(new Color(105,202,136));
     }
 
     private void createWidgets() {
@@ -29,5 +29,10 @@ public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.Tim
     @Override
     public void refresh() {
         timerDisplay.display();
+    }
+
+    public void setBackgroundColor(Color color) {
+        timerDisplay.setBackgroundColor(color);
+        setBackground(color);
     }
 }

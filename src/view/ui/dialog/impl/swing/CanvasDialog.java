@@ -18,9 +18,9 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     public CanvasDialog() {
         super();
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        setPreferredSize(new Dimension(100,40));
+        setPreferredSize(new Dimension(200,40));
         createWidgets();
-        setBackground(new Color(250,56,56));
+        setOpaque(false);
     }
 
     private void createWidgets() {
@@ -31,32 +31,22 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         add(createPalette());
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        super.paintComponent(g2d);
+        g2d.setColor(new Color(225,218,89));
+        g2d.fillRoundRect(0, 0, getLayout().preferredLayoutSize(this).width, getLayout().preferredLayoutSize(this).height, 10, 10);
+    }
+
     private Component createPalette() {
-        final JPopupMenu popupMenu = new JPopupMenu() {
+        return new JPopupMenu() {
             {
-                setPopupSize(new Dimension(50,50));
-                setBackground(Color.BLUE);
-                setVisible(false);
-            }
-        };
-        return new JButton () {
-            {
-                setPreferredSize(new Dimension(25,25));
-                add(popupMenu);
-                addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        popupMenu.setVisible(true);
+                add(new JPanel() {
+                    {
+                        setBackground(Color.BLUE);
                     }
                 });
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2d = (Graphics2D) g;
-                super.paintComponent(g2d);
-                g2d.setColor(Color.BLACK);
-                g2d.fillRect(2,2,getSize().width-4, getSize().height-4);
             }
         };
     }

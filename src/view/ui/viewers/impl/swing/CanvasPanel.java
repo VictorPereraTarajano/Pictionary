@@ -5,7 +5,6 @@ import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.statemessage.impl.SendCanvasStateMessage;
 import model.statemessagedata.impl.SendCanvasStateData;
-import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.swing.CanvasDisplay;
 
 import javax.swing.*;
@@ -14,19 +13,18 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.MemoryImageSource;
 
 public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.CanvasPanel {
 
     private CanvasDisplay canvasDisplay;
-    private CanvasDialog canvasDialog;
 
     public CanvasPanel() {
         super();
-        setBorder(new EmptyBorder(10,10,10,10));
+        setBorder(new EmptyBorder(0,10,10,10));
         setLayout(new BorderLayout());
         createWidgets();
         addListeners();
-        setBackground(new Color(250,56,56));
     }
 
     @Override
@@ -40,12 +38,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private void createWidgets() {
-        add(createCanvasOptions(), BorderLayout.NORTH);
         add(createCanvasDisplay(), BorderLayout.CENTER);
-    }
-
-    private Component createCanvasOptions() {
-        return canvasDialog =new CanvasDialog();
     }
 
     private Component createCanvasDisplay() {
@@ -95,15 +88,52 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                sendMessage(new Point(e.getX(), e.getY()));
+                sendMessage(e.getPoint());
+                canvasDisplay.drawPainter(e.getPoint());
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
-
+                canvasDisplay.drawPainter(e.getPoint());
             }
         });
 
+        canvasDisplay.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setBlankCursor();
+                canvasDisplay.getPainterDisplay().setVisible(true);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                canvasDisplay.getPainterDisplay().setVisible(false);
+            }
+        });
+
+    }
+
+    private void setBlankCursor () {
+        ManagerLobby.myLobbyFrame.getCanvasPanel().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(16, 16, new int [16*16], 0, 16)), new Point(0, 0), "invisibleCursor"));
+    }
+
+    public void setBackgroundColor(Color color) {
+        canvasDisplay.setBackgroundColor(color);
+        setBackground(color);
     }
 }

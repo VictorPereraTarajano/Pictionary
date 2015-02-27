@@ -18,6 +18,7 @@ import view.ui.viewers.impl.swing.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
 
     private static final String TITLE ="Pictionary";
     private static final int WIDTH=1280, HEIGHT=720;
+    private final Color backgroundColor=new Color(105, 202, 136);
 
     private ScoringPanel scoringPanel;
     private ChatPanel chatPanel;
@@ -44,11 +46,11 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         super(TITLE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setIcon();
-        getContentPane().setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
         createMenu();
         createWidgets();
         createListeners();
-        setBackground(Color.white);
+        setBackgroundColor(backgroundColor);
     }
 
     private void setIcon() {
@@ -126,18 +128,26 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void createWidgets() {
-        add(new JPanel(){
-            {
-                setLayout(new BorderLayout());
-                add(createWordPanel(), BorderLayout.CENTER);
-                add(createTimerPanel(), BorderLayout.WEST);
-            }
-        }, BorderLayout.NORTH);
         add(new JPanel() {
             {
+                setBorder(new EmptyBorder(10,0,0,0));
+                setBackground(backgroundColor);
                 setLayout(new BorderLayout());
-                add(createScoringPanel(), BorderLayout.WEST);
-                add(createCanvasPanel(), BorderLayout.CENTER);
+                add(new JPanel(){
+                    {
+                        setLayout(new BorderLayout());
+                        add(createScoringPanel(), BorderLayout.CENTER);
+                        add(createTimerPanel(), BorderLayout.NORTH);
+                    }
+                }, BorderLayout.WEST);
+                add(new JPanel() {
+                    {
+                        setLayout(new BorderLayout());
+                        setBackground(backgroundColor);
+                        add(createCanvasPanel(), BorderLayout.CENTER);
+                        add(createWordPanel(), BorderLayout.NORTH);
+                    }
+                }, BorderLayout.CENTER);
                 add(createChatPanel(), BorderLayout.EAST);
             }
         }, BorderLayout.CENTER);
@@ -151,18 +161,16 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createWordPanel() {
-        wordPanel=new WordPanel();
-        return wordPanel;
+        return wordPanel=new WordPanel();
     }
 
     private Component createTimerPanel() {
-        timerPanel=new TimerPanel() {
+        return timerPanel=new TimerPanel() {
             @Override
             public Dimension getMaximumSize() {
                 return new Dimension(100,100);
             }
         };
-        return timerPanel;
     }
 
     private JMenu closeGameOption() {
@@ -241,17 +249,15 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createLogLabel() {
-        logLabel = new JLabel(" Connected") {
+        return logLabel = new JLabel(" Connected") {
             {
                 setForeground(Color.WHITE);
             }
         };
-        return logLabel;
     }
 
     private Component createChatPanel() {
-        chatPanel=new ChatPanel();
-        return chatPanel;
+        return chatPanel=new ChatPanel();
     }
 
     private Component createCanvasPanel() {
@@ -260,8 +266,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createScoringPanel() {
-        scoringPanel=new ScoringPanel();
-        return scoringPanel;
+        return scoringPanel=new ScoringPanel();
     }
 
     public JLabel getLogLabel() {
@@ -293,8 +298,12 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         return wordPanel;
     }
 
-    @Override
-    public void refresh() {
+    public void setBackgroundColor (Color color) {
+        canvasPanel.setBackgroundColor(color);
+        chatPanel.setBackgroundColor(color);
+        scoringPanel.setBackgroundColor(color);
+        timerPanel.setBackgroundColor(color);
+        wordPanel.setBackgroundColor(color);
     }
 
 }

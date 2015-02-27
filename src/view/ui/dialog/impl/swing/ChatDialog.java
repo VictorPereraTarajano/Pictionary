@@ -91,4 +91,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         textField.setEnabled(editable);
     }
 
+    public void setBackgroundColor(Color color) {
+
+    }
 }
