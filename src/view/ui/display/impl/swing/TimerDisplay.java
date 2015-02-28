@@ -31,7 +31,6 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
         }
         applyChanges(g2d);
         g.drawImage(image, 0, 0, this);
-        g.dispose();
     }
 
     private void clear() {

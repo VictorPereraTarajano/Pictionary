@@ -25,7 +25,6 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
         super.paintComponent(g);
         g.setColor(Color.green);
         g.fillRect(0,0,100,100);
-        g.dispose();
     }
 
     private void createWidgets() {
