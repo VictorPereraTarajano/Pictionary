@@ -13,9 +13,6 @@ public class PencilDisplay {
     private static final int maxAngle=90;
 
     private BufferedImage image;
-    private boolean visible=false;
-
-    private Point point = new Point(0,0);
 
     public PencilDisplay() {
         init();
@@ -25,24 +22,8 @@ public class PencilDisplay {
         image = new PencilImageLoader().load();
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
     public BufferedImage getImage() {
         return image;
-    }
-
-    public Point getPoint () {
-        return point;
-    }
-
-    public void setPosition(Point point) {
-        this.point=point;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible=visible;
     }
 
     public Image rotate () {
@@ -50,6 +31,6 @@ public class PencilDisplay {
     }
 
     private double getRotation() {
-        return (maxAngle*point.y)/ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().getSize().height;
+        return (maxAngle*ManagerLobby.myLobby.getCanvas().getPencil().getPosition().y)/ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().getSize().height;
     }
 }

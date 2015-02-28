@@ -15,6 +15,7 @@ public class SendCanvasStateMessage extends SendStateMessage {
 
     @Override
     public void open() {
+        ManagerLobby.myLobby.getCanvas().setPencil(sendCanvasStateData.getPencil());
         if (sendCanvasStateData.isCleared())
             ManagerLobby.myLobby.getCanvas().clear();
         else

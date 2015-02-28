@@ -45,11 +45,13 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         return canvasDisplay = new CanvasDisplay();
     }
 
-    private void sendMessage (Point point) {
+    private void sendMessage (Point point, boolean isPainting) {
+        ManagerLobby.myLobby.getCanvas().getPencil().setPainting(isPainting);
+        ManagerLobby.myLobby.getCanvas().getPencil().setPosition(point);
         if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
             ManagerLobby.myLobby.getCanvas().add(point);
             if (ManagerLobby.myLobby.getCanvas().getPointList().size() >= ManagerLobby.myLobby.getCanvas().MAX_SIZE_BUFFER)
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])))), ManagerConnection.TCPBroadcast()).execute();
+                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])), ManagerLobby.myLobby.getCanvas().getPencil())), ManagerConnection.TCPBroadcast()).execute();
         }
     }
 
@@ -67,7 +69,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sendMessage(new Point(e.getX(), e.getY()));
+                sendMessage(new Point(e.getX(), e.getY()), true);
             }
 
             @Override
@@ -88,13 +90,12 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                sendMessage(e.getPoint());
-                canvasDisplay.drawPainter(e.getPoint());
+                sendMessage(e.getPoint(), true);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                canvasDisplay.drawPainter(e.getPoint());
+                sendMessage(e.getPoint(), false);
             }
         });
 
@@ -117,12 +118,10 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
             @Override
             public void mouseEntered(MouseEvent e) {
                 setBlankCursor();
-                canvasDisplay.getPainterDisplay().setVisible(true);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                canvasDisplay.getPainterDisplay().setVisible(false);
             }
         });
 

@@ -1,5 +1,6 @@
 package model.statemessagedata.impl;
 
+import model.canvas.Pencil;
 import model.statemessagedata.interfaces.SendStateData;
 
 import java.awt.*;
@@ -11,17 +12,20 @@ public class SendCanvasStateData extends SendStateData{
     private Point [] points;
 
     private boolean isCleared;
-    private Color color;
-    private Dimension size;
+    private Pencil pencil;
 
     public SendCanvasStateData(boolean isCleared) {
         this.isCleared = isCleared;
     }
 
-
-    public SendCanvasStateData (Point [] points) {
+    public SendCanvasStateData (Point [] points, Pencil pencil) {
         this.points=points;
         this.isCleared=false;
+        this.pencil=pencil;
+    }
+
+    public Pencil getPencil() {
+        return pencil;
     }
 
     public Point[] getPoints() {
@@ -32,11 +36,4 @@ public class SendCanvasStateData extends SendStateData{
         return isCleared;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public Dimension getSize() {
-        return size;
-    }
 }

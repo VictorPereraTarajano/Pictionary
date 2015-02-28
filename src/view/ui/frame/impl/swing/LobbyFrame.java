@@ -233,6 +233,22 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
                 new InvitePlayerCommand().execute();
             }
         });
+        invitePlayerOption.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                new InvitePlayerCommand().execute();
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
         return invitePlayerOption;
     }
 

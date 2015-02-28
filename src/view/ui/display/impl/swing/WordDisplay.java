@@ -23,14 +23,15 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
 
     @Override
     protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         if (visible) {
-            Graphics2D g2d = (Graphics2D) g;
             super.paintComponent(g2d);
             g2d.setColor(new Color(244, 40, 40));
             g2d.fillRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height);
             g2d.setColor(new Color(119, 31, 31));
             g2d.fillRoundRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height, 10, 10);
         }
+        g2d.dispose();
     }
 
     private Component createWordLabel() {

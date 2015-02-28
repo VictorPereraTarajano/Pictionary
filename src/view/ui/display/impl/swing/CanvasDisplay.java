@@ -43,7 +43,8 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         if (image == null) initComponents();
         applyChanges(g2d);
         g.drawImage(image, 0, 0, this);
-        if (painterDisplay.isVisible()) g.drawImage(painterDisplay.rotate(), painterDisplay.getPoint().x - (painterDisplay.getImage().getWidth()/2), painterDisplay.getPoint().y - (painterDisplay.getImage().getHeight()/2), this);
+        g.drawImage(painterDisplay.rotate(), ManagerLobby.myLobby.getCanvas().getPencil().getPosition().x - (painterDisplay.getImage().getWidth()/2), ManagerLobby.myLobby.getCanvas().getPencil().getPosition().y - (painterDisplay.getImage().getHeight()/2), this);
+        g.dispose();
     }
 
     private void initComponents () {
@@ -60,7 +61,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     }
 
     private void applyChanges(Graphics2D g) {
-        drawPoints(g);
+        if (ManagerLobby.myLobby.getCanvas().getPencil().isPainting()) drawPoints(g);
     }
 
     private void drawPoints (Graphics g) {
@@ -107,8 +108,4 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         backgroundColor=color;
     }
 
-    public void drawPainter(Point point) {
-        painterDisplay.setPosition(point);
-        repaint();
-    }
 }

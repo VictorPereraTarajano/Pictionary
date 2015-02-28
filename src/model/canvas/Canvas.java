@@ -16,6 +16,10 @@ public class Canvas implements Serializable {
         pencil=new Pencil();
     }
 
+    public void setPencil(Pencil pencil) {
+        this.pencil = pencil;
+    }
+
     public Pencil getPencil() {
         return pencil;
     }

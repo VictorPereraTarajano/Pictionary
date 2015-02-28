@@ -6,15 +6,9 @@ import model.network.sender.impl.UDPSender;
 import model.network.sender.interfaces.Sender;
 import model.player.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-
 public class ManagerConnection {
 
-    public static final String DefaultIP= "213.231.107.155";
+    public static final String DefaultIP= "192.168.1.14";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;
@@ -22,7 +16,7 @@ public class ManagerConnection {
     public static Receiver TCPreceiver;
 
     private static String getDefaultIP() {
-        try {
+        /*try {
             URLConnection provider = new URL("http://api.ipify.org?format=json").openConnection();
             BufferedReader exchangeRateInfo = new BufferedReader(new InputStreamReader(provider.getInputStream()));
             String ip = exchangeRateInfo.readLine().split(":")[1];
@@ -30,7 +24,8 @@ public class ManagerConnection {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return null;*/
+        return "192.168.1.14";
     }
 
     public static String getStatus () {
