@@ -1,6 +1,6 @@
 package model.network.receiver.impl;
 
-import model.message.interfaces.Message;
+import controller.interfaces.Command;
 import model.manager.ManagerConnection;
 import model.network.receiver.interfaces.Receiver;
 
@@ -55,10 +55,10 @@ public class TCPReceiver implements Receiver, Runnable {
                 Socket socket = serverSocket.accept();
                 InputStream is = socket.getInputStream();
                 ObjectInputStream ois = new ObjectInputStream(is);
-                Message to = (Message) ois.readObject();
+                Command to = (Command) ois.readObject();
                 is.close();
                 socket.close();
-                to.open();
+                to.execute();
             } catch (IOException | ClassNotFoundException e) {
             }
         }

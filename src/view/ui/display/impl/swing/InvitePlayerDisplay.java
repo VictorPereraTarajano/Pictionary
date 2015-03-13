@@ -1,13 +1,7 @@
 package view.ui.display.impl.swing;
 
-import controller.impl.sendcommand.SendMessageCommand;
-import model.manager.ManagerConnection;
+import controller.impl.sendcommand.messagedata.impl.InvitePlayerData;
 import model.manager.ManagerLobby;
-import model.message.impl.ConfirmationMessage;
-import model.messagedata.impl.ConfirmationData;
-import model.messagedata.impl.InvitePlayerData;
-import model.player.Player;
-import view.ui.frame.impl.swing.LobbyFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +60,7 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
                         ManagerLobby.myLobby=invitePlayerData.getLobby();
                         //ManagerLobby.myLobbyFrame=new LobbyFrame();
                         ManagerLobby.myLobby.host =invitePlayerData.getPlayer();
-                        new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(new Player[] {invitePlayerData.getPlayer()})).execute();
+                        //new SendMessageCommand(new ConfirmationMessage(new ConfirmationData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast(new Player[] {invitePlayerData.getPlayer()})).execute();
                         mySelf.setVisible(false);
                     }
                 });

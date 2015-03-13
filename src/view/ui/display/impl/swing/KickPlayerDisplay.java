@@ -1,7 +1,7 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
-import model.messagedata.impl.KickPlayerData;
+import controller.impl.sendcommand.messagedata.impl.KickPlayerData;
 
 import javax.swing.*;
 import java.awt.*;

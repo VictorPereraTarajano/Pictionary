@@ -1,7 +1,7 @@
 package model.network.sender.interfaces;
 
-import model.message.interfaces.Message;
+import controller.interfaces.Command;
 
 public interface Sender {
-    public void send (Message objectToSend);
+    public void send (Command command);
 }

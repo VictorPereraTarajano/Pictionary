@@ -1,5 +1,5 @@
 package view.ui.viewers.interfaces;
 
 public interface TimerPanel {
-    public void refresh();
+    public void refresh(int count);
 }

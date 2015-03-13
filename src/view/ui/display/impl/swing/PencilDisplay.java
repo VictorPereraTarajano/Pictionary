@@ -3,12 +3,13 @@ package view.ui.display.impl.swing;
 import model.manager.ManagerLobby;
 import view.persistence.impl.PencilImageLoader;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
-public class PencilDisplay {
+public class PencilDisplay extends JComponent {
 
     private static final int maxAngle=90;
 
@@ -22,8 +23,14 @@ public class PencilDisplay {
         image = new PencilImageLoader().load();
     }
 
-    public BufferedImage getImage() {
-        return image;
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (ManagerLobby.myLobby.getCanvas().getPencil().isVisible()) drawPencil(g);
+    }
+
+    private void drawPencil (Graphics g) {
+        g.drawImage(rotate(), ManagerLobby.myLobby.getCanvas().getPencil().getPosition().x -256, ManagerLobby.myLobby.getCanvas().getPencil().getPosition().y -256, null);
     }
 
     public Image rotate () {

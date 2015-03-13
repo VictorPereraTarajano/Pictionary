@@ -1,5 +1,6 @@
 package view.ui.display.impl.swing;
 
+import model.chat.ChatMessage;
 import model.manager.ManagerLobby;
 
 import javax.swing.*;
@@ -9,7 +10,6 @@ import java.awt.*;
 public class ChatDisplay extends JPanel implements view.ui.display.interfaces.ChatDisplay {
 
     private JTextPane textArea;
-    private Color backgroundColor;
 
     public ChatDisplay(){
         super();
@@ -72,8 +72,12 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
         return textArea;
     }
 
+    public void clear () {
+        textArea.setText("");
+    }
+
     @Override
-    public void display() {
+    public void display(ChatMessage message) {
         StyledDocument d = textArea.getStyledDocument();
         SimpleAttributeSet aatrs = new SimpleAttributeSet();
         if (ManagerLobby.myLobby.getChat().isEmpty())

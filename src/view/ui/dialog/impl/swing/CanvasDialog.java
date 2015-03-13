@@ -1,10 +1,9 @@
 package view.ui.dialog.impl.swing;
 
+import controller.impl.command.canvas.ClearCanvasCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import model.statemessage.impl.SendCanvasStateMessage;
-import model.statemessagedata.impl.SendCanvasStateData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -135,8 +134,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                            ManagerLobby.myLobby.getCanvas().clear();
-                            new SendMessageCommand(new SendCanvasStateMessage(SendCanvasStateData.CLEAR), ManagerConnection.TCPBroadcast()).execute();
+                        new SendMessageCommand(new ClearCanvasCommand(), ManagerConnection.TCPBroadcast()).execute();
                     }
 
             });

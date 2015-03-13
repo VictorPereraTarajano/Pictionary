@@ -1,7 +1,7 @@
 package model.network.sender.impl;
 
+import controller.interfaces.Command;
 import model.manager.ManagerConnection;
-import model.message.interfaces.Message;
 import model.network.sender.interfaces.Sender;
 
 import java.io.ByteArrayOutputStream;
@@ -19,7 +19,7 @@ public class UDPSender implements Sender, Runnable {
     private String IP;
     private DatagramSocket socket;
     private Thread thread;
-    private Message message;
+    private Command command;
 
     public UDPSender(String IP) {
         this.IP = IP;
@@ -36,13 +36,13 @@ public class UDPSender implements Sender, Runnable {
     }
 
     @Override
-    public void send(Message objectToSend) {
-        this.message=objectToSend;
+    public void send(Command command) {
+        this.command= command;
 
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(MAX_SIZE_ARRAY);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
-            objectOutputStream.writeObject(message);
+            objectOutputStream.writeObject(command);
             objectOutputStream.flush();
             objectOutputStream.close();
             DatagramPacket datagramPacket = new DatagramPacket(baos.toByteArray(), baos.toByteArray().length, InetAddress.getByName(IP), ManagerConnection.UDPort);
@@ -56,7 +56,7 @@ public class UDPSender implements Sender, Runnable {
     public void run() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(MAX_SIZE_ARRAY);
-            new ObjectOutputStream(baos).writeObject(message);
+            new ObjectOutputStream(baos).writeObject(command);
             socket.send(new DatagramPacket(baos.toByteArray(), baos.toByteArray().length, InetAddress.getByName(IP), ManagerConnection.UDPort));
         } catch (IOException e) {
             e.printStackTrace();

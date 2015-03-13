@@ -79,8 +79,8 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
     }
 
     @Override
-    public void display() {
-        timer.setText(String.valueOf(ManagerLobby.myLobby.getTimer().getCount()));
+    public void display(int count) {
+        timer.setText(String.valueOf(count));
         repaint();
     }
 

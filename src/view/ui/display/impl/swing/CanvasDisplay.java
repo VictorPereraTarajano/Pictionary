@@ -12,24 +12,22 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     private Graphics2D g2d;
     public BufferedImage image = null;
     private Color backgroundColor;
-
+    private Point lastPoint;
     private PencilDisplay painterDisplay;
 
     public CanvasDisplay() {
         super();
         setLayout(new BorderLayout());
         createWidgets();
-        add(new CanvasDialog(), BorderLayout.NORTH);
         painterDisplay=new PencilDisplay();
+    }
+
+    public void setLastPoint(Point lastPoint) {
+        this.lastPoint = lastPoint;
     }
 
     private void createWidgets() {
         add(new CanvasDialog(), BorderLayout.NORTH);
-    }
-
-
-    public PencilDisplay getPainterDisplay() {
-        return painterDisplay;
     }
 
     @Override
@@ -40,11 +38,12 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        if (image == null) initComponents();
+        if (image==null) {
+            initComponents();
+        }
         applyChanges(g2d);
-        g.drawImage(image, 0, 0, this);
-        g.drawImage(painterDisplay.rotate(), ManagerLobby.myLobby.getCanvas().getPencil().getPosition().x - (painterDisplay.getImage().getWidth()/2), ManagerLobby.myLobby.getCanvas().getPencil().getPosition().y - (painterDisplay.getImage().getHeight()/2), this);
-        g.dispose();
+        g.drawImage(image,0,0,null);
+        painterDisplay.paintComponent(g);
     }
 
     private void initComponents () {
@@ -64,13 +63,20 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         if (ManagerLobby.myLobby.getCanvas().getPencil().isPainting()) drawPoints(g);
     }
 
-    private void drawPoints (Graphics g) {
-        g.setColor(ManagerLobby.myLobby.getCanvas().getPencil().getColor());
-        for (Point point : ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point [ManagerLobby.myLobby.getCanvas().getPointList().size()]))
-            g.fillOval(point.x, point.y, ManagerLobby.myLobby.getCanvas().getPencil().getDimension().width,ManagerLobby.myLobby.getCanvas().getPencil().getDimension().height);
+    private void drawPoints (Graphics2D g) {
+        g.setColor(Color.BLACK);
+        g.setStroke(new BasicStroke(ManagerLobby.myLobby.getCanvas().getPencil().getDimension().width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        Point [] arrayOfPoints = ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()]);
+        for (int i = 0; i < arrayOfPoints.length - 1 ; i++) {
+            if (lastPoint != null)
+                g.drawLine(lastPoint.x, lastPoint.y, arrayOfPoints[i + 1].x, arrayOfPoints[i + 1].y);
+            g.drawLine(arrayOfPoints[i].x, arrayOfPoints[i].y, arrayOfPoints[i + 1].x, arrayOfPoints[i + 1].y);
+        }
+        if (arrayOfPoints.length > 0)
+        lastPoint=arrayOfPoints[arrayOfPoints.length-1];
     }
 
-    private void clear () {
+    public void clear() {
         drawBorders(g2d);
         drawBackground(g2d);
     }
@@ -95,8 +101,6 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
 
     @Override
     public void display() {
-        if (ManagerLobby.myLobby.getCanvas().isEmpty())
-            clear();
         repaint();
     }
 

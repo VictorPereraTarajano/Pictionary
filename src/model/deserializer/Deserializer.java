@@ -1,6 +1,6 @@
 package model.deserializer;
 
-import model.message.interfaces.Message;
+import controller.impl.sendcommand.message.interfaces.Message;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

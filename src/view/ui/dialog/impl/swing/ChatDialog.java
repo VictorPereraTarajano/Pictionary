@@ -1,16 +1,10 @@
 package view.ui.dialog.impl.swing;
 
+import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import model.scoring.Score;
-import model.statemessage.impl.SendChatStateMessage;
-import model.statemessage.impl.SendScoringStateMessage;
-import model.statemessagedata.impl.SendChatStateData;
-import model.statemessagedata.impl.SendScoringStateData;
-import model.word.Word;
-import view.process.WordMatcher;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +26,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         add(createTextField(), BorderLayout.CENTER);
     }
 
-    private void sendMessage () {
+    /*private void sendMessage () {
         if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
             if (ManagerLobby.myLobby.getGame() != null && WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
                 ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
@@ -44,15 +38,14 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             }
             clear();
         }
-    }
+    }*/
 
-    private void clear () {
+    public void clear() {
         textField.setText("");
     }
 
     private Component createTextField() {
         textField = new JTextField(MAX_COLUMNS) {
-
             {
                 setBorder(BorderFactory.createLineBorder(new Color(173,172,159)));
                 setBackground(new Color(217,216,196));
@@ -65,7 +58,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar()=='\n') sendMessage();
+                if (e.getKeyChar()=='\n') new SendMessageCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
@@ -91,7 +84,4 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         textField.setEnabled(editable);
     }
 
-    public void setBackgroundColor(Color color) {
-
-    }
 }

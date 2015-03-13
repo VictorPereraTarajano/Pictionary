@@ -1,10 +1,12 @@
 package view.ui.viewers.impl.swing;
 
+import controller.impl.command.pencil.DrawPencilCommand;
+import controller.impl.command.pencil.HidePencilCommand;
+import controller.impl.command.pencil.MovePencilCommand;
+import controller.impl.command.pencil.ReleasePencilCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import model.statemessage.impl.SendCanvasStateMessage;
-import model.statemessagedata.impl.SendCanvasStateData;
 import view.ui.display.impl.swing.CanvasDisplay;
 
 import javax.swing.*;
@@ -45,16 +47,6 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         return canvasDisplay = new CanvasDisplay();
     }
 
-    private void sendMessage (Point point, boolean isPainting) {
-        ManagerLobby.myLobby.getCanvas().getPencil().setPainting(isPainting);
-        ManagerLobby.myLobby.getCanvas().getPencil().setPosition(point);
-        if (ManagerLobby.myLobby.getGame() == null || ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            ManagerLobby.myLobby.getCanvas().add(point);
-            if (ManagerLobby.myLobby.getCanvas().getPointList().size() >= ManagerLobby.myLobby.getCanvas().MAX_SIZE_BUFFER)
-                new SendMessageCommand(new SendCanvasStateMessage(new SendCanvasStateData((ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()])), ManagerLobby.myLobby.getCanvas().getPencil())), ManagerConnection.TCPBroadcast()).execute();
-        }
-    }
-
     @Override
     public Dimension getMinimumSize() {
         return new Dimension(500,100);
@@ -69,50 +61,12 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sendMessage(new Point(e.getX(), e.getY()), true);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
-        canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                sendMessage(e.getPoint(), true);
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                sendMessage(e.getPoint(), false);
-            }
-        });
-
-        canvasDisplay.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
 
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
+                new SendMessageCommand(new ReleasePencilCommand(), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
@@ -122,6 +76,18 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mouseExited(MouseEvent e) {
+               new HidePencilCommand().execute();
+            }
+        });
+        canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                new SendMessageCommand(new DrawPencilCommand(e.getPoint()), ManagerConnection.TCPBroadcast()).execute();
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                new MovePencilCommand(e.getPoint()).execute();
             }
         });
 

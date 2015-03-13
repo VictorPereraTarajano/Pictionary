@@ -1,5 +1,6 @@
 package view.ui.viewers.impl.swing;
 
+import model.chat.ChatMessage;
 import view.ui.dialog.impl.swing.ChatDialog;
 import view.ui.display.impl.swing.ChatDisplay;
 
@@ -27,13 +28,11 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
     }
 
     private Component createChatDialog() {
-        chatDialog = new ChatDialog();
-        return chatDialog;
+        return chatDialog = new ChatDialog();
     }
 
     private Component createChatDisplay() {
-        chatDisplay = new ChatDisplay();
-        return chatDisplay;
+        return chatDisplay = new ChatDisplay();
     }
 
     @Override
@@ -58,12 +57,15 @@ public class ChatPanel extends JPanel implements view.ui.viewers.interfaces.Chat
     }
 
     @Override
-    public void refresh() {
-        chatDisplay.display();
+    public void refresh(ChatMessage message) {
+        chatDisplay.display(message);
     }
 
     public void setBackgroundColor(Color color) {
-        chatDialog.setBackgroundColor(color);
         backgroundColor=color;
+    }
+
+    public void clear() {
+        chatDisplay.clear();
     }
 }

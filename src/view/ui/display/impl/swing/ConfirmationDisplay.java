@@ -1,13 +1,9 @@
 package view.ui.display.impl.swing;
 
-import controller.impl.sendcommand.SendMessageCommand;
-import model.manager.ManagerConnection;
+import controller.impl.sendcommand.messagedata.impl.ConfirmationData;
 import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
-import model.messagedata.impl.ConfirmationData;
 import model.scoring.Score;
-import model.statemessage.impl.SendScoringStateMessage;
-import model.statemessagedata.impl.SendScoringStateData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +41,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     public void actionPerformed(ActionEvent e) {
                         confirmationData.getPlayer().setColor(ManagerGame.getAvailableColor());
                         ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
-                        new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
+                       // new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });

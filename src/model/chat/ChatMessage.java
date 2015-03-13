@@ -10,7 +10,6 @@ public class ChatMessage implements Serializable{
     private String message;
 
     public ChatMessage(Player player, String message) {
-
         this.player = player;
         this.message = message;
     }

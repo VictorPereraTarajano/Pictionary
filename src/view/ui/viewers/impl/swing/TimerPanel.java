@@ -27,8 +27,8 @@ public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.Tim
     }
 
     @Override
-    public void refresh() {
-        timerDisplay.display();
+    public void refresh(int count) {
+        timerDisplay.display(count);
     }
 
     public void setBackgroundColor(Color color) {

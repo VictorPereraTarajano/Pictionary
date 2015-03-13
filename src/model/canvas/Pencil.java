@@ -7,7 +7,8 @@ public class Pencil implements Serializable {
 
     private Dimension dimension;
     private Color color;
-    private boolean isPainting=false;
+    private boolean painting =false;
+    private boolean visible =false;
     private Point position;
 
     public Pencil() {
@@ -15,13 +16,8 @@ public class Pencil implements Serializable {
         dimension=new Dimension(10,10);
         position=new Point(0,0);
     }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
+    public void setVisible(boolean isVisible) {
+        this.visible = isVisible;
     }
 
     public Dimension getDimension() {
@@ -33,11 +29,11 @@ public class Pencil implements Serializable {
     }
 
     public boolean isPainting() {
-        return isPainting;
+        return painting;
     }
 
     public void setPainting(boolean isPainting) {
-        this.isPainting = isPainting;
+        this.painting = isPainting;
     }
 
     public void setDimension(Dimension dimension) {
@@ -46,5 +42,17 @@ public class Pencil implements Serializable {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 }

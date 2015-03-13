@@ -1,7 +1,7 @@
 package model.network.receiver.impl;
 
 import model.manager.ManagerConnection;
-import model.message.interfaces.Message;
+import controller.impl.sendcommand.message.interfaces.Message;
 import model.network.receiver.interfaces.Receiver;
 
 import java.io.ByteArrayInputStream;

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Canvas implements Serializable {
 
-    public final int MAX_SIZE_BUFFER=20;
+    public final int MAX_SIZE_BUFFER=10;
     private java.util.List<Point> pointList;
 
     private Pencil pencil;

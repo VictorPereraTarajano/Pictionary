@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Chat implements Serializable {
 
-    private final int MAX_SIZE_BUFFER=1;
+    private final int MAX_SIZE_BUFFER=10;
     private List<ChatMessage> messages;
 
     public Chat() {

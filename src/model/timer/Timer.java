@@ -1,13 +1,6 @@
 package model.timer;
 
-import controller.impl.sendcommand.SendMessageCommand;
-import model.manager.ManagerConnection;
-import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
-import model.statemessage.impl.SendTimerStateMessage;
-import model.statemessage.impl.SendTurnStateMessage;
-import model.statemessagedata.impl.SendTimerStateData;
-import model.statemessagedata.impl.SendTurnStateData;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,15 +16,15 @@ public class Timer extends javax.swing.Timer implements Serializable {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
-                    ((Timer) e.getSource()).stop();
-                    if (ManagerLobby.myLobby.getGame().getPointer() < ManagerGame.NUM_MAX_TURNS)
-                        new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                    ManagerLobby.myLobby.getTimer().stop();
+                    /*if (ManagerLobby.myLobby.getGame().getPointer() < ManagerGame.NUM_MAX_TURNS)
+                        //new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
                     else
                         System.out.println("Show scoring");
-                        //Muestro puntuaciones
+                        //Muestro puntuaciones*/
                 } else {
                     ManagerLobby.myLobby.getTimer().setCount(ManagerLobby.myLobby.getTimer().getCount() - 1);
-                    new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(ManagerLobby.myLobby.getTimer())), ManagerConnection.UDPBroadcast()).execute();
+                    //new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(ManagerLobby.myLobby.getTimer().getCount())), ManagerConnection.UDPBroadcast()).execute();
                 }
             }
         });
@@ -49,5 +42,10 @@ public class Timer extends javax.swing.Timer implements Serializable {
     public void start() {
         ManagerLobby.myLobby.getTimer().setCount(Timer.initCount);
         super.start();
+    }
+
+    @Override
+    public void stop () {
+        super.stop();
     }
 }

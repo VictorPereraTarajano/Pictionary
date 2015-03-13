@@ -1,7 +1,7 @@
 package model.network.sender.impl;
 
+import controller.interfaces.Command;
 import model.manager.ManagerConnection;
-import model.message.interfaces.Message;
 import model.network.sender.interfaces.Sender;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public class TCPSender implements Sender, Runnable  {
 
     private Socket socket;
     private Thread thread;
-    private Message message;
+    private Command command;
 
     public TCPSender(String IP) {
         createSocket(IP);
@@ -29,8 +29,8 @@ public class TCPSender implements Sender, Runnable  {
     }
 
     @Override
-    public void send(Message objectToSend) {
-        this.message=objectToSend;
+    public void send(Command command) {
+        this.command = command;
         thread.start();
     }
 
@@ -41,7 +41,7 @@ public class TCPSender implements Sender, Runnable  {
             if (socket==null) return;
             os = socket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(os);
-            oos.writeObject(message);
+            oos.writeObject(command);
             oos.close();
             os.close();
             socket.close();

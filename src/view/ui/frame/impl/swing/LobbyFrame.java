@@ -2,18 +2,10 @@ package view.ui.frame.impl.swing;
 
 import controller.impl.command.player.InvitePlayerCommand;
 import controller.impl.command.player.KickPlayerCommand;
-import controller.impl.sendcommand.SendMessageCommand;
 import model.game.GameBuilder;
-import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
-import model.message.impl.CloseLobbyMessage;
-import model.message.impl.HostMigrationMessage;
-import model.messagedata.impl.CloseLobbyData;
-import model.messagedata.impl.HostMigrationData;
-import model.statemessage.impl.SendTurnStateMessage;
-import model.statemessagedata.impl.SendTurnStateData;
 import view.ui.viewers.impl.swing.*;
 
 import javax.imageio.ImageIO;
@@ -179,10 +171,10 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         closeGameOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
+                /*if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
                     new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast()).execute();
                 else
-                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast()).execute();
+                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast()).execute();*/
                 ManagerLobby.myLobbyFrame.setVisible(false);
                 ManagerMenu.menuFrame.setVisible(true);
             }
@@ -197,7 +189,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             public void menuSelected(MenuEvent e) {
                 if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
                     ManagerLobby.myLobby.setGame(new GameBuilder().load());
-                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                  //  new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
                 }
             }
 
@@ -217,7 +209,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             public void actionPerformed(ActionEvent e) {
                 if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
                     ManagerLobby.myLobby.setGame(new GameBuilder().load());
-                    new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
+                    //new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
                 }
                 }
         });
