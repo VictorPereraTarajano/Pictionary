@@ -17,7 +17,7 @@ public class DrawPencilCommand implements Command {
     public void execute() {
         ManagerLobby.myLobby.getCanvas().getPencil().setPosition(point);
         ManagerLobby.myLobby.getCanvas().add(point);
-        if (ManagerLobby.myLobby.getCanvas().getPointList().size() > 10) {
+        if (ManagerLobby.myLobby.getCanvas().getPointList().size() > 1) {
             ManagerLobby.myLobby.getCanvas().getPencil().setPainting(true);
             ManagerLobby.myLobby.getCanvas().getPencil().setVisible(true);
             ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
