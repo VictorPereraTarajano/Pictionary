@@ -1,7 +1,7 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
-import controller.impl.command.pencil.UpdatePencilDimensionCommand;
+import controller.impl.command.pencil.options.UpdatePencilDimensionCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
 

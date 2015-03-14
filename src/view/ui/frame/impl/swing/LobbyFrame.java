@@ -2,7 +2,7 @@ package view.ui.frame.impl.swing;
 
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
-import controller.impl.command.player.ShowInvitePlayerDialogCommand;
+import controller.impl.command.player.popups.ShowInvitePlayerDialogCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.game.GameBuilder;
 import model.manager.ManagerConnection;

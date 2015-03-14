@@ -1,4 +1,4 @@
-package controller.impl.command.player;
+package controller.impl.command.player.popups;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;

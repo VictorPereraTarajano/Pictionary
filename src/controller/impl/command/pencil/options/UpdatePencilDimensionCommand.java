@@ -1,4 +1,4 @@
-package controller.impl.command.pencil;
+package controller.impl.command.pencil.options;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;

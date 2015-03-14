@@ -9,5 +9,6 @@ public class ClearCanvasCommand implements Command {
         ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setLastPoint(null);
         ManagerLobby.myLobby.getCanvas().clear();
         ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().clear();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
     }
 }
