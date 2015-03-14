@@ -1,9 +1,11 @@
 package view.ui.frame.impl.swing;
 
+import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.command.player.popups.ShowInvitePlayerDialogCommand;
 import controller.impl.sendcommand.SendMessageCommand;
+import model.chat.ChatMessage;
 import model.game.GameBuilder;
 import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
@@ -176,6 +178,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             @Override
             public void menuSelected(MenuEvent e) {
                 new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.host})).execute();
+                new SendMessageCommand(new TypeChatCommand(new ChatMessage(new Player("·","", Color.BLACK),"El jugador "+ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override

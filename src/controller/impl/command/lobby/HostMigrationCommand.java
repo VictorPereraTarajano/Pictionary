@@ -19,6 +19,5 @@ public class HostMigrationCommand implements Command {
     public void execute() {
         ManagerLobby.myLobby=lobby;
         ManagerLobby.myLobby.host=player;
-        ManagerLobby.myLobbyFrame.getScoringPanel().refresh();
     }
 }

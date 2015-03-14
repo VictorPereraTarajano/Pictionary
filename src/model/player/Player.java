@@ -14,6 +14,12 @@ public class Player implements Serializable {
         this.ip = ip;
     }
 
+    public Player(String name, String ip, Color color) {
+        this.name = name;
+        this.ip = ip;
+        this.color = color;
+    }
+
     public String getName() {
         return name;
     }
