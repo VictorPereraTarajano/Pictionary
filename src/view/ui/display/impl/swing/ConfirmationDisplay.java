@@ -1,9 +1,10 @@
 package view.ui.display.impl.swing;
 
-import controller.impl.sendcommand.messagedata.impl.ConfirmationData;
+import controller.impl.command.scoring.UpdatePlayerScoringCommand;
+import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
-import model.manager.ManagerLobby;
-import model.scoring.Score;
+import model.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +17,13 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
     private static ConfirmationDisplay mySelf;
 
     private JLabel messageConfirmation;
-    private ConfirmationData confirmationData;
+    private Player player;
 
-    public ConfirmationDisplay(ConfirmationData confirmationData) {
+    public ConfirmationDisplay(Player player) {
         super();
         mySelf=this;
-        this.confirmationData = confirmationData;
-        setLocation(500,500);
+        this.player=player;
+        setLocation(500, 500);
         setMinimumSize(new Dimension(WIDTH,HEIGHT));
         createWidgets();
         setVisible(true);
@@ -39,9 +40,8 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        confirmationData.getPlayer().setColor(ManagerGame.getAvailableColor());
-                        ManagerLobby.myLobby.getScoring().add(confirmationData.getPlayer(), new Score(0));
-                       // new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
+                        player.setColor(ManagerGame.getAvailableColor());
+                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });
@@ -56,6 +56,6 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
 
     @Override
     public void display() {
-        messageConfirmation.setText(confirmationData.getPlayer().getName()+" has join in the lobby");
+        messageConfirmation.setText(player.getName()+" has join in the lobby");
     }
 }

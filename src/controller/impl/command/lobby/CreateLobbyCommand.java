@@ -10,10 +10,16 @@ import model.manager.ManagerLobby;
 
 public class CreateLobbyCommand implements Command {
 
+    private Lobby lobby;
+
+    public CreateLobbyCommand (Lobby lobby) {
+        this.lobby=lobby;
+    }
+
     @Override
     public void execute() {
         if (ManagerConnection.getStatus().equals("DISCONNECTED")) new ConnectCommand().execute();
-        ManagerLobby.myLobby=new Lobby();
+        ManagerLobby.myLobby=lobby;
         ManagerLobby.myLobbyFrame=new LobbyFrame();
         ManagerLobby.myPlayer.setColor(ManagerGame.getAvailableColor());
         ManagerLobby.myLobby.host =ManagerLobby.myPlayer;

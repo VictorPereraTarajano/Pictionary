@@ -2,7 +2,6 @@ package controller.impl.sendcommand.message.impl;
 
 import controller.impl.sendcommand.message.interfaces.Message;
 import controller.impl.sendcommand.messagedata.impl.InvitePlayerData;
-import view.ui.display.impl.swing.InvitePlayerDisplay;
 
 import java.io.Serializable;
 
@@ -16,6 +15,6 @@ public class InvitePlayerMessage implements Message, Serializable {
 
     @Override
     public void open() {
-        new InvitePlayerDisplay(invitePlayerData).display();
+        //new InvitePlayerDisplay(invitePlayerData).display();
     }
 }

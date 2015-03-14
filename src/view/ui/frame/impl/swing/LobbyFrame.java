@@ -1,6 +1,6 @@
 package view.ui.frame.impl.swing;
 
-import controller.impl.command.player.InvitePlayerCommand;
+import controller.impl.command.player.ShowInvitePlayerDialogCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import model.game.GameBuilder;
 import model.manager.ManagerGame;
@@ -222,13 +222,13 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         invitePlayerOption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new InvitePlayerCommand().execute();
+                new ShowInvitePlayerDialogCommand().execute();
             }
         });
         invitePlayerOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                new InvitePlayerCommand().execute();
+                new ShowInvitePlayerDialogCommand().execute();
             }
 
             @Override

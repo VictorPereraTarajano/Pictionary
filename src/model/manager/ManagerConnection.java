@@ -14,7 +14,7 @@ import java.net.URLConnection;
 
 public class ManagerConnection {
 
-    public static final String DefaultIP= "localhost";
+    public static final String DefaultIP= "192.168.1.15";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;

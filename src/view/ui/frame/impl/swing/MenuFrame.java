@@ -4,6 +4,7 @@ import controller.impl.command.connection.ConnectCommand;
 import controller.impl.command.connection.DisconnectCommand;
 import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.player.RegisterPlayerCommand;
+import model.game.Lobby;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
@@ -113,7 +114,7 @@ public class MenuFrame extends JFrame {
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new CreateLobbyCommand().execute();
+                        new CreateLobbyCommand(new Lobby()).execute();
                         ManagerLobby.myLobbyFrame.setVisible(true);
                         ManagerMenu.menuFrame.setVisible(false);
                     }
