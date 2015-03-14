@@ -58,7 +58,9 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar()=='\n') new SendMessageCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcast()).execute();
+                if (e.getKeyChar()=='\n') {
+                    new SendMessageCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcastAll()).execute();
+                }
             }
 
             @Override

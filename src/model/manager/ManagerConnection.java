@@ -39,12 +39,20 @@ public class ManagerConnection {
         return "DISCONNECTED";
     }
 
-    public static Sender []  TCPBroadcast () {
+    public static Sender []  TCPBroadcastAll () {
         return TCPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers());
     }
 
-    public static Sender []  UDPBroadcast () {
+    public static Sender []  UDPBroadcastAll () {
         return UDPBroadcast(ManagerLobby.myLobby.getScoring().getPlayers());
+    }
+
+    public static Sender []  TCPBroadcast () {
+        return TCPBroadcast(ManagerLobby.myLobby.getScoring().getAllWithoutMe());
+    }
+
+    public static Sender []  UDPBroadcast () {
+        return UDPBroadcast(ManagerLobby.myLobby.getScoring().getAllWithoutMe());
     }
 
     public static Sender []  TCPBroadcast (Player[] players) {

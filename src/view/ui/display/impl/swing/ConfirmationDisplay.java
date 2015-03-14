@@ -1,10 +1,10 @@
 package view.ui.display.impl.swing;
 
 import controller.impl.command.lobby.CreateLobbyCommand;
+import controller.impl.command.scoring.AddPlayerScoringCommand;
 import controller.impl.command.scoring.UpdatePlayerScoringCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
-import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.player.Player;
 
@@ -42,9 +42,9 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        player.setColor(ManagerGame.getAvailableColor());
+                        new AddPlayerScoringCommand(player).execute();
                         new SendMessageCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
-                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast(new Player[]{ManagerLobby.myPlayer,player})).execute();
+                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });

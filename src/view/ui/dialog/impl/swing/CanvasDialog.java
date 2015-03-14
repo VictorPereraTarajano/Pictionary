@@ -1,9 +1,9 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
+import controller.impl.command.pencil.UpdatePencilDimensionCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.manager.ManagerConnection;
-import model.manager.ManagerLobby;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -58,7 +58,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobby.getCanvas().getPencil().setDimension(new Dimension(5,5));
+                        new SendMessageCommand(new UpdatePencilDimensionCommand(new Dimension(5,5)), ManagerConnection.TCPBroadcastAll()).execute();
                     }
                 });
             }
@@ -84,7 +84,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobby.getCanvas().getPencil().setDimension(new Dimension(15,15));
+                        new SendMessageCommand(new UpdatePencilDimensionCommand(new Dimension(15,15)), ManagerConnection.TCPBroadcastAll()).execute();
                     }
                 });
             }
@@ -110,7 +110,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        ManagerLobby.myLobby.getCanvas().getPencil().setDimension(new Dimension(10,10));
+                        new SendMessageCommand(new UpdatePencilDimensionCommand(new Dimension(10,10)), ManagerConnection.TCPBroadcastAll()).execute();
                     }
                 });
             }
@@ -134,7 +134,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new ClearCanvasCommand(), ManagerConnection.TCPBroadcast()).execute();
+                        new SendMessageCommand(new ClearCanvasCommand(), ManagerConnection.TCPBroadcastAll()).execute();
                     }
 
             });

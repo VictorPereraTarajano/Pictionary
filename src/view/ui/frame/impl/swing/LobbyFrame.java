@@ -1,11 +1,15 @@
 package view.ui.frame.impl.swing;
 
-import controller.impl.command.player.ShowInvitePlayerDialogCommand;
+import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
+import controller.impl.command.player.ShowInvitePlayerDialogCommand;
+import controller.impl.sendcommand.SendMessageCommand;
 import model.game.GameBuilder;
+import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
+import model.player.Player;
 import view.ui.viewers.impl.swing.*;
 
 import javax.imageio.ImageIO;
@@ -168,15 +172,20 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private JMenu closeGameOption() {
         JMenu closeGameOption = new JMenu("Close Lobby");
         closeGameOption.setForeground(Color.WHITE);
-        closeGameOption.addActionListener(new ActionListener() {
+        closeGameOption.addMenuListener(new MenuListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                /*if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer) && ManagerLobby.myLobby.getScoring().getPlayers().length>1)
-                    new SendMessageCommand(new HostMigrationMessage(new HostMigrationData(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby)), ManagerConnection.TCPBroadcast()).execute();
-                else
-                    new SendMessageCommand(new CloseLobbyMessage(new CloseLobbyData(ManagerLobby.myPlayer)), ManagerConnection.TCPBroadcast()).execute();*/
-                ManagerLobby.myLobbyFrame.setVisible(false);
-                ManagerMenu.menuFrame.setVisible(true);
+            public void menuSelected(MenuEvent e) {
+                new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.host})).execute();
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
             }
         });
         return closeGameOption;
@@ -184,6 +193,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
 
     private JMenu startGameOption() {
         JMenu startGameOption = new JMenu("Start Game");
+        startGameOption.setForeground(Color.WHITE);
         startGameOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
@@ -202,16 +212,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             public void menuCanceled(MenuEvent e) {
 
             }
-        });
-        startGameOption.setForeground(Color.WHITE);
-        startGameOption.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
-                    ManagerLobby.myLobby.setGame(new GameBuilder().load());
-                    //new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
-                }
-                }
         });
         return startGameOption;
     }
