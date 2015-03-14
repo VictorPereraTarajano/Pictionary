@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Canvas implements Serializable {
 
-    public final int MAX_SIZE_BUFFER=10;
+    public static final int MAX_SIZE_BUFFER=10;
     private java.util.List<Point> pointList;
 
     private Pencil pencil;
@@ -30,7 +30,7 @@ public class Canvas implements Serializable {
 
     public void add(Point point) {
         if (pointList.size() > MAX_SIZE_BUFFER)
-            clear();
+           clear();
         pointList.add(point);
     }
 

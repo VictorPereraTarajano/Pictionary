@@ -82,7 +82,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                new SendMessageCommand(new DrawPencilCommand(e.getPoint()), ManagerConnection.TCPBroadcast()).execute();
+                new SendMessageCommand(new DrawPencilCommand(e.getPoint()), ManagerConnection.UDPBroadcast()).execute();
             }
 
             @Override

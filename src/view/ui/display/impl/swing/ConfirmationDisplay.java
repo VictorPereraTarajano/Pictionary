@@ -44,7 +44,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     public void actionPerformed(ActionEvent e) {
                         player.setColor(ManagerGame.getAvailableColor());
                         new SendMessageCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
-                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
+                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast(new Player[]{ManagerLobby.myPlayer,player})).execute();
                         mySelf.setVisible(false);
                     }
                 });

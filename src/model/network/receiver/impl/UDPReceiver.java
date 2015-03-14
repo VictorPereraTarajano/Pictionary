@@ -1,7 +1,7 @@
 package model.network.receiver.impl;
 
+import controller.interfaces.Command;
 import model.manager.ManagerConnection;
-import controller.impl.sendcommand.message.interfaces.Message;
 import model.network.receiver.interfaces.Receiver;
 
 import java.io.ByteArrayInputStream;
@@ -58,10 +58,10 @@ public class UDPReceiver implements Receiver, Runnable {
                 socket.receive(receivePacket);
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(receivePacket.getData());
                 ObjectInputStream iStream = new ObjectInputStream(byteArrayInputStream);
-                Message messageCommand = (Message) iStream.readObject();
+                Command messageCommand = (Command) iStream.readObject();
                 byteArrayInputStream.close();
                 iStream.close();
-                messageCommand.open();
+                messageCommand.execute();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
