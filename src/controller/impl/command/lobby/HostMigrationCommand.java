@@ -2,8 +2,9 @@ package controller.impl.command.lobby;
 
 import controller.interfaces.Command;
 import model.game.Lobby;
-import model.manager.ManagerLobby;
 import model.player.Player;
+
+import static model.manager.ManagerLobby.myLobby;
 
 public class HostMigrationCommand implements Command {
 
@@ -17,7 +18,7 @@ public class HostMigrationCommand implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobby=lobby;
-        ManagerLobby.myLobby.host=player;
+        myLobby=lobby;
+        myLobby.host=player;
     }
 }

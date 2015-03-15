@@ -1,9 +1,11 @@
 package controller.impl.command.pencil;
 
 import controller.interfaces.Command;
-import model.manager.ManagerLobby;
 
 import java.awt.*;
+
+import static model.manager.ManagerLobby.myLobby;
+import static model.manager.ManagerLobby.myLobbyFrame;
 
 public class DrawPencilCommand implements Command {
 
@@ -15,12 +17,12 @@ public class DrawPencilCommand implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobby.getCanvas().getPencil().setPosition(point);
-        ManagerLobby.myLobby.getCanvas().add(point);
-        if (ManagerLobby.myLobby.getCanvas().getPointList().size() > model.canvas.Canvas.MAX_SIZE_BUFFER) {
-            ManagerLobby.myLobby.getCanvas().getPencil().setPainting(true);
-            ManagerLobby.myLobby.getCanvas().getPencil().setVisible(true);
-            ManagerLobby.myLobbyFrame.getCanvasPanel().refresh();
+        myLobby.getCanvas().getPencil().setPosition(point);
+        myLobby.getCanvas().add(point);
+        if (myLobby.getCanvas().getPointList().size() > model.canvas.Canvas.MAX_SIZE_BUFFER) {
+            myLobby.getCanvas().getPencil().setPainting(true);
+            myLobby.getCanvas().getPencil().setVisible(true);
+            myLobbyFrame.getCanvasPanel().refresh();
         }
     }
 }

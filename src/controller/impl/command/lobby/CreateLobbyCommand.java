@@ -18,11 +18,13 @@ public class CreateLobbyCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerConnection.getStatus().equals("DISCONNECTED")) new ConnectCommand().execute();
+        if (ManagerConnection.getStatus().equals("DISCONNECTED"))
+            new ConnectCommand().execute();
         ManagerLobby.myLobby=lobby;
         ManagerLobby.myLobbyFrame=new LobbyFrame();
         ManagerLobby.myPlayer.setColor(ManagerGame.getAvailableColor());
-        ManagerLobby.myLobby.host =ManagerLobby.myPlayer;
+        if (ManagerLobby.myLobby.host == null)
+            ManagerLobby.myLobby.host =ManagerLobby.myPlayer;
         ManagerLobby.myLobbyFrame.setVisible(true);
     }
 }

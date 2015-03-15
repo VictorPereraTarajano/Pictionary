@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class PencilImageLoader implements Loader<BufferedImage> {
 
-    private static final String filepath ="C:\\\\Users\\\\Victor\\\\IdeaProjects\\\\Pictionary\\\\out\\\\production\\\\Pinturillo\\\\pencil.png";
+    private static final String filepath ="C:\\Users\\Victor\\IdeaProjects\\Pictionary\\out\\production\\Pinturillo\\colours\\redpencil.png";
 
     @Override
     public BufferedImage load() {

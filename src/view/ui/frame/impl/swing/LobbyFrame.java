@@ -1,6 +1,7 @@
 package view.ui.frame.impl.swing;
 
 import controller.impl.command.chat.TypeChatCommand;
+import controller.impl.command.game.StartGameCommand;
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.command.player.popups.ShowInvitePlayerDialogCommand;
@@ -8,7 +9,6 @@ import controller.impl.sendcommand.SendMessageCommand;
 import model.chat.ChatMessage;
 import model.game.GameBuilder;
 import model.manager.ManagerConnection;
-import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
 import model.player.Player;
@@ -178,7 +178,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             @Override
             public void menuSelected(MenuEvent e) {
                 new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.host})).execute();
-                new SendMessageCommand(new TypeChatCommand(new ChatMessage(new Player("·","", Color.BLACK),"El jugador "+ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
+                new SendMessageCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
@@ -200,10 +200,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) {
-                    ManagerLobby.myLobby.setGame(new GameBuilder().load());
-                  //  new SendMessageCommand(new SendTurnStateMessage(new SendTurnStateData(ManagerLobby.myLobby.getGame().nextTurn())), ManagerConnection.TCPBroadcast()).execute();
-                }
+                new StartGameCommand().execute();
             }
 
             @Override

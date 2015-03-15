@@ -1,5 +1,8 @@
 package model.timer;
 
+import controller.impl.command.timer.UpdateTimerCommand;
+import controller.impl.sendcommand.SendMessageCommand;
+import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 
 import java.awt.event.ActionEvent;
@@ -23,8 +26,7 @@ public class Timer extends javax.swing.Timer implements Serializable {
                         System.out.println("Show scoring");
                         //Muestro puntuaciones*/
                 } else {
-                    ManagerLobby.myLobby.getTimer().setCount(ManagerLobby.myLobby.getTimer().getCount() - 1);
-                    //new SendMessageCommand(new SendTimerStateMessage(new SendTimerStateData(ManagerLobby.myLobby.getTimer().getCount())), ManagerConnection.UDPBroadcast()).execute();
+                    new SendMessageCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
                 }
             }
         });

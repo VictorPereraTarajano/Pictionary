@@ -4,8 +4,10 @@ import controller.impl.command.scoring.RemovePlayerScoringCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import controller.interfaces.Command;
 import model.manager.ManagerConnection;
-import model.manager.ManagerLobby;
 import model.player.Player;
+
+import static model.manager.ManagerLobby.getAnotherHost;
+import static model.manager.ManagerLobby.myLobby;
 
 public class CloseLobbyCommand implements Command {
 
@@ -17,8 +19,8 @@ public class CloseLobbyCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerLobby.myLobby.host.equals(player) && ManagerLobby.myLobby.getScoring().size() > 1)
-            new SendMessageCommand(new HostMigrationCommand(ManagerLobby.getAnotherHost(), ManagerLobby.myLobby), ManagerConnection.TCPBroadcast()).execute();
+        if (myLobby.host.equals(player) && myLobby.getScoring().size() > 1)
+            new SendMessageCommand(new HostMigrationCommand(getAnotherHost(), myLobby), ManagerConnection.TCPBroadcast()).execute();
         new SendMessageCommand(new RemovePlayerScoringCommand(player), ManagerConnection.TCPBroadcastAll()).execute();
     }
 }

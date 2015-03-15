@@ -5,11 +5,9 @@ import controller.interfaces.Command;
 import static model.manager.ManagerLobby.myLobby;
 import static model.manager.ManagerLobby.myLobbyFrame;
 
-public class HidePencilCommand implements Command {
-
+public class ReleasePencilCommand implements Command{
     @Override
     public void execute() {
-        myLobby.getCanvas().getPencil().setVisible(false);
         myLobbyFrame.getCanvasPanel().getCanvasDisplay().setLastPoint(null);
         myLobby.getCanvas().clear();
         myLobbyFrame.getCanvasPanel().refresh();
