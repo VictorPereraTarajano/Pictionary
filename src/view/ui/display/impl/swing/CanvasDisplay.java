@@ -15,6 +15,8 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     private Point lastPoint;
     private PencilDisplay painterDisplay;
 
+    private boolean editable=false;
+
     public CanvasDisplay() {
         super();
         setLayout(new BorderLayout());
@@ -41,6 +43,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         if (image==null) {
             initComponents();
         }
+        if (!editable) return;
         applyChanges(g2d);
         g.drawImage(image,0,0,null);
         painterDisplay.paintComponent(g);
@@ -105,7 +108,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     }
 
     public void setEditable(boolean editable) {
-        setEnabled(editable);
+        this.editable=editable;
     }
 
     public void setBackgroundColor(Color color) {
