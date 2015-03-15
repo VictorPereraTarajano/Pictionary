@@ -33,7 +33,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
         g.drawImage(image, 0, 0, this);
     }
 
-    private void clear() {
+    public void clear() {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(backgroundColor);
         g2d.fillRect(0, 0, getWidth(), getHeight());

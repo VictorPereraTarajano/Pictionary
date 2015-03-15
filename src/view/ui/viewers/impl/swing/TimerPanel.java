@@ -26,6 +26,10 @@ public class TimerPanel extends JPanel implements view.ui.viewers.interfaces.Tim
         return timerDisplay;
     }
 
+    public TimerDisplay getTimerDisplay() {
+        return timerDisplay;
+    }
+
     @Override
     public void refresh(int count) {
         timerDisplay.display(count);

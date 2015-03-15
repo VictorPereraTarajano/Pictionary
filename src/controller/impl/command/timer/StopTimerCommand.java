@@ -7,5 +7,6 @@ public class StopTimerCommand implements Command {
     @Override
     public void execute() {
         ManagerLobby.myLobby.getTimer().stop();
+        ManagerLobby.myLobbyFrame.getTimerPanel().getTimerDisplay().clear();
     }
 }

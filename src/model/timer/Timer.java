@@ -12,16 +12,16 @@ import java.io.Serializable;
 
 public class Timer extends javax.swing.Timer implements Serializable {
 
-    public static final int initCount = 90;
+    public static final int initCount = 10;
     private int count = initCount;
 
     public Timer() {
         super(1000,new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                if (ManagerLobby.myLobby.getTimer().getCount() <= 0)
+                if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
                     new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
-                else
+                } else
                     new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
             }
         });

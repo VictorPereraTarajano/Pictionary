@@ -39,11 +39,14 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     }
 
     private Component createPalette() {
-        return new JPopupMenu() {
+        return new JButton() {
             {
-                add(new JPanel() {
-                    {
-                        setBackground(Color.BLUE);
+                setPreferredSize(new Dimension(25,25));
+                setBackground(Color.BLUE);
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //new PaletteColourDialog();
                     }
                 });
             }

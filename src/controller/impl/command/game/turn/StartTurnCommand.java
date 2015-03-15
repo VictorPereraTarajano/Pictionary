@@ -9,11 +9,9 @@ import model.chat.ChatMessage;
 import model.game.Turn;
 import model.manager.ManagerLobby;
 import model.player.Player;
+import view.persistence.impl.ClipSoundLoader;
 
-import javax.sound.sampled.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class StartTurnCommand implements Command {
 
@@ -25,7 +23,9 @@ public class StartTurnCommand implements Command {
 
     @Override
     public void execute() {
+        new StopTimerCommand().execute();
         initChat();
+        initCanvas();
          if (ManagerLobby.myPlayer.equals(turn.getPlayer())) {
              ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
              ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(true);
@@ -34,41 +34,34 @@ public class StartTurnCommand implements Command {
              ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
          }
         initAnimation();
+        initWordDisplay();
         if (!ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer))
             ManagerLobby.myLobby.getGame().addTurn(turn);
         else
-            initTimer();
-        initWordDisplay();
+            new StartTimerCommand().execute();
+    }
+
+    private void initCanvas() {
+        new ClearCanvasCommand().execute();
     }
 
     private void initAnimation() {
         ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("3");
-        sound();
+        getClip();
         sleep(1000);
         clearCanvas();
         ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("2");
-        sound();
+        getClip();
         sleep(1000);
         clearCanvas();
         ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("1");
-        sound();
+        getClip();
         sleep(1000);
         clearCanvas();
     }
 
-    private void sound() {
-        Clip sound = null;
-        try {
-            sound = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            sound.open(AudioSystem.getAudioInputStream(new File("C:\\Users\\Victor\\IdeaProjects\\Pictionary\\res\\sound\\sonido.wav")));
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sound.start();
+    private void getClip() {
+        new ClipSoundLoader().load().start();
     }
 
     private void sleep (int delay) {
@@ -86,11 +79,6 @@ public class StartTurnCommand implements Command {
     private void initWordDisplay () {
         ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
         ManagerLobby.myLobbyFrame.getWordPanel().refresh();
-    }
-
-    private void initTimer () {
-        new StopTimerCommand().execute();
-        new StartTimerCommand().execute();
     }
 
     private void initChat () {

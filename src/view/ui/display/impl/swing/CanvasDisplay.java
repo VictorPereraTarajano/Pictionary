@@ -13,7 +13,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     public BufferedImage image = null;
     private Color backgroundColor;
     private Point lastPoint;
-    private PencilDisplay painterDisplay;
+    private PencilDisplay pencilDisplay;
 
     private boolean editable=false;
 
@@ -21,7 +21,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         super();
         setLayout(new BorderLayout());
         createWidgets();
-        painterDisplay=new PencilDisplay();
+        pencilDisplay =new PencilDisplay();
     }
 
     public void setLastPoint(Point lastPoint) {
@@ -40,12 +40,11 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        if (image==null) {
+        if (image==null)
             initComponents();
-        }
         applyChanges(g2d);
         g.drawImage(image,0,0,null);
-        painterDisplay.paintComponent(g);
+        pencilDisplay.paintComponent(g);
     }
 
     private void initComponents () {
@@ -59,7 +58,6 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         g2d.setFont(new Font("Montserrat" , Font.BOLD, 400));
         g2d.setColor(Color.DARK_GRAY);
         g2d.drawString(number, (int) ((getSize().width - getFontMetrics(g2d.getFont()).getStringBounds(number, g2d).getWidth()) / 2), (int) ((getSize().height - getFontMetrics(g2d.getFont()).getStringBounds(number, g2d).getHeight()) / 2 + getFontMetrics(g2d.getFont()).getAscent()));
-        repaint();
     }
 
     private void applyChanges(Graphics2D g) {
@@ -67,7 +65,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     }
 
     private void drawPoints (Graphics2D g) {
-        g.setColor(Color.RED);
+        g.setColor(Color.BLUE);
         g.setStroke(new BasicStroke(ManagerLobby.myLobby.getCanvas().getPencil().getDimension().width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         Point [] arrayOfPoints = ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()]);
         for (int i = 0; i < arrayOfPoints.length - 1 ; i++) {
@@ -76,7 +74,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
             g.drawLine(arrayOfPoints[i].x, arrayOfPoints[i].y, arrayOfPoints[i + 1].x, arrayOfPoints[i + 1].y);
         }
         if (arrayOfPoints.length > 0)
-        lastPoint=arrayOfPoints[arrayOfPoints.length-1];
+            lastPoint=arrayOfPoints[arrayOfPoints.length-1];
     }
 
     public void clear() {
