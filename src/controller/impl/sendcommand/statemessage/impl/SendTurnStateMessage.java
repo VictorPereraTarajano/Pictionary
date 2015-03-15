@@ -93,7 +93,7 @@ public class SendTurnStateMessage implements Message,Serializable {
     }
 
     private void initTimer(){
-        if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer))
+        if (ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer))
             ManagerLobby.myLobby.getTimer().start();
     }
 }

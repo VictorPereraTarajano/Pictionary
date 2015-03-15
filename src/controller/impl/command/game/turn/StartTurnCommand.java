@@ -29,7 +29,7 @@ public class StartTurnCommand implements Command {
              ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(true);
              ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
          }
-        if (!ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer))
+        if (!ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer))
             ManagerLobby.myLobby.getGame().addTurn(turn);
         else
             initTimer();

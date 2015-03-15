@@ -23,8 +23,9 @@ public class CreateLobbyCommand implements Command {
         ManagerLobby.myLobby=lobby;
         ManagerLobby.myLobbyFrame=new LobbyFrame();
         ManagerLobby.myPlayer.setColor(ManagerGame.getAvailableColor());
-        if (ManagerLobby.myLobby.host == null)
-            ManagerLobby.myLobby.host =ManagerLobby.myPlayer;
+        if (ManagerLobby.myLobby.getHost() == null)
+            ManagerLobby.myLobby.setHost(ManagerLobby.myPlayer);
         ManagerLobby.myLobbyFrame.setVisible(true);
+        System.out.println(ManagerLobby.myLobby.getHost().getName());
     }
 }

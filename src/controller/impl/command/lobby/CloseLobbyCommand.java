@@ -19,7 +19,7 @@ public class CloseLobbyCommand implements Command {
 
     @Override
     public void execute() {
-        if (myLobby.host.equals(player) && myLobby.getScoring().size() > 1)
+        if (myLobby.getHost().equals(player) && myLobby.getScoring().size() > 1)
             new SendMessageCommand(new HostMigrationCommand(getAnotherHost(), myLobby), ManagerConnection.TCPBroadcast()).execute();
         new SendMessageCommand(new RemovePlayerScoringCommand(player), ManagerConnection.TCPBroadcastAll()).execute();
     }

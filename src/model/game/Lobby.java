@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class Lobby implements Serializable {
 
-    public static Player host;
+    private Player host;
     private Chat chat;
     private Canvas canvas;
     private Scoring scoring;
@@ -24,6 +24,10 @@ public class Lobby implements Serializable {
         chat = new Chat();
         canvas = new Canvas();
         timer=new Timer();
+    }
+
+    public Player getHost() {
+        return host;
     }
 
     public void setGame(Game game) {
@@ -52,5 +56,9 @@ public class Lobby implements Serializable {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    public void setHost(Player host) {
+        this.host = host;
     }
 }

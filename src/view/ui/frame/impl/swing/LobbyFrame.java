@@ -176,7 +176,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         closeGameOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.host})).execute();
+                new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
                 new SendMessageCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
             }
 

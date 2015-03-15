@@ -19,6 +19,6 @@ public class HostMigrationCommand implements Command {
     @Override
     public void execute() {
         myLobby=lobby;
-        myLobby.host=player;
+        myLobby.setHost(player);
     }
 }

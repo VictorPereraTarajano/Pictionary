@@ -8,6 +8,6 @@ public class KickPlayerCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerLobby.myLobby.host.equals(ManagerLobby.myPlayer)) new KickPlayerDialog();
+        if (ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) new KickPlayerDialog();
     }
 }
