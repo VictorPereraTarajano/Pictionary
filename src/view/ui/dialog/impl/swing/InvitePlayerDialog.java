@@ -1,7 +1,7 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.player.popups.ShowInvitePlayerDisplayCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.player.Player;
@@ -53,7 +53,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new ShowInvitePlayerDisplayCommand(ManagerLobby.myLobby, ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] { new Player("", getIP())})).execute();
+                        new SendCommand(new ShowInvitePlayerDisplayCommand(ManagerLobby.myLobby, ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] { new Player("", getIP())})).execute();
                         mySelf.setVisible(false);
                     }
                 });

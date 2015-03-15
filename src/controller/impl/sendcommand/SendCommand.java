@@ -3,12 +3,12 @@ package controller.impl.sendcommand;
 import controller.interfaces.Command;
 import model.network.sender.interfaces.Sender;
 
-public class SendMessageCommand implements Command {
+public class SendCommand implements Command {
 
     private Command command;
     private Sender [] senders;
 
-    public SendMessageCommand(Command command, Sender [] senders) {
+    public SendCommand(Command command, Sender[] senders) {
         this.command=command;
         this.senders=senders;
     }

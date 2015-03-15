@@ -1,7 +1,7 @@
 package view.ui.display.impl.swing;
 
 import controller.impl.command.player.popups.ShowConfirmationDisplayCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.game.Lobby;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
@@ -63,7 +63,7 @@ public class InvitePlayerDisplay extends JDialog implements view.ui.display.inte
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendMessageCommand(new ShowConfirmationDisplayCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[]{player})).execute();
+                        new SendCommand(new ShowConfirmationDisplayCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[]{player})).execute();
                         mySelf.setVisible(false);
                     }
                 });

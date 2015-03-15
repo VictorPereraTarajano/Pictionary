@@ -15,7 +15,7 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
 
     public ScoringDisplay(Player player) {
         super();
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(1,2));
         this.player = player;
         createWidgets();
     }
@@ -23,8 +23,6 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.green);
-        g.fillRect(0,0,100,100);
     }
 
     private void createWidgets() {
@@ -32,12 +30,31 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
             {
                 add(createScore());
             }
-        });
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, this.getWidth(), getHeight());
+                g.setColor(Color.LIGHT_GRAY);
+                g.fillRoundRect(0, 0, this.getWidth(), getHeight(), 10, 10);
+                g.fillRect(getWidth()- 50, 0, getWidth(), getHeight());
+            }
+        }, BorderLayout.EAST);
         add(new JPanel () {
             {
                 add(createPlayerName());
             }
-        });
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, this.getWidth(), getHeight());
+                g.setColor(Color.LIGHT_GRAY);
+                g.fillRoundRect(0, 0, this.getWidth(), getHeight(), 10, 10);
+                g.fillRect(0, 0, 50, getHeight());
+            }
+        }, BorderLayout.WEST);
     }
 
     private Component createScore() {
@@ -50,7 +67,7 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     }
 
     private Component createPlayerName() {
-        return playername = new JLabel(player.getName()){
+        return playername = new JLabel(player.getName()) {
             {
                 this.setFont(new Font("Lobster", Font.BOLD, 30));
             }

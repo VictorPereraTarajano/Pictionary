@@ -1,5 +1,8 @@
 package view.ui.dialog.impl.swing;
 
+import controller.impl.command.scoring.RemovePlayerScoringCommand;
+import controller.impl.sendcommand.SendCommand;
+import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.player.Player;
 
@@ -48,7 +51,7 @@ public class KickPlayerDialog extends JDialog implements view.ui.dialog.interfac
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //if (list != null) new SendMessageCommand(new KickPlayerMessage(new KickPlayerData((Player) list.getSelectedValue(), "You have kicked")), ManagerConnection.TCPBroadcast()).execute();
+                        if (list != null) new SendCommand(new RemovePlayerScoringCommand((Player) list.getSelectedValue()), ManagerConnection.TCPBroadcastAll()).execute();
                     }
                 });
             }

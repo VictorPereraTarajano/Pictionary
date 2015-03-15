@@ -5,7 +5,7 @@ import controller.impl.command.game.StartGameCommand;
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.command.player.popups.ShowInvitePlayerDialogCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
@@ -176,8 +176,8 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         closeGameOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                new SendMessageCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
-                new SendMessageCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
+                new SendCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
+                new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
@@ -246,10 +246,20 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private JMenu kickPlayerOption() {
         JMenu kickPlayerOption = new JMenu("Kick Player");
         kickPlayerOption.setForeground(Color.WHITE);
-        kickPlayerOption.addActionListener(new ActionListener() {
+        kickPlayerOption.addMenuListener(new MenuListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void menuSelected(MenuEvent e) {
                 new KickPlayerCommand().execute();
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
             }
         });
         return kickPlayerOption;
@@ -268,8 +278,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private Component createCanvasPanel() {
-        canvasPanel= new CanvasPanel();
-        return canvasPanel;
+        return canvasPanel= new CanvasPanel();
     }
 
     private Component createScoringPanel() {

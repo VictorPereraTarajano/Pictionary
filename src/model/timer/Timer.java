@@ -2,7 +2,7 @@ package model.timer;
 
 import controller.impl.command.game.turn.StartTurnCommand;
 import controller.impl.command.timer.UpdateTimerCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 
@@ -19,11 +19,10 @@ public class Timer extends javax.swing.Timer implements Serializable {
         super(1000,new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
-                    new SendMessageCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
-                } else {
-                    new SendMessageCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
-                }
+                if (ManagerLobby.myLobby.getTimer().getCount() <= 0)
+                    new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+                else
+                    new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
             }
         });
     }
@@ -38,7 +37,6 @@ public class Timer extends javax.swing.Timer implements Serializable {
 
     @Override
     public void start() {
-        ManagerLobby.myLobby.getTimer().setCount(Timer.initCount);
         super.start();
     }
 

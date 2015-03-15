@@ -3,7 +3,7 @@ package view.ui.display.impl.swing;
 import controller.impl.command.lobby.CreateLobbyCommand;
 import controller.impl.command.scoring.AddPlayerScoringCommand;
 import controller.impl.command.scoring.UpdatePlayerScoringCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.player.Player;
@@ -44,8 +44,8 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     public void actionPerformed(ActionEvent e) {
                         new AddPlayerScoringCommand(player).execute();
                         System.out.println(ManagerLobby.myLobby.getHost().getName());
-                        new SendMessageCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
-                        new SendMessageCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
+                        new SendCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
+                        new SendCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });

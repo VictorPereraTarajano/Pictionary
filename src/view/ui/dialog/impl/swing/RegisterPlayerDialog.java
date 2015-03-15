@@ -71,9 +71,11 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
     }
 
     private Component createPlayerNameField() {
-        playerNameField = new JTextField();
-        playerNameField.setToolTipText("Your playername");
-        return playerNameField;
+        return playerNameField = new JTextField() {
+            {
+                setToolTipText("Your playername");
+            }
+        };
     }
 
     @Override

@@ -7,15 +7,19 @@ import model.network.receiver.impl.UDPReceiver;
 
 public class ConnectCommand implements Command {
 
-    @Override
-    public void execute() {
-        createUDPReceiver();
-        createTCPReceiver();
-    }
-
     private void createUDPReceiver() {
         ManagerConnection.UDPreceiver =  new UDPReceiver();
         ManagerConnection.UDPreceiver.receive();
+    }
+
+    @Override
+    public void execute() {
+        createReceivers();
+    }
+
+    private void createReceivers() {
+        createUDPReceiver();
+        createTCPReceiver();
     }
 
     private void createTCPReceiver() {

@@ -1,6 +1,7 @@
 package controller.impl.command.pencil;
 
 import controller.interfaces.Command;
+import model.manager.ManagerLobby;
 
 import java.awt.*;
 
@@ -17,6 +18,7 @@ public class MovePencilCommand implements Command {
 
     @Override
     public void execute() {
+        if (!ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().isEditable()) return;
         myLobby.getCanvas().getPencil().setPosition(point);
         myLobby.getCanvas().getPencil().setVisible(true);
         myLobbyFrame.getCanvasPanel().refresh();

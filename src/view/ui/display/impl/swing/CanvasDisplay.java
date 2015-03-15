@@ -43,7 +43,6 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
         if (image==null) {
             initComponents();
         }
-        if (!editable) return;
         applyChanges(g2d);
         g.drawImage(image,0,0,null);
         painterDisplay.paintComponent(g);
@@ -58,6 +57,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
 
     public void drawString (String number) {
         g2d.setFont(new Font("Montserrat" , Font.BOLD, 400));
+        g2d.setColor(Color.DARK_GRAY);
         g2d.drawString(number, (int) ((getSize().width - getFontMetrics(g2d.getFont()).getStringBounds(number, g2d).getWidth()) / 2), (int) ((getSize().height - getFontMetrics(g2d.getFont()).getStringBounds(number, g2d).getHeight()) / 2 + getFontMetrics(g2d.getFont()).getAscent()));
         repaint();
     }
@@ -82,6 +82,10 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     public void clear() {
         drawBorders(g2d);
         drawBackground(g2d);
+    }
+
+    public boolean isEditable() {
+        return editable;
     }
 
     public void enableAntialiasing (Graphics2D g) {

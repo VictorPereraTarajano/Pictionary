@@ -1,7 +1,6 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
-import controller.impl.sendcommand.messagedata.impl.KickPlayerData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +9,11 @@ import java.awt.event.ActionListener;
 
 public class KickPlayerDisplay extends JDialog implements view.ui.display.interfaces.KickPlayerDisplay {
 
-    private KickPlayerData kickPlayerData;
-    private JLabel message;
+    private String message;
 
-    public KickPlayerDisplay(KickPlayerData kickPlayerData) {
+    public KickPlayerDisplay(String message) {
         super();
-        this.kickPlayerData = kickPlayerData;
+        this.message = message;
         createWidgets();
     }
 
@@ -39,8 +37,7 @@ public class KickPlayerDisplay extends JDialog implements view.ui.display.interf
     }
 
     private Component createMessage() {
-        message=new JLabel(kickPlayerData.getMessage());
-        return message;
+        return new JLabel(message);
     }
 
     @Override

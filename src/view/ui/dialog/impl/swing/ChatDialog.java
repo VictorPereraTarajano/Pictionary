@@ -1,7 +1,7 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.chat.TypeChatCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
@@ -59,7 +59,7 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar()=='\n') {
-                    new SendMessageCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcastAll()).execute();
+                    new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcastAll()).execute();
                 }
             }
 

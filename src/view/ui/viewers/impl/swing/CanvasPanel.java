@@ -4,7 +4,7 @@ import controller.impl.command.pencil.DrawPencilCommand;
 import controller.impl.command.pencil.HidePencilCommand;
 import controller.impl.command.pencil.MovePencilCommand;
 import controller.impl.command.pencil.ReleasePencilCommand;
-import controller.impl.sendcommand.SendMessageCommand;
+import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import view.ui.display.impl.swing.CanvasDisplay;
@@ -67,7 +67,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
             @Override
             public void mouseReleased(MouseEvent e) {
                 new ReleasePencilCommand().execute();
-                new SendMessageCommand(new HidePencilCommand(), ManagerConnection.TCPBroadcast()).execute();
+                new SendCommand(new HidePencilCommand(), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
@@ -77,14 +77,13 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mouseExited(MouseEvent e) {
-               //new HidePencilCommand().execute();
             }
         });
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 new DrawPencilCommand(e.getPoint()).execute();
-                new SendMessageCommand(new DrawPencilCommand(e.getPoint()), ManagerConnection.UDPBroadcast()).execute();
+                new SendCommand(new DrawPencilCommand(e.getPoint()), ManagerConnection.UDPBroadcast()).execute();
             }
 
             @Override
