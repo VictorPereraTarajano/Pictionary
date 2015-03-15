@@ -2,6 +2,7 @@ package controller.impl.command.game.turn;
 
 import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.command.timer.StartTimerCommand;
+import controller.impl.command.timer.StopTimerCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
 import model.game.Turn;
@@ -20,7 +21,6 @@ public class StartTurnCommand implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobby.getTimer().stop();
         initChat();
          if (ManagerLobby.myPlayer.equals(turn.getPlayer())) {
              ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
@@ -42,6 +42,7 @@ public class StartTurnCommand implements Command {
     }
 
     private void initTimer () {
+        new StopTimerCommand().execute();
         new StartTimerCommand().execute();
     }
 
