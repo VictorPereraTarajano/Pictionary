@@ -77,7 +77,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mouseExited(MouseEvent e) {
-               new HidePencilCommand().execute();
+               //new HidePencilCommand().execute();
             }
         });
         canvasDisplay.addMouseMotionListener(new MouseMotionListener() {

@@ -64,7 +64,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     }
 
     private void drawPoints (Graphics2D g) {
-        g.setColor(Color.BLACK);
+        g.setColor(Color.RED);
         g.setStroke(new BasicStroke(ManagerLobby.myLobby.getCanvas().getPencil().getDimension().width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         Point [] arrayOfPoints = ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()]);
         for (int i = 0; i < arrayOfPoints.length - 1 ; i++) {

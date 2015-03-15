@@ -31,7 +31,6 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
             g2d.setColor(new Color(119, 31, 31));
             g2d.fillRoundRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height, 10, 10);
         }
-        g2d.dispose();
     }
 
     private Component createWordLabel() {
@@ -48,7 +47,8 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     }
 
     private void showCodifiedWord () {
-        for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length(); i++) word.setText(word.getText() + " _");
+        for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length(); i++)
+            word.setText(word.getText() + " _");
     }
 
     private void showWord () {

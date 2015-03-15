@@ -7,7 +7,6 @@ import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.command.player.popups.ShowInvitePlayerDialogCommand;
 import controller.impl.sendcommand.SendMessageCommand;
 import model.chat.ChatMessage;
-import model.game.GameBuilder;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
@@ -195,7 +194,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private JMenu startGameOption() {
-        JMenu startGameOption = new JMenu("Start Game");
+        final JMenu startGameOption = new JMenu("Start Game");
         startGameOption.setForeground(Color.WHITE);
         startGameOption.addMenuListener(new MenuListener() {
             @Override

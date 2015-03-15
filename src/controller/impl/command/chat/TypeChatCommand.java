@@ -2,7 +2,9 @@ package controller.impl.command.chat;
 
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
-import model.manager.ManagerLobby;
+
+import static model.manager.ManagerLobby.myLobby;
+import static model.manager.ManagerLobby.myLobbyFrame;
 
 public class TypeChatCommand implements Command {
 
@@ -14,8 +16,8 @@ public class TypeChatCommand implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().clear();
-        ManagerLobby.myLobby.getChat().add(chatMessage);
-        ManagerLobby.myLobbyFrame.getChatPanel().refresh(chatMessage);
+        myLobbyFrame.getChatPanel().getChatDialog().clear();
+        myLobby.getChat().add(chatMessage);
+        myLobbyFrame.getChatPanel().refresh(chatMessage);
     }
 }
