@@ -10,16 +10,14 @@ public class ManagerGame {
     public static Color [] colorSet = new Color [] {Color.BLUE, Color.cyan,Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE};
 
     public static Color getAvailableColor () {
-        for (Color color : colorSet) {
+        for (Color color : colorSet) 
             if (isColorAvailable(color)) return color;
-        }
         return null;
     }
 
     public static boolean isColorAvailable (Color color) {
-        for (Player player : ManagerLobby.myLobby.getScoring().getPlayers()) {
+        for (Player player : ManagerLobby.myLobby.getScoring().getPlayers()) 
             if (player.getColor() != null && player.getColor().equals(color))  return false;
-        }
         return true;
     }
 
