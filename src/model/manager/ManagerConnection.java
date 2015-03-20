@@ -23,12 +23,10 @@ public class ManagerConnection {
 
     private static String getDefaultIP() {
         try {
-            URLConnection provider = new URL("http://api.ipify.org?format=json").openConnection();
-            BufferedReader exchangeRateInfo = new BufferedReader(new InputStreamReader(provider.getInputStream()));
-            String ip = exchangeRateInfo.readLine().split(":")[1];
-            return ip.substring(1,ip.length()-2 );
+            BufferedReader exchangeRateInfo = new BufferedReader(new InputStreamReader(new URL("http://api.ipify.org?format=json").openConnection().getInputStream()));
+            return exchangeRateInfo.readLine().split(":")[1].substring(1,exchangeRateInfo.readLine().split(":")[1].length()-2 );
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("No se ha podido obtener su IP pública");
         }
         return null;
     }
