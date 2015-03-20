@@ -48,7 +48,7 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g2d);
-        g2d.setColor(new Color(225,218,89));
+        g2d.setColor(new Color(225 ,218,89));
         g2d.fillRoundRect(0, 0, getLayout().preferredLayoutSize(this).width, getLayout().preferredLayoutSize(this).height, 10, 10);
     }
 
