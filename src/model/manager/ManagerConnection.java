@@ -56,16 +56,17 @@ public class ManagerConnection {
     }
 
     public static Sender []  TCPBroadcast (Player[] players) {
-        Sender[] senders = new Sender[players.length];
-        for (int i = 0; i < senders.length; i++)
-            senders[i] = new TCPSender(players[i].getIp());
-        return senders;
+        return createSenders("TCPSender", players);
     }
 
     public static Sender []  UDPBroadcast (Player[] players) {
+        return createSenders("UDPSender", players);
+    }
+    
+    private Sender [] createSenders (String typeSender, Player [] players) {
         Sender[] senders = new Sender[players.length];
         for (int i = 0; i < senders.length; i++)
-            senders[i] = new UDPSender(players[i].getIp());
+            senders[i] = Class.forName(typeSender).getConstructors(Class.String).newInstance(players[i].getIp());
         return senders;
     }
 
