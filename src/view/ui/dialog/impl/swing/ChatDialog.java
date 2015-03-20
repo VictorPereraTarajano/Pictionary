@@ -26,20 +26,6 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         add(createTextField(), BorderLayout.CENTER);
     }
 
-    /*private void sendMessage () {
-        if (ManagerLobby.myLobby.getGame() == null || !ManagerLobby.myLobby.getGame().currentTurn().getPlayer().equals(ManagerLobby.myPlayer)) {
-            if (ManagerLobby.myLobby.getGame() != null && WordMatcher.match(new Word(getMessage()), ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
-                ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
-                ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
-                ManagerLobby.myLobby.getScoring().add(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getScoring().getScore(ManagerLobby.myPlayer).getScore() + 10));
-                new SendMessageCommand(new SendScoringStateMessage(new SendScoringStateData(ManagerLobby.myLobby.getScoring())), ManagerConnection.TCPBroadcast()).execute();
-            } else {
-                new SendMessageCommand(new SendChatStateMessage(new SendChatStateData(new ChatMessage(ManagerLobby.myPlayer, getMessage()))), ManagerConnection.TCPBroadcast()).execute();
-            }
-            clear();
-        }
-    }*/
-
     public void clear() {
         textField.setText("");
     }

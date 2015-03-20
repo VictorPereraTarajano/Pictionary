@@ -4,6 +4,7 @@ import controller.impl.command.canvas.ClearCanvasCommand;
 import controller.impl.command.pencil.options.UpdatePencilDimensionCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
+import model.manager.ManagerLobby;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.CanvasDialog {
+
+    private PaletteColourDialog paletteColourDialog;
 
     public CanvasDialog() {
         super();
@@ -39,14 +42,15 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     }
 
     private Component createPalette() {
+        paletteColourDialog = new PaletteColourDialog();
         return new JButton() {
             {
                 setPreferredSize(new Dimension(25,25));
-                setBackground(Color.BLUE);
+                setBackground(ManagerLobby.myLobby.getCanvas().getPencil().getColor());
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //new PaletteColourDialog();
+                        paletteColourDialog.show((JButton) e.getSource(),((JButton) e.getSource()).getLocation().x - 100, ((JButton) e.getSource()).getLocation().y);
                     }
                 });
             }
@@ -178,5 +182,9 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     @Override
     public Color getColor() {
         return null;
+    }
+
+    public void refresh(Color color) {
+        getComponent(getComponentCount()-1).setBackground(color);
     }
 }

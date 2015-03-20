@@ -17,19 +17,15 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
 
     private boolean editable=false;
 
-    public CanvasDisplay() {
+    public CanvasDisplay(CanvasDialog canvasDialog) {
         super();
         setLayout(new BorderLayout());
-        createWidgets();
+        add(canvasDialog , BorderLayout.NORTH);
         pencilDisplay =new PencilDisplay();
     }
 
     public void setLastPoint(Point lastPoint) {
         this.lastPoint = lastPoint;
-    }
-
-    private void createWidgets() {
-        add(new CanvasDialog(), BorderLayout.NORTH);
     }
 
     @Override
@@ -65,7 +61,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     }
 
     private void drawPoints (Graphics2D g) {
-        g.setColor(Color.BLUE);
+        g.setColor(ManagerLobby.myLobby.getCanvas().getPencil().getColor());
         g.setStroke(new BasicStroke(ManagerLobby.myLobby.getCanvas().getPencil().getDimension().width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         Point [] arrayOfPoints = ManagerLobby.myLobby.getCanvas().getPointList().toArray(new Point[ManagerLobby.myLobby.getCanvas().getPointList().size()]);
         for (int i = 0; i < arrayOfPoints.length - 1 ; i++) {

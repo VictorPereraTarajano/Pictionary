@@ -7,6 +7,7 @@ import controller.impl.command.pencil.ReleasePencilCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import view.ui.dialog.impl.swing.CanvasDialog;
 import view.ui.display.impl.swing.CanvasDisplay;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ import java.awt.image.MemoryImageSource;
 public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.CanvasPanel {
 
     private CanvasDisplay canvasDisplay;
+    private CanvasDialog canvasDialog;
 
     public CanvasPanel() {
         super();
@@ -40,11 +42,16 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private void createWidgets() {
+        createCanvasDialog();
         add(createCanvasDisplay(), BorderLayout.CENTER);
     }
 
+    private void createCanvasDialog() {
+        canvasDialog = new CanvasDialog();
+    }
+
     private Component createCanvasDisplay() {
-        return canvasDisplay = new CanvasDisplay();
+        return canvasDisplay = new CanvasDisplay(canvasDialog);
     }
 
     @Override
@@ -96,6 +103,10 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
     private void setBlankCursor () {
         ManagerLobby.myLobbyFrame.getCanvasPanel().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(16, 16, new int [16*16], 0, 16)), new Point(0, 0), "invisibleCursor"));
+    }
+
+    public CanvasDialog getCanvasDialog() {
+        return canvasDialog;
     }
 
     public void setBackgroundColor(Color color) {
