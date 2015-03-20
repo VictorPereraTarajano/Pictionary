@@ -26,6 +26,5 @@ public class CreateLobbyCommand implements Command {
         if (ManagerLobby.myLobby.getHost() == null)
             ManagerLobby.myLobby.setHost(ManagerLobby.myPlayer);
         ManagerLobby.myLobbyFrame.setVisible(true);
-        System.out.println(ManagerLobby.myLobby.getHost().getName());
     }
 }

@@ -43,7 +43,6 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new AddPlayerScoringCommand(player).execute();
-                        System.out.println(ManagerLobby.myLobby.getHost().getName());
                         new SendCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
                         new SendCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);

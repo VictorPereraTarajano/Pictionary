@@ -8,18 +8,17 @@ import java.io.IOException;
 
 public class ClipSoundLoader implements Loader<Clip> {
 
-    private static final String filepath = "C:\\Users\\Victor\\IdeaProjects\\Pictionary\\res\\sound\\sonido.wav";
+    private static final String filename = "/sound/sonido.wav";
 
     @Override
     public Clip load() {
-        Clip sound = null;
         try {
-            sound = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            sound.open(AudioSystem.getAudioInputStream(new File(filepath)));
+            Clip sound = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            sound.open(AudioSystem.getAudioInputStream(getClass().getResource(filename)));
+            return sound;
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Cannot load the file : "+filename);
         }
-        return sound;
     }
 
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class Timer extends javax.swing.Timer implements Serializable {
 
-    public static final int initCount = 10;
+    public static final int initCount = 50;
     private int count = initCount;
 
     public Timer() {

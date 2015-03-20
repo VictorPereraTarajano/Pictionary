@@ -9,12 +9,13 @@ import model.player.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 
 public class ManagerConnection {
 
-    public static final String DefaultIP= "192.168.1.15";
+    public static final String DefaultIP= "127.0.0.1";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;
@@ -28,7 +29,6 @@ public class ManagerConnection {
         } catch (IOException e) {
             throw new IllegalArgumentException("No se ha podido obtener su IP pública");
         }
-        return null;
     }
 
     public static String getStatus () {
@@ -61,10 +61,15 @@ public class ManagerConnection {
         return createSenders("UDPSender", players);
     }
     
-    private Sender [] createSenders (String typeSender, Player [] players) {
+    private static Sender [] createSenders (String typeSender, Player [] players) {
         Sender[] senders = new Sender[players.length];
-        for (int i = 0; i < senders.length; i++)
-            senders[i] = Class.forName(typeSender).getConstructors(Class.String).newInstance(players[i].getIp());
+        for (int i = 0; i < senders.length; i++) {
+            try {
+                senders[i] = (Sender) Class.forName("model.network.sender.impl."+typeSender).getConstructors()[0].newInstance(players[i].getIp());
+            } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
         return senders;
     }
 

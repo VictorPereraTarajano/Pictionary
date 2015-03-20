@@ -1,7 +1,10 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
+import controller.impl.command.pencil.HidePencilCommand;
+import controller.impl.command.pencil.options.UpdatePencilColorCommand;
 import controller.impl.command.pencil.options.UpdatePencilDimensionCommand;
+import controller.impl.command.player.popups.ShowPaletteColourDialog;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
@@ -20,7 +23,6 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     public CanvasDialog() {
         super();
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        setPreferredSize(new Dimension(200,40));
         createWidgets();
         setOpaque(false);
     }
@@ -31,6 +33,15 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         add(createMediumPencilButton());
         add(createSmallPencilButton());
         add(createPalette());
+        add(createHideButton());
+    }
+
+    private Component createHideButton() {
+        return null;
+    }
+
+    public PaletteColourDialog getPaletteColourDialog() {
+        return paletteColourDialog;
     }
 
     @Override
@@ -46,11 +57,10 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         return new JButton() {
             {
                 setPreferredSize(new Dimension(25,25));
-                setBackground(ManagerLobby.myLobby.getCanvas().getPencil().getColor());
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        paletteColourDialog.show((JButton) e.getSource(),((JButton) e.getSource()).getLocation().x - 100, ((JButton) e.getSource()).getLocation().y);
+                        new ShowPaletteColourDialog(((JComponent) e.getSource())).execute();
                     }
                 });
             }

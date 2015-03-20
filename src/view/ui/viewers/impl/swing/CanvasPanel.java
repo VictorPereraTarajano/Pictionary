@@ -51,7 +51,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private Component createCanvasDisplay() {
-        return canvasDisplay = new CanvasDisplay(canvasDialog);
+        return canvasDisplay = new CanvasDisplay();
     }
 
     @Override

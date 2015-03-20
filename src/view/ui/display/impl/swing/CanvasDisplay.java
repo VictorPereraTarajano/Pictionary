@@ -17,10 +17,9 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
 
     private boolean editable=false;
 
-    public CanvasDisplay(CanvasDialog canvasDialog) {
+    public CanvasDisplay() {
         super();
         setLayout(new BorderLayout());
-        add(canvasDialog , BorderLayout.NORTH);
         pencilDisplay =new PencilDisplay();
     }
 

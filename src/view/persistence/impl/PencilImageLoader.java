@@ -9,14 +9,14 @@ import java.io.IOException;
 
 public class PencilImageLoader implements Loader<BufferedImage> {
 
-    private static final String filepath ="C:\\Users\\Victor\\IdeaProjects\\Pictionary\\out\\production\\Pinturillo\\colours\\redPencil.png";
+    private static final String filename ="/pencil.png";
 
     @Override
     public BufferedImage load() {
         try {
-            return ImageIO.read(new File(filepath));
+            return ImageIO.read(getClass().getResource(filename));
         } catch (IOException e) {
-            return null;
+            throw new IllegalArgumentException("Cannot load the file : "+filename);
         }
     }
 }

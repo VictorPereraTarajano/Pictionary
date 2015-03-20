@@ -19,9 +19,8 @@ public class StartGameCommand implements Command {
     public void execute() {
         if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) {
             ManagerLobby.myLobby.setGame(new GameBuilder().load());
-            new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), "La partida está a punto de empezar  ... ")), ManagerConnection.TCPBroadcastAll()).execute();
+            new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), "INSTRUCCIONES:  ... ")), ManagerConnection.TCPBroadcastAll()).execute();
             new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().currentTurn()), ManagerConnection.TCPBroadcastAll()).execute();
-
         }
     }
 }

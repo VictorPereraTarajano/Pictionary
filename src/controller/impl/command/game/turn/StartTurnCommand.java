@@ -29,9 +29,11 @@ public class StartTurnCommand implements Command {
          if (ManagerLobby.myPlayer.equals(turn.getPlayer())) {
              ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
              ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(true);
+             ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().add(ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDialog());
          } else {
              ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(true);
              ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
+             ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().remove(ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDialog());
          }
         initAnimation();
         initWordDisplay();
