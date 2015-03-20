@@ -10,14 +10,10 @@ import java.util.Map;
 
 public class Scoring implements Serializable {
 
-    private Map<Player, Score> scoring;
+    private Map<Player, Score> scoring = new LinkedHashMap();
 
     public Scoring() {
-        scoring = new LinkedHashMap() {
-            {
-                put(ManagerLobby.myPlayer,new Score(0));
-            }
-        };
+        add(ManagerLobby.myPlayer, new Score(0));
     }
 
     public void remove (Player player) {
