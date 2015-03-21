@@ -1,7 +1,8 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
-import view.ui.dialog.impl.swing.CanvasDialog;
+import view.ui.dialog.impl.swing.CanvasOptionsDialog;
+import view.ui.dialog.impl.swing.ReportPlayerDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +15,28 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     private Color backgroundColor;
     private Point lastPoint;
     private PencilDisplay pencilDisplay;
-
     private boolean editable=false;
 
-    public CanvasDisplay() {
+    public CanvasDisplay(CanvasOptionsDialog canvasOptionsDialog, ReportPlayerDialog reportPlayerDialog) {
         super();
         setLayout(new BorderLayout());
-        pencilDisplay =new PencilDisplay();
+        createWidgets(canvasOptionsDialog, reportPlayerDialog);
+    }
+
+    private void createWidgets(final CanvasOptionsDialog canvasOptionsDialog, final ReportPlayerDialog reportPlayerDialog) {
+        createPencilDisplay();
+        add(new JPanel () {
+            {
+                setLayout(new BorderLayout());
+                add(canvasOptionsDialog, BorderLayout.WEST);
+                add(reportPlayerDialog, BorderLayout.EAST);
+                setOpaque(false);
+            }
+        }, BorderLayout.NORTH);
+    }
+
+    private void createPencilDisplay() {
+        pencilDisplay = new PencilDisplay();
     }
 
     public void setLastPoint(Point lastPoint) {

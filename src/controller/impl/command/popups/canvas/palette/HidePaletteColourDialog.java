@@ -1,4 +1,4 @@
-package controller.impl.command.player.popups;
+package controller.impl.command.popups.canvas.palette;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;

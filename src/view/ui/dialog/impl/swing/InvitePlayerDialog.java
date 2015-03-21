@@ -1,6 +1,6 @@
 package view.ui.dialog.impl.swing;
 
-import controller.impl.command.player.popups.ShowInvitePlayerDisplayCommand;
+import controller.impl.command.popups.ShowInvitePlayerDisplayCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;

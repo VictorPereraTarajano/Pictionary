@@ -1,10 +1,9 @@
-package controller.impl.command.player.popups;
+package controller.impl.command.popups.canvas.palette;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ShowPaletteColourDialog implements Command {
 
@@ -16,6 +15,6 @@ public class ShowPaletteColourDialog implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDialog().getPaletteColourDialog().show(component, component.getLocation().x - 100, component.getLocation().y);
+        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDialog().getPaletteColourDialog().show(component, component.getLocation().x - 100, component.getLocation().y - 5);
     }
 }

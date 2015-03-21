@@ -5,7 +5,10 @@ import model.manager.ManagerLobby;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
+import java.io.IOException;
 
 public class ChatDisplay extends JPanel implements view.ui.display.interfaces.ChatDisplay {
 
@@ -46,18 +49,24 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
             {
                 setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
                 setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-                this.setBorder(null);
+                setBorder(null);
             }
 
         };
     }
 
     private Component createTextArea() {
-        textArea=new JTextPane() {
+        return textArea=new JTextPane() {
             {
                 setAutoscrolls(true);
                 DefaultCaret caret = (DefaultCaret)getCaret();
                 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+                setEditable(false);
+                setContentType("text/html");
+                HTMLDocument doc = new HTMLDocument();
+                HTMLEditorKit kit = new HTMLEditorKit();
+                setEditorKit(kit);
+                setDocument(doc);
             }
             @Override
             protected void paintComponent(Graphics g) {
@@ -68,8 +77,6 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
             }
 
         };
-        textArea.setEditable(false);
-        return textArea;
     }
 
     public void clear () {
@@ -78,19 +85,19 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
 
     @Override
     public void display(ChatMessage message) {
-        StyledDocument d = textArea.getStyledDocument();
-        SimpleAttributeSet aatrs = new SimpleAttributeSet();
         if (ManagerLobby.myLobby.getChat().isEmpty())
             textArea.setText("");
         else {
-            StyleConstants.setForeground(aatrs, ManagerLobby.myLobby.getChat().getLastMessage().getPlayer().getColor());
             try {
-                d.insertString(d.getLength(), ManagerLobby.myLobby.getChat().getLastMessage().getPlayer().getName() + " : ", aatrs);
-                d.insertString(d.getLength(), ManagerLobby.myLobby.getChat().getLastMessage().getMessage() + "\n", null);
-            } catch (BadLocationException e) {
+                ((HTMLEditorKit)textArea.getEditorKit()).insertHTML((HTMLDocument)textArea.getDocument(), textArea.getDocument().getLength(), "<font color="+getHexadecimalColor(message.getPlayer().getColor())+">"+message.getPlayer()+"</font> : "+message.getMessage(), 0, 0, null);
+            } catch (BadLocationException | IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getHexadecimalColor (Color color) {
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 
 }

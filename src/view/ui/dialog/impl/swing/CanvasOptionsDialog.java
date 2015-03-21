@@ -1,29 +1,60 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
+import controller.impl.command.game.turn.StopTurnCommand;
 import controller.impl.command.pencil.HidePencilCommand;
-import controller.impl.command.pencil.options.UpdatePencilColorCommand;
 import controller.impl.command.pencil.options.UpdatePencilDimensionCommand;
-import controller.impl.command.player.popups.ShowPaletteColourDialog;
+import controller.impl.command.popups.canvas.palette.ShowPaletteColourDialog;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
-public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.CanvasDialog {
+public class CanvasOptionsDialog extends JPanel implements view.ui.dialog.interfaces.CanvasDialog {
 
     private PaletteColourDialog paletteColourDialog;
 
-    public CanvasDialog() {
+    public CanvasOptionsDialog() {
         super();
         setLayout(new FlowLayout(FlowLayout.LEFT));
+        setPreferredSize(new Dimension(200,40));
         createWidgets();
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                new HidePencilCommand().execute();
+                ManagerLobby.myLobbyFrame.getCanvasPanel().setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         setOpaque(false);
     }
 
@@ -33,11 +64,26 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         add(createMediumPencilButton());
         add(createSmallPencilButton());
         add(createPalette());
-        add(createHideButton());
+        add(createStopTurnButton());
     }
 
-    private Component createHideButton() {
-        return null;
+    private Component createStopTurnButton() {
+        return new JButton() {
+            {
+                setPreferredSize(new Dimension(25,25));
+                setIcon(new ImageIcon(FactoryImageLoader.CANCEL_CANVAS_DIALOG));
+                setContentAreaFilled(false);
+                setBorderPainted(false);
+                setBackground(new Color(225 ,218,89));
+                setBorder(BorderFactory.createEmptyBorder());
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        new SendCommand(new StopTurnCommand(), ManagerConnection.TCPBroadcastAll()).execute();
+                    }
+                });
+            }
+        };
     }
 
     public PaletteColourDialog getPaletteColourDialog() {
@@ -56,7 +102,8 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
         paletteColourDialog = new PaletteColourDialog();
         return new JButton() {
             {
-                setPreferredSize(new Dimension(25,25));
+                setPreferredSize(new Dimension(25, 25));
+                setBackground(Color.BLACK);
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -195,6 +242,6 @@ public class CanvasDialog extends JPanel implements view.ui.dialog.interfaces.Ca
     }
 
     public void refresh(Color color) {
-        getComponent(getComponentCount()-1).setBackground(color);
+        getComponent(getComponentCount()-2).setBackground(color);
     }
 }

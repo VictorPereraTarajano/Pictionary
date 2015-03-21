@@ -19,8 +19,20 @@ public class StartGameCommand implements Command {
     public void execute() {
         if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) {
             ManagerLobby.myLobby.setGame(new GameBuilder().load());
-            new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), "INSTRUCCIONES:  ... ")), ManagerConnection.TCPBroadcastAll()).execute();
+            new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), getInstructions())), ManagerConnection.TCPBroadcastAll()).execute();
             new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().currentTurn()), ManagerConnection.TCPBroadcastAll()).execute();
         }
+    }
+
+    private String getInstructions () {
+       return "<b>INSTRUCCIONES:</b> Los jugadores deben adivinar la palabra <br>" +
+                "basandose en los dibujos del pintor. <br>" +
+                "Los puntos obtenidos se basarán en el tiempo que tardes<br>" +
+                "en aceptar la palabra.<br><br>" +
+                "<p><b>-   No esta permitido ayudar al resto de jugadores<br>" +
+                "para aceptar la palabra.<br>" +
+                "   -   No está permitido que el pintor escriba palabras.</b></p><br>" +
+               "<p>Si ven que el pintor no cumple las normas pulse el botón</p>" +
+                "<br><p>REPORTAR en la esquina superior derecha.</p>";
     }
 }

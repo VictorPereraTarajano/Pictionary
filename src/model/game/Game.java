@@ -1,7 +1,7 @@
 package model.game;
 
 import model.word.WordSet;
-import view.persistence.impl.WordSetLoader;
+import view.persistence.impl.loaders.wordset.FactoryWordLoader;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Game implements Serializable {
 
     public Game() {
         turns=new ArrayList<>();
-        wordSet = new WordSetLoader().load();
+        wordSet = FactoryWordLoader.DEFAULT_WORDSET;
     }
 
     public int getPointer() {

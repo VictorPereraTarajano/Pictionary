@@ -7,7 +7,8 @@ import controller.impl.command.pencil.ReleasePencilCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
-import view.ui.dialog.impl.swing.CanvasDialog;
+import view.ui.dialog.impl.swing.CanvasOptionsDialog;
+import view.ui.dialog.impl.swing.ReportPlayerDialog;
 import view.ui.display.impl.swing.CanvasDisplay;
 
 import javax.swing.*;
@@ -21,7 +22,8 @@ import java.awt.image.MemoryImageSource;
 public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.CanvasPanel {
 
     private CanvasDisplay canvasDisplay;
-    private CanvasDialog canvasDialog;
+    private CanvasOptionsDialog canvasDialog;
+    private ReportPlayerDialog reportPlayerDialog;
 
     public CanvasPanel() {
         super();
@@ -42,16 +44,32 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
     }
 
     private void createWidgets() {
-        createCanvasDialog();
         add(createCanvasDisplay(), BorderLayout.CENTER);
     }
 
-    private void createCanvasDialog() {
-        canvasDialog = new CanvasDialog();
+    public ReportPlayerDialog getReportPlayerDialog() {
+        return reportPlayerDialog;
+    }
+
+    private ReportPlayerDialog createReportPlayerDialog() {
+        return reportPlayerDialog = new ReportPlayerDialog() {
+            {
+                setOpaque(false);
+                setVisible(false);
+            }
+        };
+    }
+
+    private CanvasOptionsDialog createCanvasDialog() {
+        return canvasDialog = new CanvasOptionsDialog(){
+            {
+                setVisible(false);
+            }
+        };
     }
 
     private Component createCanvasDisplay() {
-        return canvasDisplay = new CanvasDisplay();
+        return canvasDisplay = new CanvasDisplay(createCanvasDialog(), createReportPlayerDialog());
     }
 
     @Override
@@ -105,7 +123,7 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
         ManagerLobby.myLobbyFrame.getCanvasPanel().setCursor(Toolkit.getDefaultToolkit().createCustomCursor(Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(16, 16, new int [16*16], 0, 16)), new Point(0, 0), "invisibleCursor"));
     }
 
-    public CanvasDialog getCanvasDialog() {
+    public CanvasOptionsDialog getCanvasDialog() {
         return canvasDialog;
     }
 

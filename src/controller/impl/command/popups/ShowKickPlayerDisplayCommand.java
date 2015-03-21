@@ -1,4 +1,4 @@
-package controller.impl.command.player.popups;
+package controller.impl.command.popups;
 
 import controller.interfaces.Command;
 import view.ui.display.impl.swing.KickPlayerDisplay;

@@ -1,17 +1,13 @@
-package view.persistence.impl;
+package view.persistence.impl.loaders.clip;
 
 import view.persistence.interfaces.Loader;
 
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
 
-public class ClipSoundLoader implements Loader<Clip> {
-
-    private static final String filename = "/sound/sonido.wav";
-
+public class ClipLoader implements Loader<Clip> {
     @Override
-    public Clip load() {
+    public Clip load(String filename) {
         try {
             Clip sound = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
             sound.open(AudioSystem.getAudioInputStream(getClass().getResource(filename)));
@@ -20,5 +16,4 @@ public class ClipSoundLoader implements Loader<Clip> {
             throw new IllegalArgumentException("Cannot load the file : "+filename);
         }
     }
-
 }

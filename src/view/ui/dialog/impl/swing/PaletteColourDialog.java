@@ -2,40 +2,33 @@ package view.ui.dialog.impl.swing;
 
 import controller.impl.command.pencil.HidePencilCommand;
 import controller.impl.command.pencil.options.UpdatePencilColorCommand;
-import controller.impl.command.player.popups.HidePaletteColourDialog;
+import controller.impl.command.popups.canvas.palette.HidePaletteColourDialog;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PaletteColourDialog extends JPopupMenu {
 
-    private final int tiles = 5;
+    private final int tiles_width = 18;
+    private final int tiles_height = 12;
 
     public PaletteColourDialog() {
         super();
-        setPreferredSize(new Dimension(100, 100));
+        setPreferredSize(new Dimension(tiles_width * 12, tiles_height * 12));
         setBackground(Color.WHITE);
-        setLayout(new GridLayout(5, 5));
+        setBorder(BorderFactory.createEmptyBorder());
+        setLayout(new GridLayout(tiles_height, tiles_width));
         createPalette();
     }
 
     private void createPalette() {
-        for (int i = 0; i < tiles*tiles; i++) {
+        for (int i = 0; i < tiles_width*tiles_height; i++) {
             add(new TileColor(new Color((i)%255, (i*3)%255, (i*6)%255)) {
                 {
-                    addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            new SendCommand(new UpdatePencilColorCommand(((TileColor)e.getSource()).getColor()), ManagerConnection.TCPBroadcastAll()).execute();
-                            new HidePaletteColourDialog().execute();
-                        }
-                    });
                     addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -44,7 +37,8 @@ public class PaletteColourDialog extends JPopupMenu {
 
                         @Override
                         public void mousePressed(MouseEvent e) {
-
+                            new SendCommand(new UpdatePencilColorCommand(((TileColor)e.getSource()).getColor()), ManagerConnection.TCPBroadcastAll()).execute();
+                            new HidePaletteColourDialog().execute();
                         }
 
                         @Override
@@ -54,6 +48,7 @@ public class PaletteColourDialog extends JPopupMenu {
 
                         @Override
                         public void mouseEntered(MouseEvent e) {
+                            new UpdatePencilColorCommand(((TileColor)e.getSource()).getColor()).execute();
                             new HidePencilCommand().execute();
                         }
 

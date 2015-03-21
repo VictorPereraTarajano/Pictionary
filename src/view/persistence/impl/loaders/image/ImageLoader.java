@@ -1,18 +1,15 @@
-package view.persistence.impl;
+package view.persistence.impl.loaders.image;
 
 import view.persistence.interfaces.Loader;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-public class PencilImageLoader implements Loader<BufferedImage> {
-
-    private static final String filename ="/pencil.png";
+public class ImageLoader implements Loader<BufferedImage> {
 
     @Override
-    public BufferedImage load() {
+    public BufferedImage load(String filename) {
         try {
             return ImageIO.read(getClass().getResource(filename));
         } catch (IOException e) {

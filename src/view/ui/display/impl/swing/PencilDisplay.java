@@ -1,7 +1,7 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
-import view.persistence.impl.PencilImageLoader;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class PencilDisplay extends JComponent {
     }
 
     private void init () {
-        image = new PencilImageLoader().load();
+        image = FactoryImageLoader.PENCIL;
     }
 
     @Override
