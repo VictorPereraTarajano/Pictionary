@@ -27,7 +27,8 @@ public class MenuFrame extends JFrame {
         super(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIcon();
-        setMinimumSize(new Dimension(WIDTH,HEIGHT));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        setLayout(new BorderLayout());
         createWidgets();
         setLocation(500,500);
     }
@@ -52,13 +53,22 @@ public class MenuFrame extends JFrame {
                 add(createLobbyButton());
                 add(createExitButton());
                 add(createConnectDisconnectButton());
-                setLayout(new GridLayout(4,1));
+                setLayout(new GridLayout(4,1,2,2));
+                setBackground(new Color(105, 202, 136));
+                setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             }
         };
     }
 
     private Component createLogLabel() {
-        return log = new JLabel(ManagerConnection.getStatus());
+        return new JPanel () {
+            {
+                setLayout(new FlowLayout(FlowLayout.LEFT));
+                log = new JLabel(ManagerConnection.getStatus());
+                add(log);
+                setBackground(Color.WHITE);
+            }
+        };
     }
 
     private Component createConnectDisconnectButton() {
@@ -77,6 +87,7 @@ public class MenuFrame extends JFrame {
                         log.setText(ManagerConnection.getStatus());
                     }
                 });
+                setBackground(new Color(154, 235, 180));
             }
         };
     }
@@ -90,6 +101,7 @@ public class MenuFrame extends JFrame {
                         System.exit(0);
                     }
                 });
+                setBackground(new Color(154, 235, 180));
             }
         };
     }
@@ -104,6 +116,7 @@ public class MenuFrame extends JFrame {
                         if (ManagerLobby.myPlayer!=null) setText("Change Playername");
                     }
                 });
+                setBackground(new Color(154, 235, 180));
             }
         };
     }
@@ -120,6 +133,7 @@ public class MenuFrame extends JFrame {
                     }
                 });
                 setEnabled(false);
+                setBackground(new Color(154, 235, 180));
             }
         };
     }

@@ -23,8 +23,11 @@ public class Timer extends javax.swing.Timer implements Serializable {
                 if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
                     new StopTimerCommand().execute();
                     new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
-                } else
+                } else {
+                    if (((initCount/(ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length()/2)) % ManagerLobby.myLobby.getTimer().getCount()) == 0)
+                        System.out.println("muestro una");
                     new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
+                }
             }
         });
     }

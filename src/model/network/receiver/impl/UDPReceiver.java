@@ -62,10 +62,12 @@ public class UDPReceiver implements Receiver, Runnable {
                 byteArrayInputStream.close();
                 iStream.close();
                 messageCommand.execute();
+            } catch (SocketException e) {
+
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new IllegalArgumentException("Cannot read packet from UDPReceiver ");
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                throw new IllegalArgumentException("Cannot found command class on UDPReceiver");
             }
         }
     }

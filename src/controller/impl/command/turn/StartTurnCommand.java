@@ -63,7 +63,7 @@ public class StartTurnCommand implements Command {
 
     private void initTurn() {
         if (!ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer))
-            ManagerLobby.myLobby.getGame().addTurn(turn);
+            ManagerLobby .myLobby.getGame().addTurn(turn);
         else
             new StartTimerCommand().execute();
     }
@@ -71,6 +71,7 @@ public class StartTurnCommand implements Command {
     private void initAnimation() {
         for (int i = 3; i > 0; i--)
             drawNumber(String.valueOf(i));
+        clearCanvas();
     }
 
     private void drawNumber(String number) {
