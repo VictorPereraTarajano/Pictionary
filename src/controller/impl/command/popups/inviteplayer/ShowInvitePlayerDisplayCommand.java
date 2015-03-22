@@ -1,4 +1,4 @@
-package controller.impl.command.popups;
+package controller.impl.command.popups.inviteplayer;
 
 import controller.interfaces.Command;
 import model.game.Lobby;

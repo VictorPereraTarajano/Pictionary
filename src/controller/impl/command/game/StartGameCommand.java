@@ -1,7 +1,7 @@
 package controller.impl.command.game;
 
 import controller.impl.command.chat.TypeChatCommand;
-import controller.impl.command.game.turn.StartTurnCommand;
+import controller.impl.command.turn.StartTurnCommand;
 import controller.impl.sendcommand.SendCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -32,7 +32,7 @@ public class StartGameCommand implements Command {
                 "<p><b>-   No esta permitido ayudar al resto de jugadores<br>" +
                 "para aceptar la palabra.<br>" +
                 "   -   No está permitido que el pintor escriba palabras.</b></p><br>" +
-               "<p>Si ven que el pintor no cumple las normas pulse el botón</p>" +
-                "<br><p>REPORTAR en la esquina superior derecha.</p>";
+               "<p>Si ven que el pintor no cumple las normas pulse el botón<br>" +
+                "REPORTAR en la esquina superior derecha.</p><br>";
     }
 }

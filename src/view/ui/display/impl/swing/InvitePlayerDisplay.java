@@ -1,6 +1,6 @@
 package view.ui.display.impl.swing;
 
-import controller.impl.command.popups.ShowConfirmationDisplayCommand;
+import controller.impl.command.popups.confirmation.ShowConfirmationDisplayCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.game.Lobby;
 import model.manager.ManagerConnection;

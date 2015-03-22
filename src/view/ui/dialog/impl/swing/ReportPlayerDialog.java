@@ -1,7 +1,7 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.pencil.HidePencilCommand;
-import controller.impl.command.popups.ShowReportPlayerDisplay;
+import controller.impl.command.popups.reportplayer.ShowReportPlayerDisplayCommand;
 import model.manager.ManagerLobby;
 import view.persistence.impl.loaders.image.FactoryImageLoader;
 
@@ -30,7 +30,7 @@ public class ReportPlayerDialog extends JButton {
             @Override
             public void mousePressed(MouseEvent e) {
                 image = FactoryImageLoader.REPORT_PLAYER_2;
-                new ShowReportPlayerDisplay().execute();
+                new ShowReportPlayerDisplayCommand().execute();
             }
 
             @Override

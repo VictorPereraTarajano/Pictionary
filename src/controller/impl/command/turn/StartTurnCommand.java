@@ -1,11 +1,15 @@
-package controller.impl.command.game.turn;
+package controller.impl.command.turn;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
 import controller.impl.command.chat.TypeChatCommand;
-import controller.impl.command.popups.canvas.canvasoptions.HideCanvasOptionsDialog;
-import controller.impl.command.popups.canvas.canvasoptions.ShowCanvasOptionsDialog;
-import controller.impl.command.popups.canvas.reportplayer.HideReportPlayerDialog;
-import controller.impl.command.popups.canvas.reportplayer.ShowReportPlayerDialog;
+import controller.impl.command.editable.canvas.DisableCanvasDisplayCommand;
+import controller.impl.command.editable.canvas.EnableCanvasDisplayCommand;
+import controller.impl.command.editable.chat.DisableChatDialogCommand;
+import controller.impl.command.editable.chat.EnableChatDialogCommand;
+import controller.impl.command.popups.canvasoptions.HideCanvasOptionsDialogCommand;
+import controller.impl.command.popups.canvasoptions.ShowCanvasOptionsDialogCommand;
+import controller.impl.command.popups.reportplayer.HideReportPlayerDialogCommand;
+import controller.impl.command.popups.reportplayer.ShowReportPlayerDialogCommand;
 import controller.impl.command.timer.StartTimerCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -42,19 +46,19 @@ public class StartTurnCommand implements Command {
     }
 
     private void initNonPainterStuff() {
-        ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(true);
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(false);
+        new EnableChatDialogCommand().execute();
+        new DisableCanvasDisplayCommand().execute();
         ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(false);
-        new HideCanvasOptionsDialog().execute();
-        new ShowReportPlayerDialog().execute();
+        new HideCanvasOptionsDialogCommand().execute();
+        new ShowReportPlayerDialogCommand().execute();
     }
 
     private void initPainterStuff() {
-        ManagerLobby.myLobbyFrame.getChatPanel().getChatDialog().setEditable(false);
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().setEditable(true);
+        new DisableChatDialogCommand().execute();
+        new EnableCanvasDisplayCommand().execute();
         ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
-        new ShowCanvasOptionsDialog().execute();
-        new HideReportPlayerDialog().execute();
+        new ShowCanvasOptionsDialogCommand().execute();
+        new HideReportPlayerDialogCommand().execute();
     }
 
     private void initTurn() {
@@ -65,20 +69,17 @@ public class StartTurnCommand implements Command {
     }
 
     private void initAnimation() {
-        clearCanvas();
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("3");
-        getClip();
-        sleep(1000);
-        clearCanvas();
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("2");
-        getClip();
-        sleep(1000);
-        clearCanvas();
-        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString("1");
-        getClip();
-        sleep(1000);
-        clearCanvas();
+        for (int i = 3; i > 0; i--)
+            drawNumber(String.valueOf(i));
     }
+
+    private void drawNumber(String number) {
+        clearCanvas();
+        ManagerLobby.myLobbyFrame.getCanvasPanel().getCanvasDisplay().drawString(number);
+        getClip();
+        sleep(1000);
+    }
+
 
     private void getClip() {
         FactoryClipLoader.START_TURN.start();

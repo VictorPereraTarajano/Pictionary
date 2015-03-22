@@ -1,4 +1,4 @@
-package controller.impl.command.game.turn;
+package controller.impl.command.turn;
 
 import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.sendcommand.SendCommand;

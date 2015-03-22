@@ -1,9 +1,9 @@
-package controller.impl.command.popups;
+package controller.impl.command.popups.reportplayer;
 
 import controller.interfaces.Command;
 import view.ui.display.impl.swing.ReportPlayerDisplay;
 
-public class ShowReportPlayerDisplay implements Command {
+public class ShowReportPlayerDisplayCommand implements Command {
 
     @Override
     public void execute() {

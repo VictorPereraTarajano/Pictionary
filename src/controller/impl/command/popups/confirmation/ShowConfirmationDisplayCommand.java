@@ -1,4 +1,4 @@
-package controller.impl.command.popups;
+package controller.impl.command.popups.confirmation;
 
 import controller.interfaces.Command;
 import model.player.Player;

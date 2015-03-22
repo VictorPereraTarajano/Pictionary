@@ -4,7 +4,7 @@ import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.command.game.StartGameCommand;
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
-import controller.impl.command.popups.ShowInvitePlayerDialogCommand;
+import controller.impl.command.popups.inviteplayer.ShowInvitePlayerDialogCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
     private static final String TITLE ="Pictionary";
-    private static final int WIDTH=1280, HEIGHT=1024;
+    private static final int WIDTH=1280, HEIGHT=720;
     private final Color backgroundColor=new Color(105, 202, 136);
 
     private ScoringPanel scoringPanel;

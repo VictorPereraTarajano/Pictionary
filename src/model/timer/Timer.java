@@ -1,6 +1,6 @@
 package model.timer;
 
-import controller.impl.command.game.turn.StartTurnCommand;
+import controller.impl.command.turn.StartTurnCommand;
 import controller.impl.command.timer.StopTimerCommand;
 import controller.impl.command.timer.UpdateTimerCommand;
 import controller.impl.sendcommand.SendCommand;

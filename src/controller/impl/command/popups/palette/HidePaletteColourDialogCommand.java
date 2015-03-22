@@ -1,9 +1,9 @@
-package controller.impl.command.popups.canvas.palette;
+package controller.impl.command.popups.palette;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;
 
-public class HidePaletteColourDialog implements Command {
+public class HidePaletteColourDialogCommand implements Command {
 
     @Override
     public void execute() {

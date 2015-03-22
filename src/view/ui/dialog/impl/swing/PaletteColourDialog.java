@@ -2,7 +2,7 @@ package view.ui.dialog.impl.swing;
 
 import controller.impl.command.pencil.HidePencilCommand;
 import controller.impl.command.pencil.options.UpdatePencilColorCommand;
-import controller.impl.command.popups.canvas.palette.HidePaletteColourDialog;
+import controller.impl.command.popups.palette.HidePaletteColourDialogCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 
@@ -38,7 +38,7 @@ public class PaletteColourDialog extends JPopupMenu {
                         @Override
                         public void mousePressed(MouseEvent e) {
                             new SendCommand(new UpdatePencilColorCommand(((TileColor)e.getSource()).getColor()), ManagerConnection.TCPBroadcastAll()).execute();
-                            new HidePaletteColourDialog().execute();
+                            new HidePaletteColourDialogCommand().execute();
                         }
 
                         @Override

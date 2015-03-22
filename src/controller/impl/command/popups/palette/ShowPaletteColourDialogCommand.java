@@ -1,15 +1,15 @@
-package controller.impl.command.popups.canvas.palette;
+package controller.impl.command.popups.palette;
 
 import controller.interfaces.Command;
 import model.manager.ManagerLobby;
 
 import javax.swing.*;
 
-public class ShowPaletteColourDialog implements Command {
+public class ShowPaletteColourDialogCommand implements Command {
 
     private JComponent component;
 
-    public ShowPaletteColourDialog(JComponent component) {
+    public ShowPaletteColourDialogCommand(JComponent component) {
         this.component = component;
     }
 

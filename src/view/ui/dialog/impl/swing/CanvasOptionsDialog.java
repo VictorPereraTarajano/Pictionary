@@ -1,10 +1,10 @@
 package view.ui.dialog.impl.swing;
 
 import controller.impl.command.canvas.ClearCanvasCommand;
-import controller.impl.command.game.turn.StopTurnCommand;
+import controller.impl.command.turn.StopTurnCommand;
 import controller.impl.command.pencil.HidePencilCommand;
 import controller.impl.command.pencil.options.UpdatePencilDimensionCommand;
-import controller.impl.command.popups.canvas.palette.ShowPaletteColourDialog;
+import controller.impl.command.popups.palette.ShowPaletteColourDialogCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
@@ -107,7 +107,7 @@ public class CanvasOptionsDialog extends JPanel implements view.ui.dialog.interf
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new ShowPaletteColourDialog(((JComponent) e.getSource())).execute();
+                        new ShowPaletteColourDialogCommand(((JComponent) e.getSource())).execute();
                     }
                 });
             }
