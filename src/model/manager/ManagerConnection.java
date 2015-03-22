@@ -1,8 +1,6 @@
 package model.manager;
 
 import model.network.receiver.interfaces.Receiver;
-import model.network.sender.impl.TCPSender;
-import model.network.sender.impl.UDPSender;
 import model.network.sender.interfaces.Sender;
 import model.player.Player;
 
@@ -11,11 +9,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class ManagerConnection {
 
-    public static final String DefaultIP= "127.0.0.1";
+    public static final String DefaultIP= "192.168.1.15";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;

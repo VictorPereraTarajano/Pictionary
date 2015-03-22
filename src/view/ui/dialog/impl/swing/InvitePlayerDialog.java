@@ -62,8 +62,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createIpField() {
-        ipField= new JTextField(20);
-        return ipField;
+        return ipField= new JTextField(20);
     }
 
     private String getIP () {
