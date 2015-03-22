@@ -36,7 +36,7 @@ public class TCPSender implements Sender, Runnable  {
 
     @Override
     public void run() {
-        OutputStream os;
+        OutputStream  os;
         try {
             if (socket==null) return;
             os = socket.getOutputStream();
