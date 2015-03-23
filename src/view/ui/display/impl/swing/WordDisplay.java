@@ -13,13 +13,14 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
 
     public WordDisplay() {
         super();
+        setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0,20,0,20));
         createWidgets();
         setVisible(false);
     }
 
     private void createWidgets() {
-        add(createWordLabel());
+        add(createWordLabel(), BorderLayout.CENTER);
     }
 
     @Override

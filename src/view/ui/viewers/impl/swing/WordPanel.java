@@ -13,7 +13,9 @@ public class WordPanel extends JPanel implements view.ui.viewers.interfaces.Word
 
     public WordPanel() {
         super();
-        setPreferredSize(new Dimension(10,42));
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder());
+        setPreferredSize(new Dimension(10,38));
         setLayout(new FlowLayout(FlowLayout.CENTER));
         createWidgets();
     }
@@ -33,12 +35,11 @@ public class WordPanel extends JPanel implements view.ui.viewers.interfaces.Word
     }
 
     private void createWidgets() {
-        add(createWordDisplay());
+        add(createWordDisplay(), BorderLayout.CENTER);
     }
 
     private Component createWordDisplay() {
-        wordDisplay = new WordDisplay();
-        return wordDisplay;
+        return wordDisplay = new WordDisplay();
     }
 
     public WordDisplay getWordDisplay() {

@@ -47,11 +47,12 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
         g2d.setStroke(new BasicStroke(2));
         fillOval();
         g2d.setColor(Color.black);
-        g2d.setStroke(new BasicStroke(5));
+        g2d.setStroke(new BasicStroke(6));
         g2d.drawOval(5, 5, getWidth() - 10, getHeight() - 10);
     }
 
     public void fillOval () {
+        g2d.setStroke(new BasicStroke(6));
         int radius = (getWidth() / 2) - 5;
         int centerX = 5 + radius;
         int centerY = 5 + radius;
@@ -68,7 +69,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
         return timer = new JLabel(String.valueOf(ManagerLobby.myLobby.getTimer().getCount())) {
             {
                 setForeground(Color.BLACK);
-                setFont(new Font("Lobster", Font.BOLD, 40));
+                setFont(new Font("Montserrat", Font.BOLD, 40));
             }
         };
     }
