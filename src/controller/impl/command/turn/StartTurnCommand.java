@@ -11,10 +11,14 @@ import controller.impl.command.popups.canvasoptions.ShowCanvasOptionsDialogComma
 import controller.impl.command.popups.reportplayer.HideReportPlayerDialogCommand;
 import controller.impl.command.popups.reportplayer.ShowReportPlayerDialogCommand;
 import controller.impl.command.timer.StartTimerCommand;
+import controller.impl.command.timer.StopTimerCommand;
+import controller.impl.command.word.HideWordDisplayCommand;
+import controller.impl.command.word.ShowWordDisplayCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
 import model.game.Game;
 import model.game.Turn;
+import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 import model.player.Player;
 import view.persistence.impl.loaders.clip.FactoryClipLoader;
@@ -32,15 +36,25 @@ public class StartTurnCommand implements Command {
 
     @Override
     public void execute() {
+        resetTimer();
         initChat();
         initStuff();
+        clearWordDisplay();
         initAnimation();
-        initWordDisplay();
+        showWordDisplay();
         initTurn();
     }
 
+    private void resetTimer() {
+        new StopTimerCommand().execute();
+    }
+
+    private void showWordDisplay() {
+        new ShowWordDisplayCommand().execute();
+    }
+
     private void initStuff() {
-        if (ManagerLobby.myPlayer.equals(turn.getPlayer()))
+        if (ManagerGame.isPainter(ManagerLobby.myPlayer))
             initPainterStuff();
         else
             initNonPainterStuff();
@@ -101,8 +115,8 @@ public class StartTurnCommand implements Command {
         new ClearCanvasCommand().execute();
     }
 
-    private void initWordDisplay () {
-        ManagerLobby.myLobbyFrame.getWordPanel().refresh();
+    private void clearWordDisplay() {
+        new HideWordDisplayCommand().execute();
     }
 
     private void initChat () {

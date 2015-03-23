@@ -11,4 +11,7 @@ public class FactoryImageLoader {
     public static BufferedImage OFF_BUTTON = new ImageLoader().load("/menu/off.png");
     public static BufferedImage TITLE = new ImageLoader().load("/menu/title.png");
     public static BufferedImage ICON_FRAME = new ImageLoader().load("/frame/pinturillo.png");
+    public static BufferedImage TITLE_CANVAS = new ImageLoader().load("/canvas/titleWhite.png");
+    public static BufferedImage STAR = new ImageLoader().load("/scoring/star.png");
+    public static BufferedImage DEFAULT_PLAYER_IMAGE = new ImageLoader().load("/scoring/default.png");
 }

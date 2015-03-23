@@ -7,7 +7,7 @@ import model.timer.Timer;
 public class StartTimerCommand implements Command {
     @Override
     public void execute() {
-        ManagerLobby.myLobby.getTimer().setCount(Timer.initCount);
+        ManagerLobby.myLobby.getTimer().setCount(Timer.INIT_COUNT);
         ManagerLobby.myLobby.getTimer().start();
     }
 }

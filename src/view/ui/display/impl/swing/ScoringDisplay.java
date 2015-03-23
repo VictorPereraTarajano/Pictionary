@@ -2,22 +2,24 @@ package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
 import model.player.Player;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ScoringDisplay extends JPanel implements view.ui.display.interfaces.ScoringDisplay {
 
-    private final int HEIGHT=50;
+    private final int HEIGHT=70;
 
     private JLabel playername;
     private Player player;
 
     public ScoringDisplay(Player player) {
         super();
-        setLayout(new GridLayout(1,2));
+        setLayout(new BorderLayout());
         this.player = player;
         createWidgets();
+        setBackground(Color.WHITE);
     }
 
     @Override
@@ -28,48 +30,71 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
     private void createWidgets() {
         add(new JPanel () {
             {
-                add(createScore());
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.WHITE);
-                g.fillRect(0, 0, this.getWidth(), getHeight());
-                g.setColor(Color.LIGHT_GRAY);
-                g.fillRoundRect(0, 0, this.getWidth(), getHeight(), 10, 10);
-                g.fillRect(getWidth()- 50, 0, getWidth(), getHeight());
-            }
-        }, BorderLayout.EAST);
-        add(new JPanel () {
-            {
-                add(createPlayerName());
-            }
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.WHITE);
-                g.fillRect(0, 0, this.getWidth(), getHeight());
-                g.setColor(Color.LIGHT_GRAY);
-                g.fillRoundRect(0, 0, this.getWidth(), getHeight(), 10, 10);
-                g.fillRect(0, 0, 50, getHeight());
+                setBackground(Color.WHITE);
+                setBorder(BorderFactory.createEmptyBorder(0,10,5,0));
+                add(new JLabel() {
+                    {
+                        setFont(new Font("Montserrat", Font.BOLD, 45));
+                        if (ManagerLobby.myPlayer.equals(player))
+                            setForeground(Color.RED);
+                        else
+                            setForeground(Color.LIGHT_GRAY);
+                        setText(String.valueOf(ManagerLobby.myLobby.getScoring().getPosition(ManagerLobby.myPlayer)));
+                    }
+                });
             }
         }, BorderLayout.WEST);
+        add(new JPanel () {
+            {
+                setBackground(Color.WHITE);
+                setLayout(new BorderLayout());
+                add(new JPanel () {
+                    {
+                        setLayout(new FlowLayout(FlowLayout.LEFT));
+                        add(new JLabel() {
+                            {
+                                setIcon(new ImageIcon(FactoryImageLoader.DEFAULT_PLAYER_IMAGE));
+                            }
+                        });
+                        add(new JLabel() {
+                            {
+                                setIcon(new ImageIcon(FactoryImageLoader.STAR));
+                            }
+                        });
+                        setOpaque(false);
+                    }
+                }, BorderLayout.WEST);
+                add(new JPanel () {
+                    {
+                        setBackground(Color.WHITE);
+                        add(createPlayerName());
+                    }
+                }, BorderLayout.SOUTH);
+            }
+        }, BorderLayout.CENTER);
+
+        add(new JPanel () {
+            {
+                setBackground(Color.WHITE);
+                add(createScore());
+            }
+        }, BorderLayout.EAST);
     }
 
     private Component createScore() {
-        JLabel score;
-        return score = new JLabel(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore())) {
+        return new JLabel(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore())) {
             {
-                this.setFont(new Font("Lobster", Font.BOLD, 30));
+                this.setFont(new Font("Montserrat", Font.BOLD, 20));
             }
         };
     }
 
     private Component createPlayerName() {
-        return playername = new JLabel(player.getName()) {
+        return playername = new JLabel() {
             {
-                this.setFont(new Font("Lobster", Font.BOLD, 30));
+                setFont(new Font("Montserrat", Font.BOLD, 15));
+                setForeground(Color.RED);
+                setText(player.getName());
             }
         };
     }

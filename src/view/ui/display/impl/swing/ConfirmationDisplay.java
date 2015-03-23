@@ -7,6 +7,7 @@ import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.player.Player;
+import model.scoring.Score;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +77,7 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                     public void actionPerformed(ActionEvent e) {
                         new AddPlayerScoringCommand(player).execute();
                         new SendCommand(new CreateLobbyCommand(ManagerLobby.myLobby), ManagerConnection.TCPBroadcast(new Player [] {player})).execute();
-                        new SendCommand(new UpdatePlayerScoringCommand(player), ManagerConnection.TCPBroadcast()).execute();
+                        new SendCommand(new UpdatePlayerScoringCommand(player, new Score(0)), ManagerConnection.TCPBroadcast()).execute();
                         mySelf.setVisible(false);
                     }
                 });

@@ -38,15 +38,33 @@ public class MenuFrame extends JFrame {
     }
 
     private void createWidgets() {
-        add(new JPanel () {
+        add(new JPanel() {
             {
-                setBackground(backgroundColor);
                 setLayout(new BorderLayout());
-                add(createTitle(), BorderLayout.CENTER);
+                setBackground(Color.DARK_GRAY);
+                add(new JLabel() {
+                    {
+                        setFont(new Font("Agency FB", Font.BOLD, 18));
+                        setText("  Welcome to Pictionary");
+                        setForeground(Color.WHITE);
+                    }
+                }, BorderLayout.CENTER);
                 add(createConnectDisconnectButton(), BorderLayout.EAST);
             }
         }, BorderLayout.NORTH);
-        add(createPanelButtons(), BorderLayout.CENTER);
+        add(new JPanel() {
+            {
+                setLayout(new BorderLayout());
+                add(new JPanel () {
+                    {
+                        setBackground(backgroundColor);
+                        setLayout(new FlowLayout(FlowLayout.CENTER));
+                        add(createTitle());
+                    }
+                }, BorderLayout.NORTH);
+                add(createPanelButtons(), BorderLayout.CENTER);
+            }
+        }, BorderLayout.CENTER);
         add(createLogLabel(), BorderLayout.SOUTH);
     }
 
@@ -67,7 +85,7 @@ public class MenuFrame extends JFrame {
                 add(createExitButton());
                 setLayout(new GridLayout(4,1,5,5));
                 setBackground(backgroundColor);
-                setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+                setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
             }
         };
     }
@@ -93,8 +111,10 @@ public class MenuFrame extends JFrame {
         return new JPanel () {
             {
                 setLayout(new FlowLayout(FlowLayout.LEFT));
-                log = new JLabel(ManagerConnection.getStatus()) {
+                log = new JLabel() {
                     {
+                        setText(ManagerConnection.getStatus());
+                        setFont(new Font("Agency FB", Font.BOLD, 18));
                         setForeground(Color.WHITE);
                     }
                 };
@@ -112,10 +132,10 @@ public class MenuFrame extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         if (ManagerConnection.getStatus().equals(ManagerConnection.CONNECTED)) {
                             new DisconnectCommand().execute();
-                            setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON));
+                            setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON.getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
                         } else {
                             new ConnectCommand().execute();
-                            setIcon(new ImageIcon(FactoryImageLoader.ON_BUTTON));
+                            setIcon(new ImageIcon(FactoryImageLoader.ON_BUTTON.getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
                         }
                         log.setText(ManagerConnection.getStatus());
                     }
@@ -123,7 +143,8 @@ public class MenuFrame extends JFrame {
                 setOpaque(false);
                 setContentAreaFilled(false);
                 setBorderPainted(false);
-                setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON));
+                setBorder(BorderFactory.createEmptyBorder());
+                setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON.getScaledInstance(30,30, Image.SCALE_SMOOTH)));
             }
         };
     }

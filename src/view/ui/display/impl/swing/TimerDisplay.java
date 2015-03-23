@@ -55,7 +55,7 @@ public class TimerDisplay extends JPanel implements view.ui.display.interfaces.T
         int radius = (getWidth() / 2) - 5;
         int centerX = 5 + radius;
         int centerY = 5 + radius;
-        int count = model.timer.Timer.initCount - ManagerLobby.myLobby.getTimer().getCount();
+        int count = model.timer.Timer.INIT_COUNT - ManagerLobby.myLobby.getTimer().getCount();
         int lineWidth = (int) Math.sqrt(Math.pow(radius, 2.0) - Math.pow(radius - count, 2.0));
         g2d.drawLine(centerX - lineWidth, centerY + radius - count, centerX + lineWidth, centerY + radius - count);
     }

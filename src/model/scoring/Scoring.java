@@ -20,6 +20,13 @@ public class Scoring implements Serializable {
         scoring.remove(player);
     }
 
+    public int getPosition (Player playerE) {
+        Player [] players = scoring.keySet().toArray(new Player [scoring.size()]);
+        for (int i = 0; i < players.length; i++)
+            if (players[i].equals(playerE)) return i+1;
+        return 0;
+    }
+
     public void add(Player player, Score score) {
         scoring.put(player,score);
     }

@@ -1,6 +1,7 @@
 package view.ui.display.impl.swing;
 
 import model.manager.ManagerLobby;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 import view.ui.dialog.impl.swing.CanvasOptionsDialog;
 import view.ui.dialog.impl.swing.ReportPlayerDialog;
 
@@ -104,6 +105,7 @@ public class CanvasDisplay extends JPanel implements view.ui.display.interfaces.
     public void drawBackground (Graphics2D g) {
         g.setColor(Color.WHITE);
         g.fillRoundRect(0, 0, this.getSize().width, this.getSize().height, 25, 25);
+        g.drawImage(FactoryImageLoader.TITLE_CANVAS,getWidth()/2 - FactoryImageLoader.TITLE_CANVAS.getWidth()/2,getHeight()/2 - FactoryImageLoader.TITLE_CANVAS.getHeight()/2,null);
     }
 
     public void drawBorders (Graphics2D g) {

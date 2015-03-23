@@ -88,8 +88,8 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
                             new JOptionPane().showMessageDialog(mySelf, "Your playername is empty !!", "Failed to register", JOptionPane.WARNING_MESSAGE);
                         else {
                             ManagerLobby.myPlayer = getPlayer();
-                            ((JPanel)ManagerMenu.menuFrame.getContentPane().getComponents()[1]).getComponent(1).setEnabled(true);
-                            ((JButton)((JPanel)ManagerMenu.menuFrame.getContentPane().getComponents()[1]).getComponent(0)).setText("Change Playername");
+                            ((JPanel)((JPanel)ManagerMenu.menuFrame.getContentPane().getComponents()[1]).getComponent(1)).getComponent(1).setEnabled(true);
+                            ((JButton)((JPanel)((JPanel)ManagerMenu.menuFrame.getContentPane().getComponents()[1]).getComponent(1)).getComponent(0)).setText("Change Player");
                             mySelf.setVisible(false);
                         }
                     }

@@ -1,10 +1,7 @@
 package view.ui.dialog.impl.swing;
 
-import controller.impl.command.chat.TypeChatCommand;
-import controller.impl.sendcommand.SendCommand;
-import model.chat.ChatMessage;
-import model.manager.ManagerConnection;
-import model.manager.ManagerLobby;
+import controller.impl.command.word.CheckWordCommand;
+import model.word.Word;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,9 +41,8 @@ public class ChatDialog extends JPanel implements view.ui.dialog.interfaces.Chat
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar()=='\n') {
-                    new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, getMessage())), ManagerConnection.TCPBroadcastAll()).execute();
-                }
+                if (e.getKeyChar()=='\n')
+                    new CheckWordCommand(new Word(getMessage())).execute();
             }
 
             @Override

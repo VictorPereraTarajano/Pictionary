@@ -5,8 +5,15 @@ import model.player.Player;
 import java.awt.*;
 
 public class ManagerGame {
+
     public static final int MIN_NUM_PLAYERS=1;
     public static final int NUM_MAX_TURNS=10;
+
+    public static final int IN_GAME=0;
+    public static final int OUT_GAME=1;
+
+    public static final int GAME_STATE=OUT_GAME;
+
     public static Color [] colorSet = new Color [] {Color.BLUE, Color.cyan,Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE};
 
     public static Color getAvailableColor () {
