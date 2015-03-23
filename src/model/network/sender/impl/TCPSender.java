@@ -24,7 +24,7 @@ public class TCPSender implements Sender, Runnable  {
         try {
             socket = new Socket(IP, ManagerConnection.TCPort);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Cannot connect to IP "+IP);
         }
     }
 

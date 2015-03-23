@@ -14,7 +14,7 @@ public class ConnectCommand implements Command {
 
     @Override
     public void execute() {
-        createReceivers();
+        if (ManagerConnection.getStatus().equals(ManagerConnection.DISCONNECTED)) createReceivers();
     }
 
     private void createReceivers() {

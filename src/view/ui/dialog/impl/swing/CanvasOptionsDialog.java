@@ -213,7 +213,7 @@ public class CanvasOptionsDialog extends JPanel implements view.ui.dialog.interf
                 g2d.fillRect(0,0,this.getWidth(),this.getHeight());
                 g2d.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
                 try {
-                    g2d.drawImage(ImageIO.read(getClass().getResource("/clear.png")), 2,2,20,20,null);
+                    g2d.drawImage(ImageIO.read(getClass().getResource("/canvas/clear.png")), 2,2,20,20,null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

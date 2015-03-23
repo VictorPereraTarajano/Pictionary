@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 
 public class ConfirmationDisplay extends JDialog implements view.ui.display.interfaces.ConfirmationDisplay {
 
-    private static final int WIDTH=200, HEIGHT=200;
     private static ConfirmationDisplay mySelf;
 
     private JLabel messageConfirmation;
@@ -23,17 +22,50 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
 
     public ConfirmationDisplay(Player player) {
         super();
+        setTitle("Confirmation Invite");
         mySelf=this;
         this.player=player;
         setLocation(500, 500);
-        setMinimumSize(new Dimension(WIDTH,HEIGHT));
+        setLayout(new BorderLayout());
         createWidgets();
+        pack();
         setVisible(true);
     }
 
     private void createWidgets() {
-        add(createMessageConfirmation());
-        add(createAcceptButton());
+        add(new JPanel () {
+            {
+                setLayout(new BorderLayout());
+                setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+                setBackground(new Color(105, 202, 136));
+                add(createMessageConfirmation(), BorderLayout.CENTER);
+            }
+        }, BorderLayout.NORTH);
+        add(new JPanel() {
+            {
+                setBackground(new Color(105, 202, 136));
+                setLayout(new GridLayout(1,2,10,10));
+                setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+                add(createAcceptButton());
+                add(createCancelButton());
+            }
+
+
+        }, BorderLayout.SOUTH);
+    }
+
+    private Component createCancelButton() {
+        return new JButton("CANCEL") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mySelf.setVisible(false);
+                    }
+                });
+                setBackground(new Color(154, 235, 180));
+            }
+        };
     }
 
     private Component createAcceptButton() {
@@ -48,13 +80,14 @@ public class ConfirmationDisplay extends JDialog implements view.ui.display.inte
                         mySelf.setVisible(false);
                     }
                 });
+                setBackground(new Color(154, 235, 180));
             }
         };
     }
 
     private Component createMessageConfirmation() {
-        messageConfirmation=new JLabel();
-        return messageConfirmation;
+        return messageConfirmation=new JLabel("<html> <font style=\"font-size:9px;\">The player "+player.getName()+" has accepted your invitation to join the lobby <br><br>" +
+                                              "        <p style=\"text-indent:45px;\">¿Do you want to add him to the actual lobby?</p></font></html>");
     }
 
     @Override

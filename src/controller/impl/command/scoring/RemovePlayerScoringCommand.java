@@ -1,9 +1,14 @@
 package controller.impl.command.scoring;
 
+import controller.impl.command.chat.TypeChatCommand;
+import controller.impl.command.frame.HideLobbyCommand;
+import controller.impl.command.menu.ShowMenuCommand;
 import controller.interfaces.Command;
+import model.chat.ChatMessage;
 import model.manager.ManagerLobby;
-import model.manager.ManagerMenu;
 import model.player.Player;
+
+import java.awt.*;
 
 public class RemovePlayerScoringCommand implements Command {
 
@@ -16,9 +21,10 @@ public class RemovePlayerScoringCommand implements Command {
     @Override
     public void execute() {
         if (ManagerLobby.myPlayer.equals(player)) {
-            ManagerLobby.myLobbyFrame.setVisible(false);
-            ManagerMenu.menuFrame.setVisible(true);
+            new HideLobbyCommand().execute();
+            new ShowMenuCommand().execute();
         } else {
+            new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" has been disconnected")).execute();
             ManagerLobby.myLobby.getScoring().remove(player);
             ManagerLobby.myLobbyFrame.getScoringPanel().refresh();
         }

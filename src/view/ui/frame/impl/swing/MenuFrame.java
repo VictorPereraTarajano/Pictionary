@@ -8,19 +8,19 @@ import model.game.Lobby;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class MenuFrame extends JFrame {
 
-    private static final int WIDTH=250,HEIGHT=200;
+    private static final int WIDTH=480,HEIGHT=400;
     private static final String TITLE="Menu Pictionary";
-
+    private Color backgroundColor = new Color(105, 202, 136);
+    private Color backgroundButtonsColor =  new Color(134, 203, 107);
     private JLabel log;
 
     public MenuFrame() {
@@ -34,16 +34,28 @@ public class MenuFrame extends JFrame {
     }
 
     private void setIcon() {
-        try {
-            setIconImage(ImageIO.read(getClass().getResource("/pinturillo.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setIconImage(FactoryImageLoader.ICON_FRAME);
     }
 
     private void createWidgets() {
+        add(new JPanel () {
+            {
+                setBackground(backgroundColor);
+                setLayout(new BorderLayout());
+                add(createTitle(), BorderLayout.CENTER);
+                add(createConnectDisconnectButton(), BorderLayout.EAST);
+            }
+        }, BorderLayout.NORTH);
         add(createPanelButtons(), BorderLayout.CENTER);
         add(createLogLabel(), BorderLayout.SOUTH);
+    }
+
+    private Component createTitle() {
+        return new JLabel() {
+            {
+                setIcon(new ImageIcon(FactoryImageLoader.TITLE));
+            }
+        };
     }
 
     private JPanel createPanelButtons() {
@@ -52,9 +64,8 @@ public class MenuFrame extends JFrame {
                 add(createRegisterPlayerButton());
                 add(createLobbyButton());
                 add(createExitButton());
-                add(createConnectDisconnectButton());
-                setLayout(new GridLayout(4,1,2,2));
-                setBackground(new Color(105, 202, 136));
+                setLayout(new GridLayout(3,1,5,5));
+                setBackground(backgroundColor);
                 setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             }
         };
@@ -64,66 +75,81 @@ public class MenuFrame extends JFrame {
         return new JPanel () {
             {
                 setLayout(new FlowLayout(FlowLayout.LEFT));
-                log = new JLabel(ManagerConnection.getStatus());
+                log = new JLabel(ManagerConnection.getStatus()) {
+                    {
+                        setForeground(Color.WHITE);
+                    }
+                };
                 add(log);
-                setBackground(Color.WHITE);
+                setBackground(Color.DARK_GRAY);
             }
         };
     }
 
     private Component createConnectDisconnectButton() {
-        return new JButton("Connect") {
+        return new JButton() {
             {
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (ManagerConnection.getStatus().equals("CONNECTED")) {
+                        if (ManagerConnection.getStatus().equals(ManagerConnection.CONNECTED)) {
                             new DisconnectCommand().execute();
-                            setText("Connect");
+                            setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON));
                         } else {
                             new ConnectCommand().execute();
-                            setText("Disconnect");
+                            setIcon(new ImageIcon(FactoryImageLoader.ON_BUTTON));
                         }
                         log.setText(ManagerConnection.getStatus());
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setOpaque(false);
+                setContentAreaFilled(false);
+                setBorderPainted(false);
+                setIcon(new ImageIcon(FactoryImageLoader.OFF_BUTTON));
             }
         };
     }
 
     private Component createExitButton() {
-        return new JButton("Exit") {
+        return new JButton() {
             {
+                setFont(new Font("Agency FB", Font.BOLD, 30));
+                setText("Exit");
+                setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.exit(0);
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(backgroundButtonsColor);
             }
         };
     }
 
     private Component createRegisterPlayerButton() {
-        return new JButton("Register Playername") {
+        return new JButton() {
             {
+                setFont(new Font("Agency FB", Font.BOLD, 30));
+                setText("Register Player");
+                setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         new RegisterPlayerCommand().execute();
-                        if (ManagerLobby.myPlayer!=null) setText("Change Playername");
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(backgroundButtonsColor);
             }
         };
     }
 
     private Component createLobbyButton() {
-        return new JButton("Create Lobby"){
+        return new JButton(){
             {
+                setFont(new Font("Agency FB", Font.BOLD, 30));
+                setText("Create Lobby");
+                setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -133,7 +159,7 @@ public class MenuFrame extends JFrame {
                     }
                 });
                 setEnabled(false);
-                setBackground(new Color(154, 235, 180));
+                setBackground(backgroundButtonsColor);
             }
         };
     }

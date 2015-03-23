@@ -15,6 +15,7 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
         super();
         setBorder(new EmptyBorder(0,20,0,20));
         createWidgets();
+        setVisible(false);
     }
 
     private void createWidgets() {
@@ -61,9 +62,10 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
             showWord();
         else
             showCodifiedWord();
+        setVisible(true);
     }
 
-    public void setVisible(boolean visible) {
+    public void enableVisibility (boolean visible) {
         this.visible=visible;
     }
 

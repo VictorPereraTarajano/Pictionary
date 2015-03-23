@@ -91,8 +91,8 @@ public class CanvasPanel extends JPanel implements view.ui.viewers.interfaces.Ca
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                new ReleasePencilCommand().execute();
-                new SendCommand(new HidePencilCommand(), ManagerConnection.TCPBroadcast()).execute();
+                new SendCommand (new ReleasePencilCommand(), ManagerConnection.TCPBroadcastAll()).execute();
+                new SendCommand(new HidePencilCommand(), ManagerConnection.TCPBroadcastAll()).execute();
             }
 
             @Override

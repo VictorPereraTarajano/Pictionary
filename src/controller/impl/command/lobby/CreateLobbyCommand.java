@@ -3,10 +3,9 @@ package controller.impl.command.lobby;
 import controller.impl.command.connection.ConnectCommand;
 import controller.interfaces.Command;
 import model.game.Lobby;
-import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
-import view.ui.frame.impl.swing.LobbyFrame;
 import model.manager.ManagerLobby;
+import view.ui.frame.impl.swing.LobbyFrame;
 
 public class CreateLobbyCommand implements Command {
 
@@ -18,8 +17,7 @@ public class CreateLobbyCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerConnection.getStatus().equals("DISCONNECTED"))
-            new ConnectCommand().execute();
+        new ConnectCommand().execute();
         ManagerLobby.myLobby=lobby;
         ManagerLobby.myLobbyFrame=new LobbyFrame();
         ManagerLobby.myPlayer.setColor(ManagerGame.getAvailableColor());

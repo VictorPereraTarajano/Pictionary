@@ -13,6 +13,7 @@ import controller.impl.command.popups.reportplayer.ShowReportPlayerDialogCommand
 import controller.impl.command.timer.StartTimerCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
+import model.game.Game;
 import model.game.Turn;
 import model.manager.ManagerLobby;
 import model.player.Player;
@@ -48,7 +49,7 @@ public class StartTurnCommand implements Command {
     private void initNonPainterStuff() {
         new EnableChatDialogCommand().execute();
         new DisableCanvasDisplayCommand().execute();
-        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(false);
+        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().enableVisibility(false);
         new HideCanvasOptionsDialogCommand().execute();
         new ShowReportPlayerDialogCommand().execute();
     }
@@ -56,15 +57,17 @@ public class StartTurnCommand implements Command {
     private void initPainterStuff() {
         new DisableChatDialogCommand().execute();
         new EnableCanvasDisplayCommand().execute();
-        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().setVisible(true);
+        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().enableVisibility(true);
         new ShowCanvasOptionsDialogCommand().execute();
         new HideReportPlayerDialogCommand().execute();
     }
 
     private void initTurn() {
-        if (!ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer))
-            ManagerLobby .myLobby.getGame().addTurn(turn);
-        else
+        if (!ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) {
+            if (ManagerLobby.myLobby.getGame() == null)
+                ManagerLobby.myLobby.setGame(new Game());
+            ManagerLobby.myLobby.getGame().addTurn(turn);
+        } else
             new StartTimerCommand().execute();
     }
 

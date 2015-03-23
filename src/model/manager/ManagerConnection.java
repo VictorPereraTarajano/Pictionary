@@ -12,6 +12,9 @@ import java.net.URL;
 
 public class ManagerConnection {
 
+    public static final String DISCONNECTED = "Disconnected;";
+    public static final String CONNECTED = "Connected;";
+
     public static final String DefaultIP= "192.168.1.15";
 
     public static final int UDPort = 2000;
@@ -30,8 +33,8 @@ public class ManagerConnection {
 
     public static String getStatus () {
         if (UDPreceiver != null || TCPreceiver != null)
-            return "CONNECTED";
-        return "DISCONNECTED";
+            return CONNECTED;
+        return DISCONNECTED;
     }
 
     public static Sender []  TCPBroadcastAll () {

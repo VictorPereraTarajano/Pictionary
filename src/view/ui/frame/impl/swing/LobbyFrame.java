@@ -1,12 +1,10 @@
 package view.ui.frame.impl.swing;
 
-import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.command.game.StartGameCommand;
 import controller.impl.command.lobby.CloseLobbyCommand;
 import controller.impl.command.player.KickPlayerCommand;
 import controller.impl.command.popups.inviteplayer.ShowInvitePlayerDialogCommand;
 import controller.impl.sendcommand.SendCommand;
-import model.chat.ChatMessage;
 import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
@@ -19,7 +17,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
@@ -49,7 +50,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
 
     private void setIcon() {
         try {
-            setIconImage(ImageIO.read(getClass().getResource("/pinturillo.png")));
+            setIconImage(ImageIO.read(getClass().getResource("/frame/pinturillo.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -174,7 +175,6 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
             @Override
             public void menuSelected(MenuEvent e) {
                 new SendCommand(new CloseLobbyCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
-                new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.BLACK),ManagerLobby.myPlayer.getName()+" se ha desconectado")), ManagerConnection.TCPBroadcast()).execute();
             }
 
             @Override
