@@ -71,7 +71,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
                         mySelf.setVisible(false);
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(new Color(134, 203, 107));
             }
         };
     }
@@ -94,7 +94,7 @@ public class RegisterPlayerDialog extends JDialog implements view.ui.dialog.inte
                         }
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(new Color(134, 203, 107));
             }
         };
     }

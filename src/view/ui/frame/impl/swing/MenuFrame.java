@@ -63,10 +63,28 @@ public class MenuFrame extends JFrame {
             {
                 add(createRegisterPlayerButton());
                 add(createLobbyButton());
+                add(createOptionsButton());
                 add(createExitButton());
-                setLayout(new GridLayout(3,1,5,5));
+                setLayout(new GridLayout(4,1,5,5));
                 setBackground(backgroundColor);
                 setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+            }
+        };
+    }
+
+    private Component createOptionsButton() {
+        return new JButton() {
+            {
+                setFont(new Font("Agency FB", Font.BOLD, 30));
+                setText("Options");
+                setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                });
+                setBackground(backgroundButtonsColor);
             }
         };
     }

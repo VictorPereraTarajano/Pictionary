@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interfaces.InvitePlayerDialog {
 
-    private static final int WIDTH=300, HEIGHT=120;
+    private static final int WIDTH=350, HEIGHT=130;
     private JTextField ipField;
     private InvitePlayerDialog mySelf;
 
@@ -25,6 +25,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(105, 202, 136));
+        setLocation(500,500);
         createWidgets();
         setVisible(true);
     }
@@ -35,7 +36,12 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                 setBackground(new Color(105, 202, 136));
                 setLayout(new GridLayout(1,2,5,5));
                 setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-                add(new JLabel("    Player IP : "));
+                add(new JLabel() {
+                    {
+                        setFont(new Font("Agency FB", Font.BOLD, 20));
+                        setText("Insert player IP : ");
+                    }
+                });
                 add(createIpField());
             }
         }, BorderLayout.NORTH);
@@ -51,22 +57,26 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
     }
 
     private Component createButtonCancel() {
-        return new JButton("CANCEL") {
+        return new JButton() {
             {
+                setFont(new Font("Agency FB", Font.BOLD, 20));
+                setText("Cancel");
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         setVisible(false);
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(new Color(134, 203, 107));
             }
         };
     }
 
     private Component createButtonAccept() {
-        return new JButton("INVITE") {
+        return new JButton() {
             {
+                setFont(new Font("Agency FB", Font.BOLD, 20));
+                setText("Invite");
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -74,7 +84,7 @@ public class InvitePlayerDialog extends JDialog implements view.ui.dialog.interf
                         mySelf.setVisible(false);
                     }
                 });
-                setBackground(new Color(154, 235, 180));
+                setBackground(new Color(134, 203, 107));
             }
         };
     }

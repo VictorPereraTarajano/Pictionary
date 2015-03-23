@@ -12,23 +12,27 @@ import java.net.URL;
 
 public class ManagerConnection {
 
-    public static final String DISCONNECTED = "Disconnected;";
-    public static final String CONNECTED = "Connected;";
+    public static final String DISCONNECTED = "Disconnected";
+    public static final String CONNECTED = "Connected";
 
-    public static final String DefaultIP= "192.168.1.15";
+    public static final String DefaultIP= "10.44.20.44";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;
     public static Receiver UDPreceiver;
     public static Receiver TCPreceiver;
 
-    private static String getDefaultIP() {
+    private static String getPublicDefaultIP() {
         try {
             BufferedReader exchangeRateInfo = new BufferedReader(new InputStreamReader(new URL("http://api.ipify.org?format=json").openConnection().getInputStream()));
             return exchangeRateInfo.readLine().split(":")[1].substring(1,exchangeRateInfo.readLine().split(":")[1].length()-2 );
         } catch (IOException e) {
             throw new IllegalArgumentException("No se ha podido obtener su IP pública");
         }
+    }
+
+    public static String getLocalDefaultIP () {
+        return "";
     }
 
     public static String getStatus () {
