@@ -27,6 +27,6 @@ public class CheckWordCommand implements Command {
             new SendCommand(new UpdatePlayerScoringCommand(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getTimer().getCount())), ManagerConnection.TCPBroadcastAll()).execute();
             new DisableChatDialogCommand().execute();
         } else
-            new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, word.getWord())), ManagerConnection.TCPBroadcastAll()).execute();
+            new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, word.getVisibleWord())), ManagerConnection.TCPBroadcastAll()).execute();
     }
 }

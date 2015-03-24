@@ -49,12 +49,12 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     }
 
     private void showCodifiedWord () {
-        for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord().length(); i++)
+        for (int i = 0; i < ManagerLobby.myLobby.getGame().currentTurn().getWord().getVisibleWord().length(); i++)
             word.setText(word.getText() + " _");
     }
 
     private void showWord () {
-        word.setText(ManagerLobby.myLobby.getGame().currentTurn().getWord().getWord());
+        word.setText(ManagerLobby.myLobby.getGame().currentTurn().getWord().getVisibleWord());
     }
 
     @Override
