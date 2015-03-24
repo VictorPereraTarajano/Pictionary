@@ -14,7 +14,7 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     public WordDisplay() {
         super();
         setLayout(new BorderLayout());
-        setBorder(new EmptyBorder(0,20,0,20));
+        setBorder(new EmptyBorder(5,20,10,20));
         createWidgets();
         setVisible(false);
     }
@@ -26,13 +26,11 @@ public class WordDisplay extends JPanel implements view.ui.display.interfaces.Wo
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (visible) {
-            super.paintComponent(g2d);
-            g2d.setColor(new Color(244, 40, 40));
-            g2d.fillRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height);
-            g2d.setColor(new Color(119, 31, 31));
-            g2d.fillRoundRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height, 10, 10);
-        }
+        super.paintComponent(g2d);
+        g2d.setColor(new Color(244, 40, 40));
+        g2d.fillRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height);
+        g2d.setColor(new Color(119, 31, 31));
+        g2d.fillRoundRect(0, 0, getLayout().minimumLayoutSize(this).width, getLayout().minimumLayoutSize(this).height, 10, 10);
     }
 
     private Component createWordLabel() {

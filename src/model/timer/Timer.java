@@ -3,6 +3,7 @@ package model.timer;
 import controller.impl.command.results.ShowResultsCommand;
 import controller.impl.command.timer.UpdateTimerCommand;
 import controller.impl.command.turn.StartTurnCommand;
+import controller.impl.command.word.UpdateWordDisplayCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
 import model.manager.ManagerGame;
@@ -27,9 +28,11 @@ public class Timer extends javax.swing.Timer implements Serializable {
                     else
                         new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
                 } else {
-                    if (((INIT_COUNT /(ManagerLobby.myLobby.getGame().currentTurn().getWord().length()/2)) % ManagerLobby.myLobby.getTimer().getCount()) == 0)
-                        System.out.println("muestro una");
-                    new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
+                    if (((INIT_COUNT / (ManagerLobby.myLobby.getGame().currentTurn().getWord().length() / 2)) % ManagerLobby.myLobby.getTimer().getCount()) == 0) {
+                        new UpdateWordDisplayCommand().execute();
+                        new SendCommand(new UpdateWordDisplayCommand(), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getGame().currentTurn().getNonPainterPlayers())).execute();
+                    }
+                new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
                 }
             }
         });

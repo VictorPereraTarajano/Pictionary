@@ -10,6 +10,10 @@ public class Word implements Serializable {
         word = descomponseWord(words);
     }
 
+    public Letter[] getWord() {
+        return word;
+    }
+
     private Letter [] descomponseWord (String words) {
         char [] charArray = words.toCharArray();
         word = new Letter[words.length()];
@@ -36,6 +40,10 @@ public class Word implements Serializable {
             else
                 result+=" _ ";
         return result;
+    }
+
+    public void setVisible (int position, boolean visible) {
+        word[position].setVisible(visible);
     }
 
     @Override

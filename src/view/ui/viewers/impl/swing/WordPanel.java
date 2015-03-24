@@ -15,7 +15,7 @@ public class WordPanel extends JPanel implements view.ui.viewers.interfaces.Word
         super();
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder());
-        setPreferredSize(new Dimension(10,38));
+        setPreferredSize(new Dimension(10,42));
         setLayout(new FlowLayout(FlowLayout.CENTER));
         createWidgets();
     }
