@@ -13,6 +13,8 @@ import controller.impl.command.popups.reportplayer.ShowReportPlayerDialogCommand
 import controller.impl.command.timer.StartTimerCommand;
 import controller.impl.command.timer.StopTimerCommand;
 import controller.impl.command.word.HideWordDisplayCommand;
+import controller.impl.command.word.ShowCodifiedWordCommand;
+import controller.impl.command.word.ShowDecodifiedWordCommand;
 import controller.impl.command.word.ShowWordDisplayCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -63,7 +65,7 @@ public class StartTurnCommand implements Command {
     private void initNonPainterStuff() {
         new EnableChatDialogCommand().execute();
         new DisableCanvasDisplayCommand().execute();
-        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().enableVisibility(false);
+        new ShowCodifiedWordCommand().execute();
         new HideCanvasOptionsDialogCommand().execute();
         new ShowReportPlayerDialogCommand().execute();
     }
@@ -71,7 +73,7 @@ public class StartTurnCommand implements Command {
     private void initPainterStuff() {
         new DisableChatDialogCommand().execute();
         new EnableCanvasDisplayCommand().execute();
-        ManagerLobby.myLobbyFrame.getWordPanel().getWordDisplay().enableVisibility(true);
+        new ShowDecodifiedWordCommand().execute();
         new ShowCanvasOptionsDialogCommand().execute();
         new HideReportPlayerDialogCommand().execute();
     }

@@ -20,13 +20,21 @@ public class Word implements Serializable {
 
     public String getVisibleWord() {
         String result = "";
-        for (Letter letter : word) result+=letter;
+        for (Letter letter : word) result+=letter.getLetter();
         return result.toUpperCase();
+    }
+
+    public int length () {
+        return word.length;
     }
 
     public String getHiddenWord () {
         String result = "";
-        for (Letter letter : word) result+=" _ ";
+        for (Letter letter : word)
+            if(letter.isVisible())
+                result+=letter.getLetter();
+            else
+                result+=" _ ";
         return result;
     }
 
