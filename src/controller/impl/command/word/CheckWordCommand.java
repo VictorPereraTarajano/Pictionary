@@ -29,4 +29,5 @@ public class CheckWordCommand implements Command {
         } else
             new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, word.getVisibleWord())), ManagerConnection.TCPBroadcastAll()).execute();
     }
+
 }

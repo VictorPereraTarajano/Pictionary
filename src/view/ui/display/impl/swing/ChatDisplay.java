@@ -89,7 +89,7 @@ public class ChatDisplay extends JPanel implements view.ui.display.interfaces.Ch
             textArea.setText("");
         else {
             try {
-                ((HTMLEditorKit)textArea.getEditorKit()).insertHTML((HTMLDocument)textArea.getDocument(), textArea.getDocument().getLength(), "<font color="+getHexadecimalColor(message.getPlayer().getColor())+">"+message.getPlayer()+"</font> : "+message.getMessage(), 0, 0, null);
+                ((HTMLEditorKit)textArea.getEditorKit()).insertHTML((HTMLDocument)textArea.getDocument(), textArea.getDocument().getLength(), "<font color="+getHexadecimalColor(message.getPlayer().getColor())+">"+message.getPlayer()+"</font> : "+message.getMessage().toLowerCase(), 0, 0, null);
             } catch (BadLocationException | IOException e) {
                 e.printStackTrace();
             }
