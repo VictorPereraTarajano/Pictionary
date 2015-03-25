@@ -1,7 +1,7 @@
 package controller.impl.command.scoring;
 
 import controller.impl.command.chat.TypeChatCommand;
-import controller.impl.command.frame.HideLobbyCommand;
+import controller.impl.command.frame.lobby.HideLobbyCommand;
 import controller.impl.command.menu.ShowMenuCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;

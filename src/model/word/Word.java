@@ -36,7 +36,7 @@ public class Word implements Serializable {
         String result = "";
         for (Letter letter : word)
             if(letter.isVisible())
-                result+=letter.getLetter();
+                result+=" "+letter.getLetter()+" ";
             else
                 result+=" _ ";
         return result;

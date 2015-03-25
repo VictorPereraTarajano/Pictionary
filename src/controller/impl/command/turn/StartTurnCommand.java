@@ -14,6 +14,7 @@ import controller.impl.command.timer.StartTimerCommand;
 import controller.impl.command.timer.StopTimerCommand;
 import controller.impl.command.word.HideWordDisplayCommand;
 import controller.impl.command.word.ShowCodifiedWordCommand;
+import controller.impl.command.word.ShowDecodifiedWordCommand;
 import controller.impl.command.word.ShowWordDisplayCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -72,7 +73,7 @@ public class StartTurnCommand implements Command {
     private void initPainterStuff() {
         new DisableChatDialogCommand().execute();
         new EnableCanvasDisplayCommand().execute();
-        new ShowCodifiedWordCommand().execute();
+        new ShowDecodifiedWordCommand().execute();
         new ShowCanvasOptionsDialogCommand().execute();
         new HideReportPlayerDialogCommand().execute();
     }

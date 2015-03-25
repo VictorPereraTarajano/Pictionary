@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 public class Timer extends javax.swing.Timer implements Serializable {
 
-    public static final int INIT_COUNT = 50;
+    public static final int INIT_COUNT = 5;
     private int count = INIT_COUNT;
 
     public Timer() {
@@ -23,19 +23,21 @@ public class Timer extends javax.swing.Timer implements Serializable {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
-                    if (ManagerLobby.myLobby.getGame().getPointer() > ManagerGame.NUM_MAX_TURNS)
+                    if (ManagerLobby.myLobby.getGame().getPointer()+1 >= ManagerGame.NUM_MAX_TURNS)
                         new SendCommand(new ShowResultsCommand(), ManagerConnection.TCPBroadcastAll()).execute();
                     else
                         new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
                 } else {
-                    if (((INIT_COUNT / (ManagerLobby.myLobby.getGame().currentTurn().getWord().length() / 2)) % ManagerLobby.myLobby.getTimer().getCount()) == 0) {
-                        new UpdateWordDisplayCommand().execute();
+                    if (checkDecodeWord(ManagerLobby.myLobby.getTimer().count))
                         new SendCommand(new UpdateWordDisplayCommand(), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getGame().currentTurn().getNonPainterPlayers())).execute();
-                    }
                 new SendCommand(new UpdateTimerCommand(ManagerLobby.myLobby.getTimer().getCount() - 1), ManagerConnection.TCPBroadcastAll()).execute();
                 }
             }
         });
+    }
+
+    private static boolean checkDecodeWord (int time) {
+        return Math.abs(time-INIT_COUNT)%((INIT_COUNT / (ManagerLobby.myLobby.getGame().currentTurn().getWord().length() / 2)) + 10) ==0;
     }
 
     public void setCount(int count) {

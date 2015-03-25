@@ -9,9 +9,9 @@ import model.manager.ManagerConnection;
 import model.manager.ManagerLobby;
 import model.manager.ManagerMenu;
 import model.player.Player;
+import view.persistence.impl.loaders.image.FactoryImageLoader;
 import view.ui.viewers.impl.swing.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MenuEvent;
@@ -21,7 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
 
 public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.LobbyFrame {
 
@@ -34,6 +33,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     private CanvasPanel canvasPanel;
     private TimerPanel timerPanel;
     private WordPanel wordPanel;
+    private ResultPanel resultPanel;
 
     private JLabel logLabel;
 
@@ -49,11 +49,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void setIcon() {
-        try {
-            setIconImage(ImageIO.read(getClass().getResource("/frame/pinturillo.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setIconImage(FactoryImageLoader.ICON_FRAME);
     }
 
     private void createListeners() {
@@ -123,6 +119,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
     }
 
     private void createWidgets() {
+        createResultPanel();
         add(new JPanel() {
             {
                 setBorder(new EmptyBorder(10,0,0,0));
@@ -137,10 +134,17 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
                 }, BorderLayout.WEST);
                 add(new JPanel() {
                     {
-                        setLayout(new BorderLayout());
+                        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
                         setBackground(backgroundColor);
-                        add(createCanvasPanel(), BorderLayout.CENTER);
-                        add(createWordPanel(), BorderLayout.NORTH);
+                        add(new JPanel() {
+                            {
+                                setLayout(new BorderLayout());
+                                setBackground(backgroundColor);
+                                add(createCanvasPanel(), BorderLayout.CENTER);
+                                add(createWordPanel(), BorderLayout.NORTH);
+                            }
+                        });
+                        add(createResultPanel());
                     }
                 }, BorderLayout.CENTER);
                 add(createChatPanel(), BorderLayout.EAST);
@@ -153,6 +157,10 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
                 setBackground(Color.DARK_GRAY);
             }
         }, BorderLayout.SOUTH);
+    }
+
+    private Component createResultPanel() {
+        return resultPanel = new ResultPanel();
     }
 
     private Component createWordPanel() {
@@ -317,6 +325,10 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         scoringPanel.setBackgroundColor(color);
         timerPanel.setBackgroundColor(color);
         wordPanel.setBackgroundColor(color);
+        resultPanel.setBackgroundColor(color);
     }
 
+    public ResultPanel getResultsPane() {
+        return resultPanel;
+    }
 }

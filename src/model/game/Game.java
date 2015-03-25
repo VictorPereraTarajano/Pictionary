@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Game implements Serializable {
 
-    public static final int MAX_TURNS=10;
     private List<Turn> turns;
     private WordSet wordSet;
     private int pointer=0;
