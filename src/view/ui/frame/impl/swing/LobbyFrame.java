@@ -134,7 +134,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
                 }, BorderLayout.WEST);
                 add(new JPanel() {
                     {
-                        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+                        setLayout(new CardLayout());
                         setBackground(backgroundColor);
                         add(new JPanel() {
                             {
@@ -143,8 +143,25 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
                                 add(createCanvasPanel(), BorderLayout.CENTER);
                                 add(createWordPanel(), BorderLayout.NORTH);
                             }
-                        });
-                        add(createResultPanel());
+                        }, "CANVAS");
+                        add(new JPanel() {
+                            {
+                                setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                                setBackground(Color.RED);
+                                add(createResultPanel());
+                            }
+
+                            @Override
+                            protected void paintComponent(Graphics g) {
+                                Graphics2D g2d = (Graphics2D) g;
+                                super.paintComponent(g2d);
+                                g2d.setColor(backgroundColor);
+                                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                                g2d.fillRect(0, 0, getWidth(), getHeight());
+                                g2d.setColor(Color.RED);
+                                g2d.fillRoundRect(10, 5, getWidth() - 20, getHeight() - 15, 20, 20);
+                            }
+                        }, "RESULTS");
                     }
                 }, BorderLayout.CENTER);
                 add(createChatPanel(), BorderLayout.EAST);

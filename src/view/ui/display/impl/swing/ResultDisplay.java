@@ -17,9 +17,9 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
     public ResultDisplay (Player player) {
         super();
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder());
         this.player = player;
         createWidgets();
-        setBackground(Color.WHITE);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
     private void createWidgets() {
         add(new JPanel () {
             {
-                setBackground(Color.RED);
+                setBackground(new Color(142,17,10));
                 setBorder(BorderFactory.createEmptyBorder(0,10,5,0));
                 add(new JLabel() {
                     {
@@ -46,7 +46,7 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
         }, BorderLayout.WEST);
         add(new JPanel () {
             {
-                setBackground(Color.WHITE);
+                setBackground(new Color(142,17,10));
                 setLayout(new BorderLayout());
                 add(new JPanel () {
                     {
@@ -56,17 +56,12 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
                                 setIcon(new ImageIcon(FactoryImageLoader.DEFAULT_PLAYER_IMAGE));
                             }
                         });
-                        add(new JLabel() {
-                            {
-                                setIcon(new ImageIcon(FactoryImageLoader.STAR));
-                            }
-                        });
                         setOpaque(false);
                     }
                 }, BorderLayout.WEST);
                 add(new JPanel () {
                     {
-                        setBackground(Color.WHITE);
+                        setBackground(new Color(142,17,10));
                         add(createPlayerName());
                     }
                 }, BorderLayout.SOUTH);
@@ -75,16 +70,21 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
 
         add(new JPanel () {
             {
-                setBackground(Color.WHITE);
+                setBackground(new Color(142,17,10));
                 add(createScore());
             }
         }, BorderLayout.EAST);
     }
 
     private Component createScore() {
-        return new JLabel(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore())) {
+        return new JLabel() {
             {
+                if (ManagerLobby.myPlayer.equals(player))
+                    setForeground(Color.YELLOW);
+                else
+                    setForeground(Color.WHITE);
                 this.setFont(new Font("Montserrat", Font.BOLD, 20));
+                setText(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore()));
             }
         };
     }
@@ -92,8 +92,11 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
     private Component createPlayerName() {
         return playername = new JLabel() {
             {
+                if (ManagerLobby.myPlayer.equals(player))
+                    setForeground(Color.YELLOW);
+                else
+                    setForeground(Color.WHITE);
                 setFont(new Font("Montserrat", Font.BOLD, 15));
-                setForeground(Color.RED);
                 setText(player.getName());
             }
         };
