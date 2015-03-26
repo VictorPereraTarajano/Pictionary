@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class ManagerGame {
 
-    public static final int MIN_NUM_PLAYERS=2;
+    public static final int MIN_NUM_PLAYERS=1;
     public static final int NUM_MAX_TURNS=5;
 
     public static final int IN_GAME=0;
