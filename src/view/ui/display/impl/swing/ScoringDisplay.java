@@ -39,7 +39,7 @@ public class ScoringDisplay extends JPanel implements view.ui.display.interfaces
                             setForeground(Color.RED);
                         else
                             setForeground(Color.LIGHT_GRAY);
-                        setText(String.valueOf(ManagerLobby.myLobby.getScoring().getPosition(ManagerLobby.myPlayer)));
+                        setText(String.valueOf(ManagerLobby.myLobby.getScoring().getPosition(player)));
                     }
                 });
             }

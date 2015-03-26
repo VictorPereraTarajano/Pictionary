@@ -38,13 +38,14 @@ public class StartTurnCommand implements Command {
 
     @Override
     public void execute() {
-        resetTimer();
+        if (ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost())) resetTimer();
         initChat();
+        initTurn();
         initStuff();
         clearWordDisplay();
         initAnimation();
         showWordDisplay();
-        initTurn();
+        if (ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) new StartTimerCommand().execute();
     }
 
     private void resetTimer() {
@@ -83,8 +84,7 @@ public class StartTurnCommand implements Command {
             if (ManagerLobby.myLobby.getGame() == null)
                 ManagerLobby.myLobby.setGame(new Game());
             ManagerLobby.myLobby.getGame().addTurn(turn);
-        } else
-            new StartTimerCommand().execute();
+        }
     }
 
     private void initAnimation() {
