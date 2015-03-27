@@ -21,8 +21,9 @@ public class Turn implements Serializable {
 
     private void convertToMap(Player[] nonPainterPlayers) {
         playerMap = new HashMap<>();
-        for (Player player : nonPainterPlayers)
-            playerMap.put(player, false);
+        for (Player playerTarget : nonPainterPlayers) {
+            if (!playerTarget.equals(player)) playerMap.put(playerTarget, false);
+        }
     }
 
     public void setAsserted (Player player) {
