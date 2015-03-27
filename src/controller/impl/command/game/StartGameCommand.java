@@ -17,10 +17,13 @@ public class StartGameCommand implements Command {
 
     @Override
     public void execute() {
-        if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS && ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) {
-            ManagerLobby.myLobby.setGame(new GameBuilder().load());
-            new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), getInstructions())), ManagerConnection.TCPBroadcastAll()).execute();
-            new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().currentTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+        if (ManagerLobby.myLobby.getScoring().size() >= ManagerGame.MIN_NUM_PLAYERS) {
+            ManagerGame.GAME_STATE=ManagerGame.IN_GAME;
+            if (ManagerLobby.myLobby.getHost().equals(ManagerLobby.myPlayer)) {
+                ManagerLobby.myLobby.setGame(new GameBuilder().load());
+                new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin","", Color.black), getInstructions())), ManagerConnection.TCPBroadcastAll()).execute();
+                new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().currentTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+            }
         }
     }
 

@@ -12,7 +12,7 @@ public class ManagerGame {
     public static final int IN_GAME=0;
     public static final int OUT_GAME=1;
 
-    public static final int GAME_STATE=OUT_GAME;
+    public static int GAME_STATE=OUT_GAME;
 
     public static Color [] colorSet = new Color [] {Color.BLUE, Color.cyan,Color.RED, Color.YELLOW, Color.GREEN, Color.ORANGE};
 

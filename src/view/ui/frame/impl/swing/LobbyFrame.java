@@ -221,7 +221,7 @@ public class LobbyFrame extends JFrame implements view.ui.frame.interfaces.Lobby
         startGameOption.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                new StartGameCommand().execute();
+                new SendCommand(new StartGameCommand(), ManagerConnection.TCPBroadcastAll()).execute();
             }
 
             @Override
