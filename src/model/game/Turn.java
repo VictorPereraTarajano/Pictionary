@@ -15,8 +15,8 @@ public class Turn implements Serializable {
 
     public Turn(Word word, Player player, Player [] nonPainterPlayers) {
         this.word = word;
-        convertToMap(nonPainterPlayers);
         this.player = player;
+        convertToMap(nonPainterPlayers);
     }
 
     private void convertToMap(Player[] nonPainterPlayers) {
