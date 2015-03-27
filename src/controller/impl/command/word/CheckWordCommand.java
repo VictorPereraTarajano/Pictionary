@@ -3,6 +3,8 @@ package controller.impl.command.word;
 import controller.impl.command.chat.TypeChatCommand;
 import controller.impl.command.editable.chat.DisableChatDialogCommand;
 import controller.impl.command.scoring.UpdatePlayerScoringCommand;
+import controller.impl.command.turn.StopTurnCommand;
+import controller.impl.command.turn.UpdateTurnCommand;
 import controller.impl.sendcommand.SendCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -25,6 +27,8 @@ public class CheckWordCommand implements Command {
     public void execute() {
         if (ManagerGame.GAME_STATE == ManagerGame.IN_GAME && WordMatcher.match(word, ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
             new SendCommand(new UpdatePlayerScoringCommand(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getTimer().getCount())), ManagerConnection.TCPBroadcastAll()).execute();
+            new SendCommand(new UpdateTurnCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcastAll()).execute();
+            if (ManagerLobby.myLobby.getGame().currentTurn().isFinished()) new SendCommand(new StopTurnCommand("Turno finalizado"), ManagerConnection.TCPBroadcastAll()).execute();
             new DisableChatDialogCommand().execute();
         } else
             new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, word.getVisibleWord())), ManagerConnection.TCPBroadcastAll()).execute();

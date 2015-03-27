@@ -79,7 +79,7 @@ public class CanvasOptionsDialog extends JPanel implements view.ui.dialog.interf
                 addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        new SendCommand(new StopTurnCommand(), ManagerConnection.TCPBroadcastAll()).execute();
+                        new SendCommand(new StopTurnCommand("El pintor "+ManagerLobby.myPlayer.getName()+" ha cancelado el turno"), ManagerConnection.TCPBroadcastAll()).execute();
                     }
                 });
             }

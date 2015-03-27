@@ -12,9 +12,15 @@ import java.awt.*;
 
 public class StopTurnCommand implements Command {
 
+    private String message;
+
+    public StopTurnCommand(String message) {
+        this.message = message;
+    }
+
     @Override
     public void execute() {
-        new TypeChatCommand(new ChatMessage(new Player("Admin", "", Color.black), "El pintor "+ManagerLobby.myLobby.getGame().currentTurn().getPlayer().getName()+" ha cancelado el turno")).execute();
+        new TypeChatCommand(new ChatMessage(new Player("Admin", "", Color.black), message)).execute();
         if (ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()))
             new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
     }
