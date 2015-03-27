@@ -30,13 +30,17 @@ public class PencilDisplay extends JComponent {
         super.paintComponent(g2);
         if (ManagerLobby.myLobby.getCanvas().getPencil().isVisible())
             drawPencil(g2);
+        else {
+            int i = 0;
+
+        }
         setTransparency(0.4f);
     }
 
     private void setTransparency(float v) {
         byte [] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         for (int i =0; i < pixels.length; i+=4) {
-            if (pixels[i] != 0x0) pixels [i]= (byte) v;
+            if (pixels[i] != 0x0) pixels [i]= 0x8;
         }
     }
 
