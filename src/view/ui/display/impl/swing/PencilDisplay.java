@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 
 public class PencilDisplay extends JComponent {
 
@@ -22,26 +21,15 @@ public class PencilDisplay extends JComponent {
 
     private void init () {
         image = FactoryImageLoader.PENCIL;
+        BufferedImage bf = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = bf.createGraphics();
+        g2.drawImage(image, 0,0, null);
+        g2.dispose();
     }
 
     @Override
     protected void paintComponent(Graphics g1) {
-        Graphics2D g2 = (Graphics2D) g1;
-        super.paintComponent(g2);
-        if (ManagerLobby.myLobby.getCanvas().getPencil().isVisible())
-            drawPencil(g2);
-        else {
-            int i = 0;
-
-        }
-        setTransparency(0.4f);
-    }
-
-    private void setTransparency(float v) {
-        byte [] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        for (int i =0; i < pixels.length; i+=4) {
-            if (pixels[i] != 0x0) pixels [i]= 0x8;
-        }
+        if (ManagerLobby.myLobby.getCanvas().getPencil().isVisible()) drawPencil(g1);
     }
 
     private void drawPencil (Graphics g) {
