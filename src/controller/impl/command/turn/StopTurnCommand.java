@@ -1,6 +1,7 @@
 package controller.impl.command.turn;
 
 import controller.impl.command.chat.TypeChatCommand;
+import controller.impl.command.results.ShowResultsCommand;
 import controller.impl.sendcommand.SendCommand;
 import controller.interfaces.Command;
 import model.chat.ChatMessage;
@@ -20,8 +21,13 @@ public class StopTurnCommand implements Command {
 
     @Override
     public void execute() {
-        new TypeChatCommand(new ChatMessage(new Player("Admin", "", Color.black), message)).execute();
-        if (ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()))
-            new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+        if (ManagerLobby.myLobby.getGame().isFinished()) {
+            new TypeChatCommand(new ChatMessage(new Player("Admin", "Finalizado el juego", Color.black), message)).execute();
+            new SendCommand(new ShowResultsCommand(), ManagerConnection.TCPBroadcastAll()).execute();
+        }  else {
+            new TypeChatCommand(new ChatMessage(new Player("Admin", "Finalizado el turno", Color.black), message)).execute();
+            if (ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()))
+                new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+        }
     }
 }

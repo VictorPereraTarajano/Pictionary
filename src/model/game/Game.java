@@ -31,6 +31,10 @@ public class Game implements Serializable {
         turns.add(turn);
     }
 
+    public boolean isFinished () {
+        return pointer + 1 == turns.size();
+    }
+
     public Turn currentTurn () {
         return ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()) ? turns.get(pointer) : turns.get(turns.size()-1);
     }

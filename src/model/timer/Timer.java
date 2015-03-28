@@ -1,13 +1,10 @@
 package model.timer;
 
-import controller.impl.command.game.StopGameCommand;
-import controller.impl.command.results.ShowResultsCommand;
 import controller.impl.command.timer.UpdateTimerCommand;
-import controller.impl.command.turn.StartTurnCommand;
+import controller.impl.command.turn.StopTurnCommand;
 import controller.impl.command.word.UpdateWordDisplayCommand;
 import controller.impl.sendcommand.SendCommand;
 import model.manager.ManagerConnection;
-import model.manager.ManagerGame;
 import model.manager.ManagerLobby;
 
 import java.awt.event.ActionEvent;
@@ -24,11 +21,7 @@ public class Timer extends javax.swing.Timer implements Serializable {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (ManagerLobby.myLobby.getTimer().getCount() <= 0) {
-                    if (ManagerLobby.myLobby.getGame().getPointer()+1 >= ManagerGame.NUM_MAX_TURNS) {
-                        new SendCommand(new StopGameCommand(), ManagerConnection.TCPBroadcastAll()).execute();
-                        new SendCommand(new ShowResultsCommand(), ManagerConnection.TCPBroadcastAll()).execute();
-                    } else
-                        new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
+                    new StopTurnCommand("").execute();
                 } else {
                     if (checkDecodeWord(ManagerLobby.myLobby.getTimer().count))
                         new SendCommand(new UpdateWordDisplayCommand(), ManagerConnection.TCPBroadcast(ManagerLobby.myLobby.getGame().currentTurn().getNonPainterPlayers())).execute();
