@@ -28,12 +28,11 @@ public class Game implements Serializable {
     }
 
     public void addTurn (Turn turn) {
-        if (!ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost())) pointer++;
         turns.add(turn);
     }
 
     public Turn currentTurn () {
-        return turns.get(pointer);
+        return ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()) ? turns.get(pointer) : turns.get(turns.size()-1);
     }
 
     public Turn nextTurn() {
