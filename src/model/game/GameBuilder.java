@@ -11,8 +11,10 @@ public class GameBuilder {
     public Game load() {
         Game game = new Game();
         Random r = new Random(System.nanoTime());
-        for (int i = 0; i < ManagerGame.NUM_MAX_TURNS; i++)
-            game.addTurn(new Turn(game.getWordSet().get(r.nextInt(game.getWordSet().size())), ManagerLobby.myLobby.getScoring().getPlayers()[r.nextInt(ManagerLobby.myLobby.getScoring().size())], nonPainterPlayers(ManagerLobby.myLobby.getScoring().getPlayers()[r.nextInt(ManagerLobby.myLobby.getScoring().size())])));
+        for (int i = 0; i < ManagerGame.NUM_MAX_TURNS; i++) {
+            int random = r.nextInt(ManagerLobby.myLobby.getScoring().size());
+            game.addTurn(new Turn(game.getWordSet().get(r.nextInt(game.getWordSet().size())), ManagerLobby.myLobby.getScoring().getPlayers()[random], nonPainterPlayers(ManagerLobby.myLobby.getScoring().getPlayers()[random])));
+        }
         return game;
     }
 
