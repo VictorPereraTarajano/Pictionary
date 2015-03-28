@@ -17,7 +17,7 @@ public class UpdatePlayerScoringCommand implements Command {
 
     @Override
     public void execute() {
-        ManagerLobby.myLobby.getScoring().add(player, score);
+        ManagerLobby.myLobby.getScoring().add(player, new Score (ManagerLobby.myLobby.getScoring().getScore(player).getScore()+score.getScore()));
         ManagerLobby.myLobbyFrame.getScoringPanel().refresh();
     }
 }

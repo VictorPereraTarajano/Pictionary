@@ -1,5 +1,6 @@
 package model.game;
 
+import model.manager.ManagerLobby;
 import model.word.WordSet;
 import view.persistence.impl.loaders.wordset.FactoryWordLoader;
 
@@ -31,8 +32,7 @@ public class Game implements Serializable {
     }
 
     public Turn currentTurn () {
-        //return ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()) ? turns.get(pointer) : turns.get(turns.size()-1);
-        return turns.get(pointer);
+        return ManagerLobby.myPlayer.equals(ManagerLobby.myLobby.getHost()) ? turns.get(pointer) : turns.get(turns.size()-1);
     }
 
     public Turn nextTurn() {
