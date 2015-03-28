@@ -29,7 +29,8 @@ public class CheckWordCommand implements Command {
         if (ManagerGame.GAME_STATE == ManagerGame.IN_GAME && WordMatcher.match(word, ManagerLobby.myLobby.getGame().currentTurn().getWord())) {
             new SendCommand(new UpdatePlayerScoringCommand(ManagerLobby.myPlayer, new Score(ManagerLobby.myLobby.getTimer().getCount())), ManagerConnection.TCPBroadcastAll()).execute();
             new SendCommand(new UpdateTurnCommand(ManagerLobby.myPlayer), ManagerConnection.TCPBroadcastAll()).execute();
-            if (ManagerLobby.myLobby.getGame().currentTurn().isFinished()) new SendCommand(new StopTurnCommand("Turno finalizado"), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
+            if (ManagerLobby.myLobby.getGame().currentTurn().isFinished())
+                new SendCommand(new StopTurnCommand("Turno finalizado"), ManagerConnection.TCPBroadcast(new Player[] {ManagerLobby.myLobby.getHost()})).execute();
             new DisableChatDialogCommand().execute();
         } else
             new SendCommand(new TypeChatCommand(new ChatMessage(ManagerLobby.myPlayer, word.getVisibleWord())), ManagerConnection.TCPBroadcastAll()).execute();
