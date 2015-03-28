@@ -100,7 +100,6 @@ public class StartTurnCommand implements Command {
         sleep(1000);
     }
 
-
     private void getClip() {
         FactoryClipLoader.START_TURN.start();
     }

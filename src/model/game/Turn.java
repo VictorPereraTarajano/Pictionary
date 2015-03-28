@@ -30,10 +30,6 @@ public class Turn implements Serializable {
         playerMap.put(player, true);
     }
 
-    public boolean hasAsserted (Player player) {
-        return playerMap.get(player);
-    }
-
     public boolean isFinished (){
         for (Player player : playerMap.keySet())
             if (!playerMap.get(player)) return false;
