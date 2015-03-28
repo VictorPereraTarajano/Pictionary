@@ -83,7 +83,7 @@ public class ResultDisplay extends JPanel implements view.ui.display.interfaces.
                     setForeground(Color.YELLOW);
                 else
                     setForeground(Color.WHITE);
-                this.setFont(new Font("Montserrat", Font.BOLD, 20));
+                setFont(new Font("Montserrat", Font.BOLD, 20));
                 setText(String.valueOf(ManagerLobby.myLobby.getScoring().getScore(player).getScore()));
             }
         };

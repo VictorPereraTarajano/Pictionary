@@ -25,7 +25,7 @@ public class StopTurnCommand implements Command {
         if (ManagerLobby.myLobby.getGame().isFinished()) {
             new SendCommand(new StopGameCommand(), ManagerConnection.TCPBroadcastAll()).execute();
             new SendCommand(new TypeChatCommand(new ChatMessage(new Player("Admin", "Finalizado el juego", Color.black), message)), ManagerConnection.TCPBroadcastAll()).execute();
-            new SendCommand(new ShowResultsCommand(), ManagerConnection.TCPBroadcastAll()).execute();
+            new SendCommand(new ShowResultsCommand(ManagerLobby.myLobby.getScoring()), ManagerConnection.TCPBroadcastAll()).execute();
         }  else {
             new TypeChatCommand(new ChatMessage(new Player("Admin", "Finalizado el turno", Color.black), message)).execute();
             new SendCommand(new StartTurnCommand(ManagerLobby.myLobby.getGame().nextTurn()), ManagerConnection.TCPBroadcastAll()).execute();
