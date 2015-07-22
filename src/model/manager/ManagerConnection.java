@@ -15,7 +15,7 @@ public class ManagerConnection {
     public static final String DISCONNECTED = "Disconnected";
     public static final String CONNECTED = "Connected";
 
-    public static final String DefaultIP= "192.168.1.15";
+    public static final String DefaultIP= "192.168.1.10";
 
     public static final int UDPort = 2000;
     public static final int TCPort = 2000;
